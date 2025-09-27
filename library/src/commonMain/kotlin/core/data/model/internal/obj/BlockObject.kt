@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal sealed class Block {
+internal sealed class BlockObject {
     abstract val id: String
     abstract val archived: Boolean
 
@@ -27,11 +27,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val paragraph: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
         )
     }
 
@@ -45,11 +45,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val code: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
             val language: String,
         )
     }
@@ -64,11 +64,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         @SerialName("heading_1") val heading: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
         )
     }
 
@@ -82,11 +82,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         @SerialName("heading_2") val heading: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
         )
     }
 
@@ -100,11 +100,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         @SerialName("heading_3") val heading: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
         )
     }
 
@@ -118,11 +118,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         @SerialName("bulleted_list_item") val bulletedListItem: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
         )
     }
 
@@ -136,11 +136,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         @SerialName("numbered_list_item") val numberedListItem: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
         )
     }
 
@@ -154,11 +154,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         @SerialName("to_do") val todo: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
             val checked: Boolean,
         )
     }
@@ -173,11 +173,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val toggle: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
         )
     }
 
@@ -190,7 +190,7 @@ internal sealed class Block {
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
         @SerialName("child_page") val childPage: Value,
-    ) : Block() {
+    ) : BlockObject() {
         @Serializable
         internal data class Value(
             val title: String,
@@ -206,7 +206,7 @@ internal sealed class Block {
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
         @SerialName("child_database") val childDatabase: Value,
-    ) : Block() {
+    ) : BlockObject() {
         @Serializable
         internal data class Value(
             val title: String,
@@ -222,7 +222,7 @@ internal sealed class Block {
         override val createdTime: String,
         override val lastEditedTime: String,
         override val hasChildren: Boolean,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("image")
     @Serializable
@@ -234,7 +234,7 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val image: BlockFileValue,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("video")
     @Serializable
@@ -246,7 +246,7 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val video: BlockFileValue,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("file")
     @Serializable
@@ -258,7 +258,7 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val file: BlockFileValue,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("pdf")
     @Serializable
@@ -270,7 +270,7 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val pdf: BlockFileValue,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("bookmark")
     @Serializable
@@ -282,10 +282,10 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val bookmark: Value,
-    ) : Block() {
+    ) : BlockObject() {
         @Serializable
         internal data class Value(
-            val caption: List<RichText>,
+            val caption: List<RichTextObject>,
             val url: String,
         )
     }
@@ -300,12 +300,12 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val callout: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
-            val icon: Icon,
+            val text: List<RichTextObject>,
+            val iconObject: IconObject,
         )
     }
 
@@ -319,11 +319,11 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val quote: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
-            val text: List<RichText>,
+            val text: List<RichTextObject>,
         )
     }
 
@@ -337,7 +337,7 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         val equation: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(val expression: String)
@@ -351,7 +351,7 @@ internal sealed class Block {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("table_of_contents")
     @Serializable
@@ -361,7 +361,7 @@ internal sealed class Block {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("column")
     @Serializable
@@ -371,7 +371,7 @@ internal sealed class Block {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("column_list")
     @Serializable
@@ -381,7 +381,7 @@ internal sealed class Block {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : Block()
+    ) : BlockObject()
 
     @SerialName("link_preview")
     @Serializable
@@ -393,7 +393,7 @@ internal sealed class Block {
         @SerialName("has_children") override val hasChildren: Boolean,
 
         @SerialName("link_preview") val linkPreview: Value,
-    ) : Block() {
+    ) : BlockObject() {
 
         @Serializable
         internal data class Value(
@@ -409,12 +409,12 @@ internal sealed class Block {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : Block()
+    ) : BlockObject()
 }
 
 @Serializable
 internal data class BlockFileValue(
-    val caption: List<RichText>,
+    val caption: List<RichTextObject>,
     val file: FileInternal? = null,
     val external: FileExternal? = null,
 ) {

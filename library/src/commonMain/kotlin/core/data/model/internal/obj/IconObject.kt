@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class Icon(
+internal data class IconObject(
     val type: String,
     val emoji: String? = null,
     val file: File? = null,

@@ -1,96 +1,96 @@
 package core.data.mapper
 
-import core.data.model.internal.obj.Block
+import core.data.model.internal.obj.BlockObject
 import core.data.model.internal.obj.BlockFileValue
-import core.data.model.internal.obj.RichText
+import core.data.model.internal.obj.RichTextObject
 import core.data.model.result.NotionBlock
 import core.data.model.result.NotionFile
 
-internal fun Block.toDomain(): NotionBlock = when (this) {
-    is Block.Paragraph -> NotionBlock.Paragraph(
+internal fun BlockObject.toDomain(): NotionBlock = when (this) {
+    is BlockObject.Paragraph -> NotionBlock.Paragraph(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = paragraph.text.map(RichText::toDomain),
+        text = paragraph.text.map(RichTextObject::toDomain),
     )
 
-    is Block.Code -> NotionBlock.Code(
+    is BlockObject.Code -> NotionBlock.Code(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = code.text.map(RichText::toDomain),
+        text = code.text.map(RichTextObject::toDomain),
         language = code.language,
     )
 
-    is Block.HeadingOne -> NotionBlock.HeadingOne(
+    is BlockObject.HeadingOne -> NotionBlock.HeadingOne(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = heading.text.map(RichText::toDomain),
+        text = heading.text.map(RichTextObject::toDomain),
     )
 
-    is Block.HeadingTwo -> NotionBlock.HeadingTwo(
+    is BlockObject.HeadingTwo -> NotionBlock.HeadingTwo(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = heading.text.map(RichText::toDomain),
+        text = heading.text.map(RichTextObject::toDomain),
     )
 
-    is Block.HeadingThree -> NotionBlock.HeadingThree(
+    is BlockObject.HeadingThree -> NotionBlock.HeadingThree(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = heading.text.map(RichText::toDomain),
+        text = heading.text.map(RichTextObject::toDomain),
     )
 
-    is Block.BulletedListItem -> NotionBlock.BulletedListItem(
+    is BlockObject.BulletedListItem -> NotionBlock.BulletedListItem(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = bulletedListItem.text.map(RichText::toDomain),
+        text = bulletedListItem.text.map(RichTextObject::toDomain),
     )
 
-    is Block.NumberedListItem -> NotionBlock.NumberedListItem(
+    is BlockObject.NumberedListItem -> NotionBlock.NumberedListItem(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = numberedListItem.text.map(RichText::toDomain),
+        text = numberedListItem.text.map(RichTextObject::toDomain),
     )
 
-    is Block.ToDo -> NotionBlock.ToDo(
+    is BlockObject.ToDo -> NotionBlock.ToDo(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = todo.text.map(RichText::toDomain),
+        text = todo.text.map(RichTextObject::toDomain),
         checked = todo.checked,
     )
 
-    is Block.Toggle -> NotionBlock.Toggle(
+    is BlockObject.Toggle -> NotionBlock.Toggle(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = toggle.text.map(RichText::toDomain),
+        text = toggle.text.map(RichTextObject::toDomain),
     )
 
-    is Block.ChildPage -> NotionBlock.ChildPage(
+    is BlockObject.ChildPage -> NotionBlock.ChildPage(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -99,7 +99,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         title = childPage.title,
     )
 
-    is Block.ChildDatabase -> NotionBlock.ChildDatabase(
+    is BlockObject.ChildDatabase -> NotionBlock.ChildDatabase(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -108,7 +108,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         title = childDatabase.title,
     )
 
-    is Block.Embed -> NotionBlock.Embed(
+    is BlockObject.Embed -> NotionBlock.Embed(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -116,7 +116,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         hasChildren = hasChildren,
     )
 
-    is Block.Image -> NotionBlock.Image(
+    is BlockObject.Image -> NotionBlock.Image(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -125,7 +125,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         file = image.toDomain(),
     )
 
-    is Block.Video -> NotionBlock.Video(
+    is BlockObject.Video -> NotionBlock.Video(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -134,7 +134,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         file = video.toDomain(),
     )
 
-    is Block.File -> NotionBlock.File(
+    is BlockObject.File -> NotionBlock.File(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -143,7 +143,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         file = file.toDomain(),
     )
 
-    is Block.Pdf -> NotionBlock.Pdf(
+    is BlockObject.Pdf -> NotionBlock.Pdf(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -152,36 +152,36 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         file = pdf.toDomain(),
     )
 
-    is Block.Bookmark -> NotionBlock.Bookmark(
+    is BlockObject.Bookmark -> NotionBlock.Bookmark(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        caption = bookmark.caption.map(RichText::toDomain),
+        caption = bookmark.caption.map(RichTextObject::toDomain),
         url = bookmark.url,
     )
 
-    is Block.Callout -> NotionBlock.Callout(
+    is BlockObject.Callout -> NotionBlock.Callout(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = callout.text.map(RichText::toDomain),
-        icon = callout.icon.toDomain(),
+        text = callout.text.map(RichTextObject::toDomain),
+        icon = callout.iconObject.toDomain(),
     )
 
-    is Block.Quote -> NotionBlock.Quote(
+    is BlockObject.Quote -> NotionBlock.Quote(
         id = id,
         archived = archived,
         createdTime = createdTime,
         lastEditedTime = lastEditedTime,
         hasChildren = hasChildren,
-        text = quote.text.map(RichText::toDomain),
+        text = quote.text.map(RichTextObject::toDomain),
     )
 
-    is Block.Equation -> NotionBlock.Equation(
+    is BlockObject.Equation -> NotionBlock.Equation(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -190,7 +190,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         expression = equation.expression,
     )
 
-    is Block.Divider -> NotionBlock.Divider(
+    is BlockObject.Divider -> NotionBlock.Divider(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -198,7 +198,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         hasChildren = hasChildren,
     )
 
-    is Block.TableOfContents -> NotionBlock.TableOfContents(
+    is BlockObject.TableOfContents -> NotionBlock.TableOfContents(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -206,7 +206,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         hasChildren = hasChildren,
     )
 
-    is Block.Column -> NotionBlock.Column(
+    is BlockObject.Column -> NotionBlock.Column(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -214,7 +214,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         hasChildren = hasChildren,
     )
 
-    is Block.ColumnList -> NotionBlock.ColumnList(
+    is BlockObject.ColumnList -> NotionBlock.ColumnList(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -222,7 +222,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         hasChildren = hasChildren,
     )
 
-    is Block.LinkPreview -> NotionBlock.LinkPreview(
+    is BlockObject.LinkPreview -> NotionBlock.LinkPreview(
         id = id,
         archived = archived,
         createdTime = createdTime,
@@ -231,7 +231,7 @@ internal fun Block.toDomain(): NotionBlock = when (this) {
         url = linkPreview.url,
     )
 
-    is Block.Unsupported -> NotionBlock.Unsupported(
+    is BlockObject.Unsupported -> NotionBlock.Unsupported(
         id = id,
         archived = archived,
         createdTime = createdTime,

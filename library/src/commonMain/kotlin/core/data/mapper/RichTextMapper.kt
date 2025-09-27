@@ -1,6 +1,6 @@
 package core.data.mapper
 
-import core.data.model.internal.obj.RichText
+import core.data.model.internal.obj.RichTextObject
 import core.data.model.internal.obj.RichTextAnnotations
 import core.data.model.internal.obj.RichTextColor
 import core.data.model.internal.obj.RichTextType
@@ -9,24 +9,24 @@ import core.data.model.result.NotionRichTextAnnotations
 import core.data.model.result.NotionRichTextColor
 import core.data.model.result.NotionRichTextType
 
-internal fun RichText.toDomain(): NotionRichText = when (this) {
-    is RichText.Text -> NotionRichText.Text(
+internal fun RichTextObject.toDomain(): NotionRichText = when (this) {
+    is RichTextObject.TextObject -> NotionRichText.Text(
         plainText = plainText,
         url = href,
         type = type.toDomain(),
         annotations = annotations.toDomain(),
     )
 
-    is RichText.Mention -> when (mention) {
-        is RichText.Mention.Value.User -> NotionRichText.Mention.User(
+    is RichTextObject.Mention -> when (mention) {
+        is RichTextObject.Mention.Value.User -> NotionRichText.Mention.User(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
             annotations = annotations.toDomain(),
-            user = mention.user.toDomain(),
+            user = mention.userObject.toDomain(),
         )
 
-        is RichText.Mention.Value.Page -> NotionRichText.Mention.Page(
+        is RichTextObject.Mention.Value.Page -> NotionRichText.Mention.Page(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
@@ -34,7 +34,7 @@ internal fun RichText.toDomain(): NotionRichText = when (this) {
             id = mention.page.id,
         )
 
-        is RichText.Mention.Value.Database -> NotionRichText.Mention.Database(
+        is RichTextObject.Mention.Value.Database -> NotionRichText.Mention.Database(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
@@ -42,7 +42,7 @@ internal fun RichText.toDomain(): NotionRichText = when (this) {
             id = mention.database.id,
         )
 
-        is RichText.Mention.Value.Date -> NotionRichText.Mention.Date(
+        is RichTextObject.Mention.Value.Date -> NotionRichText.Mention.Date(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
@@ -51,7 +51,7 @@ internal fun RichText.toDomain(): NotionRichText = when (this) {
             end = mention.date.end,
         )
 
-        RichText.Mention.Value.LinkPreview -> NotionRichText.Mention.LinkPreview(
+        RichTextObject.Mention.Value.LinkPreview -> NotionRichText.Mention.LinkPreview(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
@@ -59,7 +59,7 @@ internal fun RichText.toDomain(): NotionRichText = when (this) {
         )
     }
 
-    is RichText.Equation -> NotionRichText.Equation(
+    is RichTextObject.Equation -> NotionRichText.Equation(
         plainText = plainText,
         url = href,
         type = type.toDomain(),

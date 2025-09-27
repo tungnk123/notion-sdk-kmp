@@ -1,7 +1,7 @@
 package notion
 
 import core.data.mapper.toDomain
-import core.data.model.internal.obj.Block
+import core.data.model.internal.obj.BlockObject
 import core.data.model.internal.request.QueryDatabaseRequest
 import core.data.model.internal.response.PageObject
 import core.data.model.internal.response.ResultsResponse
@@ -99,7 +99,7 @@ internal class NotionImpl(
     }
 
     override suspend fun retrieveBlock(blockId: String): NotionBlock {
-        val resp: Block =
+        val resp: BlockObject =
             httpClient.get("${Notion.API_BASE_URL}/$ENDPOINT_BLOCKS/$blockId").body()
         return resp.toDomain()
     }
@@ -109,7 +109,7 @@ internal class NotionImpl(
         startCursor: String?,
         pageSize: Int?,
     ): NotionResults<NotionBlock> {
-        val resp: ResultsResponse<Block> =
+        val resp: ResultsResponse<BlockObject> =
             httpClient.get("${Notion.API_BASE_URL}/$ENDPOINT_BLOCKS/$blockId/$PATH_CHILDREN") {
                 if (startCursor != null) parameter(QUERY_PARAM_START_CURSOR, startCursor)
                 if (pageSize != null) parameter(QUERY_PARAM_PAGE_SIZE, pageSize)

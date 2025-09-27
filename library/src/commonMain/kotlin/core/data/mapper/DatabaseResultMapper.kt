@@ -1,6 +1,6 @@
 package core.data.mapper
 
-import core.data.model.internal.obj.Block
+import core.data.model.internal.obj.BlockObject
 import core.data.model.internal.response.PageObject
 import core.data.model.internal.response.ResultsResponse
 import core.data.model.result.NotionBlock
@@ -15,8 +15,8 @@ internal inline fun <reified T : Any, reified R : Any> ResultsResponse<T>.toDoma
             else -> null
         }
 
-        Block::class -> when (R::class) {
-            NotionBlock::class -> results.filterIsInstance<Block>().map(Block::toDomain)
+        BlockObject::class -> when (R::class) {
+            NotionBlock::class -> results.filterIsInstance<BlockObject>().map(BlockObject::toDomain)
             else -> null
         }
 

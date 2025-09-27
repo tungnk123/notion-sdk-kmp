@@ -1,6 +1,6 @@
 package core.data.model.internal.response
 
-import core.data.model.internal.obj.Icon
+import core.data.model.internal.obj.IconObject
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -8,5 +8,5 @@ internal data class PageObject(
     val id: String,
     val url: String,
     val properties: Map<String, PageProperty>,
-    val icon: Icon? = null,
+    val iconObject: IconObject? = null,
 )

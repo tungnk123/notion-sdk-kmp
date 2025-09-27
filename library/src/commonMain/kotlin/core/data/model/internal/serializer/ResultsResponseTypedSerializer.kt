@@ -4,7 +4,6 @@ import core.data.model.internal.response.ResultsResponse
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.builtins.serializer
@@ -17,7 +16,6 @@ import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
 @OptIn(ExperimentalSerializationApi::class)
-@Serializer(forClass = ResultsResponse::class)
 internal class ResultsResponseTypedSerializer<T : Any>(
     resultsItemSerializer: KSerializer<T>,
 ) : KSerializer<ResultsResponse<T>> {

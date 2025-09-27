@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal sealed class RichText {
+internal sealed class RichTextObject {
     @SerialName("plain_text")
     abstract val plainText: String
     abstract val href: String?
@@ -13,14 +13,14 @@ internal sealed class RichText {
 
     @Serializable
     @SerialName("text")
-    data class Text(
+    data class TextObject(
         @SerialName("plain_text")
         override val plainText: String,
         override val href: String?,
         override val type: RichTextType,
         override val annotations: RichTextAnnotations,
         val text: Value,
-    ) : RichText() {
+    ) : RichTextObject() {
 
         @Serializable
         data class Value(
@@ -38,14 +38,14 @@ internal sealed class RichText {
         override val type: RichTextType,
         override val annotations: RichTextAnnotations,
         val mention: Value,
-    ) : RichText() {
+    ) : RichTextObject() {
 
         @Serializable
         internal sealed class Value {
             @Serializable
             @SerialName("user")
             data class User(
-                val user: core.data.model.internal.obj.User,
+                val userObject: UserObject,
             ) : Value()
 
             @Serializable
@@ -102,7 +102,7 @@ internal sealed class RichText {
         override val annotations: RichTextAnnotations,
 
         val equation: Value,
-    ) : RichText() {
+    ) : RichTextObject() {
 
         @Serializable
         data class Value(
