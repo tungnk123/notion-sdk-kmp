@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -8,7 +7,7 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "io.github.kotlin"
+group = "io.github.tungnk123"
 version = "1.0.0"
 
 kotlin {
@@ -46,7 +45,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.jetbrains.kotlinx.multiplatform.library.template"
+    namespace = "io.github.tungnk123.notion.sdk.kmp"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig { minSdk = libs.versions.android.minSdk.get().toInt() }
     compileOptions {
@@ -58,14 +57,25 @@ android {
 mavenPublishing {
     publishToMavenCentral()
     signAllPublications()
-    coordinates(group.toString(), "library", version.toString())
+    coordinates(group.toString(), "notion-sdk-kmp", version.toString())
+
     pom {
-        name = "My library"
-        description = "A library."
+        name = "notion-sdk-kmp"
+        description = "Kotlin Multiplatform Notion SDK"
         inceptionYear = "2024"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
-        licenses { license { name = "XXX"; url = "YYY"; distribution = "ZZZ" } }
-        developers { developer { id = "XXX"; name = "YYY"; url = "ZZZ" } }
-        scm { url = "XXX"; connection = "YYY"; developerConnection = "ZZZ" }
+        url = "https://github.com/tungnk123/notion-sdk-kmp"
+        licenses {
+            license {
+                name = "MIT License"
+                url = "https://opensource.org/licenses/MIT"
+                distribution = "repo"
+            }
+        }
+        developers { developer { id = "tungnk123"; name = "Tùng Đoàn"; url = "https://github.com/tungnk123" } }
+        scm {
+            url = "https://github.com/tungnk123/notion-sdk-kmp"
+            connection = "scm:git:https://github.com/tungnk123/notion-sdk-kmp.git"
+            developerConnection = "scm:git:ssh://git@github.com/tungnk123/notion-sdk-kmp.git"
+        }
     }
 }
