@@ -63,7 +63,7 @@ internal class NotionImpl(
         val resp: ResultsResponse<PageObject> = http.post(Routes.queryDatabase(databaseId)) {
             setBody(QueryDatabaseRequest(startCursor = startCursor, pageSize = pageSize))
         }
-        return resp.toDomain()
+        return resp.toDomain(PageObject::toDomain)
     }
 
     override suspend fun queryDatabase(
@@ -73,7 +73,7 @@ internal class NotionImpl(
         val resp: ResultsResponse<PageObject> = http.post(Routes.queryDatabase(databaseId)) {
             setBody(TextContent(jsonRequestBody, ContentType.Application.Json))
         }
-        return resp.toDomain()
+        return resp.toDomain(PageObject::toDomain)
     }
 
     override suspend fun retrieveDatabase(databaseId: String): NotionDatabaseSchema {
@@ -95,7 +95,7 @@ internal class NotionImpl(
             if (startCursor != null) parameter(QueryParam.START_CURSOR, startCursor)
             if (pageSize != null) parameter(QueryParam.PAGE_SIZE, pageSize)
         }
-        return resp.toDomain()
+        return resp.toDomain(BlockObject::toDomain)
     }
 
     private object Routes {

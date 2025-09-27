@@ -33,12 +33,6 @@ kotlin {
                 implementation(libs.kotlinx.atomicfu)
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.kotlin.test)
-                implementation(libs.ktor.client.mock)
-            }
-        }
         val jvmMain by getting { dependencies { implementation(libs.ktor.client.cio) } }
         val androidMain by getting {
             dependencies {
@@ -48,6 +42,20 @@ kotlin {
         }
         val jsMain by getting { dependencies { implementation(libs.ktor.client.js) } }
         val iosMain by getting { dependencies { implementation(libs.ktor.client.darwin) } }
+
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test)
+                implementation(libs.kotlinx.coroutines.test)
+                implementation(libs.ktor.client.mock)
+            }
+        }
+        val jvmTest by getting {
+            dependencies {
+                implementation(libs.kotlin.test.junit)
+                implementation(libs.kotlinx.coroutines.test)
+            }
+        }
     }
 }
 
