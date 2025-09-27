@@ -1,83 +1,68 @@
 package notion
 
+import auth.TokenProvider
 import core.data.mapper.toDomain
+import core.data.model.NotionApiVersion
 import core.data.model.internal.obj.BlockObject
 import core.data.model.internal.request.QueryDatabaseRequest
 import core.data.model.internal.response.PageObject
 import core.data.model.internal.response.ResultsResponse
 import core.data.model.internal.response.RetrieveDatabaseResponse
 import core.data.model.result.NotionBlock
-import core.data.model.NotionApiVersion
 import core.data.model.result.NotionDatabaseRow
 import core.data.model.result.NotionDatabaseSchema
 import core.data.model.result.NotionResults
+import http.NotionHttp
 import io.ktor.client.*
-import io.ktor.client.call.body
-import io.ktor.client.plugins.*
-import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.http.content.TextContent
-import io.ktor.serialization.kotlinx.json.*
+import io.ktor.http.content.*
 import kotlinx.atomicfu.atomic
-import kotlinx.serialization.json.Json
+import kotlin.concurrent.Volatile
 
 internal class NotionImpl(
     token: String,
     private val version: NotionApiVersion,
-    private var httpClient: HttpClient,
+    client: HttpClient,
 ) : Notion {
 
     private val tokenRef = atomic(token)
 
-    init { httpClient = httpClient.withTokenAndVersion() }
+    private class RefTokenProvider(
+        private val ref: kotlinx.atomicfu.AtomicRef<String>
+    ) : TokenProvider {
+        override fun token(): String = ref.value
+    }
 
-    override val token: String
-        get() = tokenRef.value
+    @Volatile
+    private var http = NotionHttp(
+        tokenProvider = RefTokenProvider(tokenRef), client = client, apiVersion = version
+    )
+
+    override val token: String get() = tokenRef.value
 
     override fun setToken(token: String) {
         tokenRef.value = token
     }
 
     override fun setHttpClient(newHttpClient: HttpClient) {
-        httpClient = newHttpClient.withTokenAndVersion()
+        http = NotionHttp(
+            tokenProvider = RefTokenProvider(tokenRef),
+            client = newHttpClient,
+            apiVersion = version
+        )
     }
 
-    override fun close() = httpClient.close()
-
-    private fun HttpClient.withTokenAndVersion(): HttpClient =
-        config {
-            install(ContentNegotiation) {
-                json(
-                    Json {
-                        encodeDefaults = false
-                        ignoreUnknownKeys = true
-                        classDiscriminator = "type"
-                        explicitNulls = false
-                    }
-                )
-            }
-            defaultRequest {
-                header(HttpHeaders.Authorization, "Bearer ${tokenRef.value}")
-                header(Notion.HEADER_VERSION, version.stringValue)
-                contentType(ContentType.Application.Json)
-            }
-        }
+    override fun close() {}
 
     override suspend fun queryDatabase(
         databaseId: String,
         startCursor: String?,
         pageSize: Int?,
     ): NotionResults<NotionDatabaseRow> {
-        val resp: ResultsResponse<PageObject> =
-            httpClient.post("${Notion.API_BASE_URL}/$ENDPOINT_DATABASES/$databaseId/$PATH_QUERY") {
-                setBody(
-                    QueryDatabaseRequest(
-                        startCursor = startCursor,
-                        pageSize = pageSize,
-                    )
-                )
-            }.body()
+        val resp: ResultsResponse<PageObject> = http.post(Routes.queryDatabase(databaseId)) {
+            setBody(QueryDatabaseRequest(startCursor = startCursor, pageSize = pageSize))
+        }
         return resp.toDomain()
     }
 
@@ -85,22 +70,19 @@ internal class NotionImpl(
         databaseId: String,
         jsonRequestBody: String,
     ): NotionResults<NotionDatabaseRow> {
-        val resp: ResultsResponse<PageObject> =
-            httpClient.post("${Notion.API_BASE_URL}/$ENDPOINT_DATABASES/$databaseId/$PATH_QUERY") {
-                setBody(TextContent(jsonRequestBody, ContentType.Application.Json))
-            }.body()
+        val resp: ResultsResponse<PageObject> = http.post(Routes.queryDatabase(databaseId)) {
+            setBody(TextContent(jsonRequestBody, ContentType.Application.Json))
+        }
         return resp.toDomain()
     }
 
     override suspend fun retrieveDatabase(databaseId: String): NotionDatabaseSchema {
-        val resp: RetrieveDatabaseResponse =
-            httpClient.get("${Notion.API_BASE_URL}/$ENDPOINT_DATABASES/$databaseId").body()
+        val resp: RetrieveDatabaseResponse = http.get(Routes.retrieveDatabase(databaseId))
         return resp.toDomain()
     }
 
     override suspend fun retrieveBlock(blockId: String): NotionBlock {
-        val resp: BlockObject =
-            httpClient.get("${Notion.API_BASE_URL}/$ENDPOINT_BLOCKS/$blockId").body()
+        val resp: BlockObject = http.get(Routes.retrieveBlock(blockId))
         return resp.toDomain()
     }
 
@@ -109,20 +91,27 @@ internal class NotionImpl(
         startCursor: String?,
         pageSize: Int?,
     ): NotionResults<NotionBlock> {
-        val resp: ResultsResponse<BlockObject> =
-            httpClient.get("${Notion.API_BASE_URL}/$ENDPOINT_BLOCKS/$blockId/$PATH_CHILDREN") {
-                if (startCursor != null) parameter(QUERY_PARAM_START_CURSOR, startCursor)
-                if (pageSize != null) parameter(QUERY_PARAM_PAGE_SIZE, pageSize)
-            }.body()
+        val resp: ResultsResponse<BlockObject> = http.get(Routes.blockChildren(blockId)) {
+            if (startCursor != null) parameter(QueryParam.START_CURSOR, startCursor)
+            if (pageSize != null) parameter(QueryParam.PAGE_SIZE, pageSize)
+        }
         return resp.toDomain()
     }
 
-    companion object {
-        private const val ENDPOINT_BLOCKS = "blocks"
-        private const val ENDPOINT_DATABASES = "databases"
-        private const val PATH_QUERY = "query"
-        private const val PATH_CHILDREN = "children"
-        private const val QUERY_PARAM_START_CURSOR = "start_cursor"
-        private const val QUERY_PARAM_PAGE_SIZE = "page_size"
+    private object Routes {
+        private const val BLOCKS = "blocks"
+        private const val DATABASES = "databases"
+        private const val QUERY = "query"
+        private const val CHILDREN = "children"
+
+        fun queryDatabase(databaseId: String) = "$DATABASES/$databaseId/$QUERY"
+        fun retrieveDatabase(databaseId: String) = "$DATABASES/$databaseId"
+        fun retrieveBlock(blockId: String) = "$BLOCKS/$blockId"
+        fun blockChildren(blockId: String) = "$BLOCKS/$blockId/$CHILDREN"
+    }
+
+    private object QueryParam {
+        const val START_CURSOR = "start_cursor"
+        const val PAGE_SIZE = "page_size"
     }
 }

@@ -3,7 +3,7 @@ package http
 import auth.TokenProvider
 import core.data.model.NotionApiVersion
 import io.ktor.client.*
-import io.ktor.client.call.body
+import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -39,23 +39,18 @@ class NotionHttp(
         expectSuccess = true
     }
 
-    suspend inline fun <reified T> get(
-        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.get(path, build).body()
+    suspend inline fun <reified T> get(path: String, noinline build: HttpRequestBuilder.() -> Unit = {}): T =
+        httpClient.get(path, build).body()
 
-    suspend inline fun <reified T> post(
-        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.post(path, build).body()
+    suspend inline fun <reified T> post(path: String, noinline build: HttpRequestBuilder.() -> Unit = {}): T =
+        httpClient.post(path, build).body()
 
-    suspend inline fun <reified T> patch(
-        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.patch(path, build).body()
+    suspend inline fun <reified T> patch(path: String, noinline build: HttpRequestBuilder.() -> Unit = {}): T =
+        httpClient.patch(path, build).body()
 
-    suspend inline fun <reified T> put(
-        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.put(path, build).body()
+    suspend inline fun <reified T> put(path: String, noinline build: HttpRequestBuilder.() -> Unit = {}): T =
+        httpClient.put(path, build).body()
 
-    suspend inline fun <reified T> delete(
-        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
-    ): T = httpClient.delete(path, build).body()
+    suspend inline fun <reified T> delete(path: String, noinline build: HttpRequestBuilder.() -> Unit = {}): T =
+        httpClient.delete(path, build).body()
 }
