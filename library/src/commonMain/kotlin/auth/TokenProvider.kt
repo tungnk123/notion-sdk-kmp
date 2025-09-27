@@ -1,8 +1,14 @@
 package auth
 
-interface TokenProvider { fun token(): String }
+interface TokenProvider {
+    fun token(): String
+}
 
-class StaticTokenProvider(private var value: String) : TokenProvider {
+interface MutableTokenProvider : TokenProvider {
+    fun setToken(value: String)
+}
+
+class StaticTokenProvider(private var value: String) : MutableTokenProvider {
     override fun token(): String = value
-    fun setToken(newValue: String) { value = newValue }
+    override fun setToken(value: String) { this.value = value }
 }
