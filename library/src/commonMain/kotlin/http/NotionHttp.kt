@@ -1,6 +1,7 @@
 package http
 
 import auth.TokenProvider
+import core.data.model.NotionApiVersion
 import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.plugins.*
@@ -10,23 +11,51 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
+private const val BASE_URL = "https://api.notion.com/v1/"
+private const val HDR_NOTION_VERSION = "Notion-Version"
+
+private val NotionJson = Json {
+    ignoreUnknownKeys = true
+    coerceInputValues = true
+    isLenient = true
+    explicitNulls = false
+}
+
 class NotionHttp(
     private val tokenProvider: TokenProvider,
-    client: HttpClient? = null
+    client: HttpClient,
+    private val apiVersion: NotionApiVersion = NotionApiVersion.V2025_09_03,
+    private val baseUrl: String = BASE_URL
 ) {
-    private val http = (client ?: HttpClient()).config {
-        install(ContentNegotiation) {
-            json(Json { ignoreUnknownKeys = true; classDiscriminator = "type"; explicitNulls = false })
-        }
+    @PublishedApi
+    internal val httpClient: HttpClient = client.config {
+        install(ContentNegotiation) { json(NotionJson) }
         defaultRequest {
-            url("https://api.notion.com/v1/")
-            header("Notion-Version", "2025-09-03")
+            url(baseUrl)
+            header(HDR_NOTION_VERSION, apiVersion.stringValue)
             header(HttpHeaders.Authorization, "Bearer ${tokenProvider.token()}")
             contentType(ContentType.Application.Json)
         }
         expectSuccess = true
     }
 
-    private suspend inline fun <reified T> get(path: String, noinline build: HttpRequestBuilder.() -> Unit = {}) =
-        http.get(path, build).body<T>()
+    suspend inline fun <reified T> get(
+        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
+    ): T = httpClient.get(path, build).body()
+
+    suspend inline fun <reified T> post(
+        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
+    ): T = httpClient.post(path, build).body()
+
+    suspend inline fun <reified T> patch(
+        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
+    ): T = httpClient.patch(path, build).body()
+
+    suspend inline fun <reified T> put(
+        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
+    ): T = httpClient.put(path, build).body()
+
+    suspend inline fun <reified T> delete(
+        path: String, noinline build: HttpRequestBuilder.() -> Unit = {}
+    ): T = httpClient.delete(path, build).body()
 }
