@@ -29,6 +29,7 @@ kotlin {
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.bundles.ktor.common)
+                implementation(libs.koin.core)
                 implementation(libs.kotlinx.atomicfu)
             }
         }
@@ -39,7 +40,12 @@ kotlin {
             }
         }
         val jvmMain by getting { dependencies { implementation(libs.ktor.client.cio) } }
-        val androidMain by getting { dependencies { implementation(libs.ktor.client.android) } }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.android)
+                implementation(libs.koin.android)
+            }
+        }
         val jsMain by getting { dependencies { implementation(libs.ktor.client.js) } }
         val iosMain by getting { dependencies { implementation(libs.ktor.client.darwin) } }
     }
