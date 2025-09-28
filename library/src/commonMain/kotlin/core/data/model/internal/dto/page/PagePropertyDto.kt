@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal sealed class PagePropertyDto {
+sealed class PagePropertyDto {
     abstract val id: String
 
     @Serializable
