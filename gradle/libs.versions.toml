@@ -45,7 +45,6 @@ ktor-common = [
     "ktor-client-content-negotiation",
     "ktor-serialization-kotlinx-json",
     "ktor-client-logging",
-    "ktor-client-cio"
 ]
 
 [plugins]

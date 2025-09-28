@@ -1,4 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
+import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
+import java.util.*
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -93,4 +96,32 @@ mavenPublishing {
             developerConnection = "scm:git:ssh://git@github.com/tungnk123/notion-sdk-kmp.git"
         }
     }
+}
+
+fun loadLocalProp(name: String): String? {
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (!localPropertiesFile.exists()) return null
+    val properties = Properties()
+    localPropertiesFile.inputStream().use { properties.load(it) }
+    return properties.getProperty(name)
+}
+
+val notionToken: String? =
+    loadLocalProp("NOTION_TOKEN")
+        ?: (providers.gradleProperty("NOTION_TOKEN").orNull)
+        ?: (providers.environmentVariable("NOTION_TOKEN").orNull)
+
+tasks.withType<Test>().configureEach {
+    notionToken?.let {
+        environment("NOTION_TOKEN", it)
+        systemProperty("NOTION_TOKEN", it)
+    }
+}
+
+tasks.withType<KotlinNativeTest>().configureEach {
+    notionToken?.let { environment("NOTION_TOKEN", it) }
+}
+
+tasks.withType<KotlinJsTest>().configureEach {
+    notionToken?.let { environment("NOTION_TOKEN", it) }
 }
