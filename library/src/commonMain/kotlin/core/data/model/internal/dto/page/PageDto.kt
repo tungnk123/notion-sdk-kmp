@@ -5,7 +5,7 @@ import core.data.model.internal.dto.page.PagePropertyDto
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class PageDto(
+data class PageDto(
     val id: String,
     val url: String,
     val properties: Map<String, PagePropertyDto>,

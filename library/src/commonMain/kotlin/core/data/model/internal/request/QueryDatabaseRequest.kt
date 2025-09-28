@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class QueryDatabaseRequestDto(
+internal data class QueryDatabaseRequest(
     @SerialName("start_cursor")
     val startCursor: String? = null,
     @SerialName("page_size")

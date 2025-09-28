@@ -4,7 +4,7 @@ import auth.TokenProvider
 import core.data.mapper.toDomain
 import core.data.model.NotionApiVersion
 import core.data.model.internal.dto.BlockDto
-import core.data.model.internal.request.QueryDatabaseRequestDto
+import core.data.model.internal.request.QueryDatabaseRequest
 import core.data.model.internal.dto.page.PageDto
 import core.data.model.internal.response.ResultsResponseDto
 import core.data.model.internal.response.RetrieveDatabaseResponseDto
@@ -61,7 +61,7 @@ internal class NotionImpl(
         pageSize: Int?,
     ): NotionResults<NotionDatabaseRow> {
         val resp: ResultsResponseDto<PageDto> = http.post(Routes.queryDatabase(databaseId)) {
-            setBody(QueryDatabaseRequestDto(startCursor = startCursor, pageSize = pageSize))
+            setBody(QueryDatabaseRequest(startCursor = startCursor, pageSize = pageSize))
         }
         return resp.toDomain(PageDto::toDomain)
     }
