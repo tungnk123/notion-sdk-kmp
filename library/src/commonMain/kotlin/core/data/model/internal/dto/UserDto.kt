@@ -1,10 +1,10 @@
-package core.data.model.internal.obj
+package core.data.model.internal.dto
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class UserObject {
+sealed class UserDto {
     @SerialName("object")
     abstract val objectType: String
     abstract val id: String
@@ -22,7 +22,7 @@ sealed class UserObject {
         @SerialName("avatar_url")
         override val avatarUrl: String? = null,
         val person: Value
-    ) : UserObject() {
+    ) : UserDto() {
         @Serializable
         data class Value(val email: String? = null)
     }
@@ -37,7 +37,7 @@ sealed class UserObject {
         @SerialName("avatar_url")
         override val avatarUrl: String? = null,
         val bot: BotValue? = null
-    ) : UserObject() {
+    ) : UserDto() {
         @Serializable
         data class BotValue(
             val owner: Owner? = null,

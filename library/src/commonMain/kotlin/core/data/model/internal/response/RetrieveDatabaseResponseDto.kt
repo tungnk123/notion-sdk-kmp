@@ -4,14 +4,14 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class RetrieveDatabaseResponse(
+internal data class RetrieveDatabaseResponseDto(
     val id: String,
     @SerialName("created_time")
     val createdTime: String,
     @SerialName("last_edited_time")
     val lastEditedTime: String,
     val title: List<RetrieveDatabaseTitle>,
-    val properties: Map<String, RetrieveDatabaseSchemaProperty>
+    val properties: Map<String, RetrieveDatabaseSchemaPropertyDto>
 ) {
     fun fullTitle(): String =
         title.joinToString("") { it.plainText }
@@ -24,17 +24,17 @@ internal data class RetrieveDatabaseTitle(
 )
 
 @Serializable
-internal sealed class RetrieveDatabaseSchemaProperty {
+internal sealed class RetrieveDatabaseSchemaPropertyDto {
     abstract val id: String
     abstract val name: String
 
     @Serializable
     @SerialName("title")
-    data class Title(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class Title(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("rich_text")
-    data class Text(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class Text(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("number")
@@ -42,7 +42,7 @@ internal sealed class RetrieveDatabaseSchemaProperty {
         override val id: String,
         override val name: String,
         val number: Wrapped,
-    ) : RetrieveDatabaseSchemaProperty() {
+    ) : RetrieveDatabaseSchemaPropertyDto() {
         @Serializable
         data class Wrapped(
             val format: Format
@@ -131,7 +131,7 @@ internal sealed class RetrieveDatabaseSchemaProperty {
         override val id: String,
         override val name: String,
         val select: Wrapped
-    ) : RetrieveDatabaseSchemaProperty() {
+    ) : RetrieveDatabaseSchemaPropertyDto() {
         @Serializable
         data class Wrapped(
             val options: List<Option>
@@ -151,7 +151,7 @@ internal sealed class RetrieveDatabaseSchemaProperty {
         override val name: String,
         @SerialName("multi_select")
         val multiSelect: Wrapped
-    ) : RetrieveDatabaseSchemaProperty() {
+    ) : RetrieveDatabaseSchemaPropertyDto() {
         @Serializable
         data class Wrapped(
             val options: List<Select.Option>
@@ -164,7 +164,7 @@ internal sealed class RetrieveDatabaseSchemaProperty {
         override val id: String,
         override val name: String,
         val formula: Wrapped
-    ) : RetrieveDatabaseSchemaProperty() {
+    ) : RetrieveDatabaseSchemaPropertyDto() {
         @Serializable
         data class Wrapped(
             val expression: String
@@ -173,49 +173,49 @@ internal sealed class RetrieveDatabaseSchemaProperty {
 
     @Serializable
     @SerialName("date")
-    data class Date(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class Date(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("people")
-    data class People(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class People(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("files")
-    data class Files(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class Files(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("checkbox")
-    data class Checkbox(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class Checkbox(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("url")
-    data class Url(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class Url(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("email")
-    data class Email(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class Email(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("phone_number")
-    data class PhoneNumber(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class PhoneNumber(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("created_time")
-    data class CreatedTime(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class CreatedTime(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("created_by")
-    data class CreatedBy(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class CreatedBy(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("last_edited_time")
-    data class LastEditedTime(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class LastEditedTime(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("last_edited_by")
-    data class LastEditedBy(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class LastEditedBy(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 
     @Serializable
     @SerialName("rollup")
-    data class Rollup(override val id: String, override val name: String) : RetrieveDatabaseSchemaProperty()
+    data class Rollup(override val id: String, override val name: String) : RetrieveDatabaseSchemaPropertyDto()
 }

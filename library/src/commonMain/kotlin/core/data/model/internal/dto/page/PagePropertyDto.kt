@@ -1,10 +1,10 @@
-package core.data.model.internal.response
+package core.data.model.internal.dto.page
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal sealed class PageProperty {
+internal sealed class PagePropertyDto {
     abstract val id: String
 
     @Serializable
@@ -12,7 +12,7 @@ internal sealed class PageProperty {
     data class Title(
         override val id: String,
         val title: List<Value>,
-    ) : PageProperty() {
+    ) : PagePropertyDto() {
         @Serializable
         data class Value(
             @SerialName("plain_text")
@@ -29,7 +29,7 @@ internal sealed class PageProperty {
         override val id: String,
         @SerialName("rich_text")
         val richText: List<Value>,
-    ) : PageProperty() {
+    ) : PagePropertyDto() {
         @Serializable
         data class Value(
             @SerialName("plain_text")
@@ -46,14 +46,14 @@ internal sealed class PageProperty {
     data class Number(
         override val id: String,
         val number: Double? = null,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("select")
     data class Select(
         override val id: String,
         val select: Value? = null,
-    ) : PageProperty() {
+    ) : PagePropertyDto() {
         @Serializable
         data class Value(
             val id: String,
@@ -68,14 +68,14 @@ internal sealed class PageProperty {
         override val id: String,
         @SerialName("multi_select")
         val multiSelect: List<Select.Value>,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("date")
     data class Date(
         override val id: String,
         val date: Value? = null,
-    ) : PageProperty() {
+    ) : PagePropertyDto() {
         @Serializable
         data class Value(
             val start: String,
@@ -88,7 +88,7 @@ internal sealed class PageProperty {
     data class People(
         override val id: String,
         val people: List<Value>,
-    ) : PageProperty() {
+    ) : PagePropertyDto() {
         @Serializable
         sealed class Value {
             @Serializable
@@ -122,7 +122,7 @@ internal sealed class PageProperty {
     data class Files(
         override val id: String,
         val files: List<Value>,
-    ) : PageProperty() {
+    ) : PagePropertyDto() {
         @Serializable
         sealed class Value {
             @Serializable
@@ -152,21 +152,21 @@ internal sealed class PageProperty {
     data class Checkbox(
         override val id: String,
         val checkbox: Boolean,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("url")
     data class Url(
         override val id: String,
         val url: String? = null,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("email")
     data class Email(
         override val id: String,
         val email: String? = null,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("phone_number")
@@ -174,14 +174,14 @@ internal sealed class PageProperty {
         override val id: String,
         @SerialName("phone_number")
         val phoneNumber: String? = null,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("formula")
     data class Formula(
         override val id: String,
         val formula: Value,
-    ) : PageProperty() {
+    ) : PagePropertyDto() {
         @Serializable
         sealed class Value {
             @Serializable
@@ -207,7 +207,7 @@ internal sealed class PageProperty {
     @SerialName("relation")
     data class Relation(
         override val id: String,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("created_time")
@@ -215,7 +215,7 @@ internal sealed class PageProperty {
         override val id: String,
         @SerialName("created_time")
         val createdTime: String,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("last_edited_time")
@@ -223,7 +223,7 @@ internal sealed class PageProperty {
         override val id: String,
         @SerialName("last_edited_time")
         val lastEditedTime: String,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("created_by")
@@ -231,7 +231,7 @@ internal sealed class PageProperty {
         override val id: String,
         @SerialName("created_by")
         val createdBy: People.Value.Person,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("last_edited_by")
@@ -239,9 +239,9 @@ internal sealed class PageProperty {
         override val id: String,
         @SerialName("last_edited_by")
         val lastEditedBy: People.Value.Person,
-    ) : PageProperty()
+    ) : PagePropertyDto()
 
     @Serializable
     @SerialName("rollup")
-    data class Rollup(override val id: String) : PageProperty()
+    data class Rollup(override val id: String) : PagePropertyDto()
 }

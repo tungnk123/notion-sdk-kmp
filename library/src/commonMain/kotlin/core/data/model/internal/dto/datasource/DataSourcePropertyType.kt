@@ -1,4 +1,4 @@
-package core.data.model.internal.obj.datasource
+package core.data.model.internal.dto.datasource
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

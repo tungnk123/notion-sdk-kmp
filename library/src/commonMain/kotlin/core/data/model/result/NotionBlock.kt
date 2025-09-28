@@ -1,5 +1,6 @@
 package core.data.model.result
 
+import core.data.model.result.richtext.NotionRichText
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

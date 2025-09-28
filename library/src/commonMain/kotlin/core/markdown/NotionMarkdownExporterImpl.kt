@@ -1,6 +1,11 @@
 package core.markdown
 
-import core.data.model.result.*
+import core.data.model.result.NotionBlock
+import core.data.model.result.NotionFile
+import core.data.model.result.NotionFileBlock
+import core.data.model.result.NotionIcon
+import core.data.model.result.richtext.NotionRichText
+import core.data.model.result.richtext.NotionRichTextType
 import notion.Notion
 
 internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
@@ -207,14 +212,13 @@ internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
         when (this) {
             is NotionIcon.Emoji -> emoji
             is NotionIcon.File -> {
-                val resultMarkdown = "![image](${url})"
-
-                if (expiryTime != null && settings.addExpiryNoticeForInternalFiles) {
-                    "*( below file link will expire at $expiryTime )*\n$resultMarkdown"
-                } else {
-                    resultMarkdown
-                }
+                val md = "![image]($url)"
+                if (expiryTime != null && settings.addExpiryNoticeForInternalFiles)
+                    "*( below file link will expire at $expiryTime )*\n$md"
+                else md
             }
+
+            is NotionIcon.External -> "![image]($url)"
         }
 
     private fun NotionFileBlock.toMarkdown(

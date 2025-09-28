@@ -3,11 +3,11 @@ package notion
 import auth.TokenProvider
 import core.data.mapper.toDomain
 import core.data.model.NotionApiVersion
-import core.data.model.internal.obj.BlockObject
-import core.data.model.internal.request.QueryDatabaseRequest
-import core.data.model.internal.obj.page.PageObject
-import core.data.model.internal.response.ResultsResponse
-import core.data.model.internal.response.RetrieveDatabaseResponse
+import core.data.model.internal.dto.BlockDto
+import core.data.model.internal.request.QueryDatabaseRequestDto
+import core.data.model.internal.dto.page.PageDto
+import core.data.model.internal.response.ResultsResponseDto
+import core.data.model.internal.response.RetrieveDatabaseResponseDto
 import core.data.model.result.NotionBlock
 import core.data.model.result.NotionDatabaseRow
 import core.data.model.result.NotionDatabaseSchema
@@ -60,29 +60,29 @@ internal class NotionImpl(
         startCursor: String?,
         pageSize: Int?,
     ): NotionResults<NotionDatabaseRow> {
-        val resp: ResultsResponse<PageObject> = http.post(Routes.queryDatabase(databaseId)) {
-            setBody(QueryDatabaseRequest(startCursor = startCursor, pageSize = pageSize))
+        val resp: ResultsResponseDto<PageDto> = http.post(Routes.queryDatabase(databaseId)) {
+            setBody(QueryDatabaseRequestDto(startCursor = startCursor, pageSize = pageSize))
         }
-        return resp.toDomain(PageObject::toDomain)
+        return resp.toDomain(PageDto::toDomain)
     }
 
     override suspend fun queryDatabase(
         databaseId: String,
         jsonRequestBody: String,
     ): NotionResults<NotionDatabaseRow> {
-        val resp: ResultsResponse<PageObject> = http.post(Routes.queryDatabase(databaseId)) {
+        val resp: ResultsResponseDto<PageDto> = http.post(Routes.queryDatabase(databaseId)) {
             setBody(TextContent(jsonRequestBody, ContentType.Application.Json))
         }
-        return resp.toDomain(PageObject::toDomain)
+        return resp.toDomain(PageDto::toDomain)
     }
 
     override suspend fun retrieveDatabase(databaseId: String): NotionDatabaseSchema {
-        val resp: RetrieveDatabaseResponse = http.get(Routes.retrieveDatabase(databaseId))
+        val resp: RetrieveDatabaseResponseDto = http.get(Routes.retrieveDatabase(databaseId))
         return resp.toDomain()
     }
 
     override suspend fun retrieveBlock(blockId: String): NotionBlock {
-        val resp: BlockObject = http.get(Routes.retrieveBlock(blockId))
+        val resp: BlockDto = http.get(Routes.retrieveBlock(blockId))
         return resp.toDomain()
     }
 
@@ -91,11 +91,11 @@ internal class NotionImpl(
         startCursor: String?,
         pageSize: Int?,
     ): NotionResults<NotionBlock> {
-        val resp: ResultsResponse<BlockObject> = http.get(Routes.blockChildren(blockId)) {
+        val resp: ResultsResponseDto<BlockDto> = http.get(Routes.blockChildren(blockId)) {
             if (startCursor != null) parameter(QueryParam.START_CURSOR, startCursor)
             if (pageSize != null) parameter(QueryParam.PAGE_SIZE, pageSize)
         }
-        return resp.toDomain(BlockObject::toDomain)
+        return resp.toDomain(BlockDto::toDomain)
     }
 
     private object Routes {

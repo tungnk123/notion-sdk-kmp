@@ -1,10 +1,10 @@
 package service.user
 
-import core.data.model.internal.obj.UserObject
-import core.data.model.internal.response.ResultsResponse
+import core.data.model.internal.dto.UserDto
+import core.data.model.internal.response.ResultsResponseDto
 
 interface UsersService {
-    suspend fun list(startCursor: String?, pageSize: Int?): ResultsResponse<UserObject>
-    suspend fun retrieve(id: String): UserObject
-    suspend fun me(): UserObject
+    suspend fun list(startCursor: String?, pageSize: Int?): ResultsResponseDto<UserDto>
+    suspend fun retrieve(id: String): UserDto
+    suspend fun me(): UserDto
 }

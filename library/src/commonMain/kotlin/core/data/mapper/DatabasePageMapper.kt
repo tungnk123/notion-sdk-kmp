@@ -1,12 +1,12 @@
 package core.data.mapper
 
-import core.data.model.internal.obj.page.PageObject
+import core.data.model.internal.dto.page.PageDto
 import core.data.model.result.NotionDatabaseColumn
 import core.data.model.result.NotionDatabaseRow
 
-internal fun PageObject.toDomain(): NotionDatabaseRow =
+internal fun PageDto.toDomain(): NotionDatabaseRow =
     NotionDatabaseRow(
         id = id,
-        icon = iconObject?.toDomain(),
+        icon = iconDto?.toDomain(),
         columns = properties.mapValues { (key, value) -> NotionDatabaseColumn(key, value.toDomain()) }
     )

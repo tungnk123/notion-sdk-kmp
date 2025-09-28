@@ -1,6 +1,6 @@
 package core.data.model.internal.serializer
 
-import core.data.model.internal.response.ResultsResponse
+import core.data.model.internal.response.ResultsResponseDto
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
@@ -18,7 +18,7 @@ import kotlinx.serialization.encoding.Encoder
 @OptIn(ExperimentalSerializationApi::class)
 internal class ResultsResponseTypedSerializer<T : Any>(
     resultsItemSerializer: KSerializer<T>,
-) : KSerializer<ResultsResponse<T>> {
+) : KSerializer<ResultsResponseDto<T>> {
     private val resultsSerializer: KSerializer<List<T>> = ListSerializer(resultsItemSerializer)
     private val nextCursorSerializer: KSerializer<String?> = String.serializer().nullable
 
@@ -28,7 +28,7 @@ internal class ResultsResponseTypedSerializer<T : Any>(
         element("has_more", PrimitiveSerialDescriptor("has_more", PrimitiveKind.BOOLEAN))
     }
 
-    override fun deserialize(decoder: Decoder): ResultsResponse<T> {
+    override fun deserialize(decoder: Decoder): ResultsResponseDto<T> {
         val inp = decoder.beginStructure(descriptor)
         var results: List<T>? = null
         var nextCursor: String? = null
@@ -43,14 +43,14 @@ internal class ResultsResponseTypedSerializer<T : Any>(
             }
         }
         inp.endStructure(descriptor)
-        return ResultsResponse(
+        return ResultsResponseDto(
             results = results ?: throw SerializationException("required field 'results' is null"),
             nextCursor = nextCursor,
             hasMore = hasMore ?: throw SerializationException("required field 'has_more' is null"),
         )
     }
 
-    override fun serialize(encoder: Encoder, value: ResultsResponse<T>) {
+    override fun serialize(encoder: Encoder, value: ResultsResponseDto<T>) {
         encoder.beginStructure(descriptor).apply {
             encodeNullableSerializableElement(descriptor, 0, resultsSerializer, value.results)
             encodeNullableSerializableElement(descriptor, 1, nextCursorSerializer, value.nextCursor)

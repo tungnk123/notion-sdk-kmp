@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
 @Serializable
-data class UpdateDataSourceRequest(
+data class UpdateDataSourceRequestDto(
     val name: String? = null,
     val properties: JsonObject? = null
 )

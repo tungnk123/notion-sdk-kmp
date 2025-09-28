@@ -1,18 +1,18 @@
 package core.data.mapper
 
-import core.data.model.internal.obj.UserObject
+import core.data.model.internal.dto.UserDto
 import core.data.model.result.NotionUser
 
-fun UserObject.toDomain(): NotionUser {
+fun UserDto.toDomain(): NotionUser {
     return when (this) {
-        is UserObject.Person -> NotionUser.Person(
+        is UserDto.Person -> NotionUser.Person(
             id = id,
             name = name,
             avatarUrl = avatarUrl,
             email = person.email
         )
 
-        is UserObject.Bot -> {
+        is UserDto.Bot -> {
             val owner = when (bot?.owner?.type) {
                 "workspace" -> NotionUser.Bot.Owner.Workspace(bot.owner.workspace == true)
                 "user" -> {

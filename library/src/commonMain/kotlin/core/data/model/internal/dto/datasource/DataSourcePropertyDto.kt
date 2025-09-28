@@ -1,10 +1,10 @@
-package core.data.model.internal.obj.datasource
+package core.data.model.internal.dto.datasource
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class DataSourcePropertyObject(
+data class DataSourcePropertyDto(
     val id: String,
     val name: String? = null,
     val description: String? = null,
