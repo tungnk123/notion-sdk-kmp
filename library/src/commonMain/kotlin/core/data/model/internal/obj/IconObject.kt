@@ -4,15 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class IconObject(
-    val type: String,
-    val emoji: String? = null,
-    val file: File? = null,
-) {
-    @Serializable
-    data class File(
-        val url: String,
-        @SerialName("expiry_time")
-        val expiryTime: String? = null,
-    )
+sealed class IconObject {
+    @Serializable @SerialName("emoji")
+    data class Emoji(val emoji: String) : IconObject()
+    @Serializable @SerialName("file")
+    data class File(val file: FileRef) : IconObject()
+    @Serializable @SerialName("external")
+    data class External(val external: ExternalFileRef) : IconObject()
 }

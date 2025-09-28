@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal sealed class RichTextObject {
+sealed class RichTextObject {
     @SerialName("plain_text")
     abstract val plainText: String
     abstract val href: String?
@@ -41,7 +41,7 @@ internal sealed class RichTextObject {
     ) : RichTextObject() {
 
         @Serializable
-        internal sealed class Value {
+        sealed class Value {
             @Serializable
             @SerialName("user")
             data class User(
@@ -112,7 +112,7 @@ internal sealed class RichTextObject {
 }
 
 @Serializable
-internal data class RichTextInlineLink(
+data class RichTextInlineLink(
     val url: String,
 )
 
@@ -129,7 +129,7 @@ enum class RichTextType {
 }
 
 @Serializable
-internal data class RichTextAnnotations(
+data class RichTextAnnotations(
     val bold: Boolean,
     val italic: Boolean,
     val strikethrough: Boolean,

@@ -1,6 +1,6 @@
 package core.data.mapper
 
-import core.data.model.internal.response.PageObject
+import core.data.model.internal.obj.page.PageObject
 import core.data.model.result.NotionDatabaseColumn
 import core.data.model.result.NotionDatabaseRow
 

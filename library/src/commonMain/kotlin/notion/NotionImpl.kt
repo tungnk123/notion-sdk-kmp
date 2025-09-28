@@ -5,7 +5,7 @@ import core.data.mapper.toDomain
 import core.data.model.NotionApiVersion
 import core.data.model.internal.obj.BlockObject
 import core.data.model.internal.request.QueryDatabaseRequest
-import core.data.model.internal.response.PageObject
+import core.data.model.internal.obj.page.PageObject
 import core.data.model.internal.response.ResultsResponse
 import core.data.model.internal.response.RetrieveDatabaseResponse
 import core.data.model.result.NotionBlock

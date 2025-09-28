@@ -1,6 +1,7 @@
-package core.data.model.internal.response
+package core.data.model.internal.obj.page
 
 import core.data.model.internal.obj.IconObject
+import core.data.model.internal.response.PageProperty
 import kotlinx.serialization.Serializable
 
 @Serializable
