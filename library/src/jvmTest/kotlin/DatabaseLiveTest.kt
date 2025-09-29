@@ -1,0 +1,94 @@
+import auth.TokenProvider
+import core.data.model.internal.dto.datasource.DataSourcePropertyDto
+import core.data.model.internal.dto.datasource.DataSourcePropertyType
+import core.data.model.internal.dto.datasource.EmptyObj
+import core.data.model.internal.dto.datasource.ParentDto
+import core.data.model.internal.request.database.CreateDatabaseRequest
+import core.data.model.internal.request.database.InitialDataSourceRequest
+import core.data.model.internal.request.database.UpdateDatabaseRequest
+import http.NotionHttp
+import io.ktor.client.*
+import kotlinx.coroutines.runBlocking
+import org.junit.Assume.assumeTrue
+import org.junit.Test
+import repository.database.DatabaseRepository
+import repository.database.DatabaseRepositoryImpl
+import service.database.DatabaseService
+import service.database.DatabaseServiceImpl
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+
+class DatabaseLiveTest {
+
+    private fun env(name: String): String? =
+        System.getenv(name) ?: System.getProperty(name)
+
+    private fun newHttp(): NotionHttp {
+        val token = env("NOTION_TOKEN")
+        assumeTrue("NOTION_TOKEN is not set; skipping live test", !token.isNullOrBlank())
+        return NotionHttp(EnvTokenProvider(token!!), HttpClient())
+    }
+
+    private fun repo(): DatabaseRepository {
+        val http = newHttp()
+        val service: DatabaseService = DatabaseServiceImpl(http)
+        return DatabaseRepositoryImpl(service)
+    }
+
+    @Test
+    fun retrieve_live() = runBlocking {
+        val dbId = env("NOTION_TEST_DATABASE_ID")
+        assumeTrue("NOTION_TEST_DATABASE_ID is not set; skipping retrieve_live", !dbId.isNullOrBlank())
+
+        val r = repo().retrieve(dbId!!)
+        assertEquals(dbId, r.id)
+        assertNotNull(r.createdTime)
+        assertNotNull(r.lastEditedTime)
+        println("✅ retrieve_live: id=${r.id}, title=${r.title.joinToString { it.plainText }}, dataSources=${r.dataSources.size}")
+    }
+
+    @Test
+    fun create_live_minimal() = runBlocking {
+        val parentPageId = env("NOTION_PARENT_PAGE_ID")
+        assumeTrue("NOTION_PARENT_PAGE_ID is not set; skipping create_live_minimal", !parentPageId.isNullOrBlank())
+
+        val req = CreateDatabaseRequest(
+            parent = ParentDto.PageId(parentPageId!!),
+            initialDataSource = InitialDataSourceRequest(
+                properties = mapOf(
+                    "Name" to DataSourcePropertyDto(
+                        id = "title",
+                        name = "Name",
+                        type = DataSourcePropertyType.TITLE,
+                        title = EmptyObj
+                    )
+                )
+            ),
+            title = null,
+            description = null,
+            icon = null,
+            cover = null
+        )
+
+        val created = repo().create(req)
+        assertNotNull(created.id)
+        println("✅ create_live_minimal: id=${created.id}, dataSources=${created.dataSources.size}")
+    }
+
+    @Test
+    fun update_parent_live() = runBlocking {
+        val dbId = env("NOTION_TEST_DATABASE_ID")
+        assumeTrue("NOTION_TEST_DATABASE_ID is not set; skipping update_parent_live", !dbId.isNullOrBlank())
+
+        val parentPageId = env("NOTION_PARENT_PAGE_ID")
+        assumeTrue("NOTION_PARENT_PAGE_ID is not set; skipping update_parent_live", !parentPageId.isNullOrBlank())
+
+        val req = UpdateDatabaseRequest(
+            parent = ParentDto.PageId(parentPageId!!)
+        )
+
+        val updated = repo().update(dbId!!, req)
+        assertEquals(dbId, updated.id)
+        println("✅ update_parent_live: id=${updated.id}")
+    }
+}

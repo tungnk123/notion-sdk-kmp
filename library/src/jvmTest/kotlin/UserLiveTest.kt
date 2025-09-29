@@ -3,7 +3,7 @@ import http.NotionHttp
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
-import repository.user.UsersRepositoryImpl
+import repository.user.UserRepositoryImpl
 import service.user.UserServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertNotNull
@@ -20,7 +20,7 @@ class UsersLiveTest {
             assumeTrue("NOTION_TOKEN is not set; skipping live test", !token.isNullOrBlank())
 
             val http = NotionHttp(EnvTokenProvider(token!!), HttpClient())
-            val repo = UsersRepositoryImpl(UserServiceImpl(http))
+            val repo = UserRepositoryImpl(UserServiceImpl(http))
 
             val me = repo.me()
             assertNotNull(me.id)

@@ -6,9 +6,9 @@ import core.data.model.internal.request.database.UpdateDatabaseRequest
 import core.data.model.result.database.NotionDatabase
 import service.database.DatabaseService
 
-class DatabasesRepositoryImpl(
+class DatabaseRepositoryImpl(
     private val service: DatabaseService
-) : DatabasesRepository {
+) : DatabaseRepository {
 
     override suspend fun create(req: CreateDatabaseRequest): NotionDatabase =
         service.create(req).toDomain()

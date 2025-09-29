@@ -6,8 +6,8 @@ import http.NotionHttp
 import io.ktor.client.*
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import repository.user.UsersRepository
-import repository.user.UsersRepositoryImpl
+import repository.user.UserRepository
+import repository.user.UserRepositoryImpl
 import service.user.UserService
 import service.user.UserServiceImpl
 
@@ -16,5 +16,5 @@ fun usersModule(token: String, httpClient: HttpClient? = null): Module = module 
     single { httpClient ?: HttpClient() }
     single { NotionHttp(get(), get()) }
     single<UserService> { UserServiceImpl(get()) }
-    single<UsersRepository> { UsersRepositoryImpl(get()) }
+    single<UserRepository> { UserRepositoryImpl(get()) }
 }

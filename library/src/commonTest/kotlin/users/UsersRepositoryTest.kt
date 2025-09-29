@@ -8,7 +8,7 @@ import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
 import kotlinx.coroutines.test.runTest
-import repository.user.UsersRepositoryImpl
+import repository.user.UserRepositoryImpl
 import service.user.UserService
 import service.user.UserServiceImpl
 import kotlin.test.Test
@@ -60,7 +60,7 @@ class UsersRepositoryTest {
     fun `users me maps to domain`() = runTest {
         val http = NotionHttp(TestToken(), mockClient())
         val svc: UserService = UserServiceImpl(http)
-        val repo = UsersRepositoryImpl(svc)
+        val repo = UserRepositoryImpl(svc)
 
         val me: NotionUser = repo.me()
         assertTrue(me is NotionUser.Person)
@@ -72,7 +72,7 @@ class UsersRepositoryTest {
     @Test
     fun `users retrieve maps bot`() = runTest {
         val http = NotionHttp(TestToken(), mockClient())
-        val repo = UsersRepositoryImpl(UserServiceImpl(http))
+        val repo = UserRepositoryImpl(UserServiceImpl(http))
 
         val u: NotionUser = repo.retrieve("u_123")
         assertTrue(u is NotionUser.Bot)
@@ -83,7 +83,7 @@ class UsersRepositoryTest {
     @Test
     fun `users list returns two results`() = runTest {
         val http = NotionHttp(TestToken(), mockClient())
-        val repo = UsersRepositoryImpl(UserServiceImpl(http))
+        val repo = UserRepositoryImpl(UserServiceImpl(http))
 
         val res: NotionResults<NotionUser> = repo.list()
         assertEquals(2, res.results.size)
