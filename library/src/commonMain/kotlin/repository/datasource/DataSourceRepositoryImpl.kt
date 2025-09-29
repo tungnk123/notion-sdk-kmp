@@ -8,11 +8,11 @@ import core.data.model.internal.request.datasource.UpdateDataSourceRequest
 import core.data.model.result.NotionDatabaseRow
 import core.data.model.result.NotionResults
 import core.data.model.result.datasource.NotionDataSource
-import service.datasource.DataSourcesService
+import service.datasource.DataSourceService
 
-class DataSourcesRepositoryImpl(
-    private val service: DataSourcesService
-) : DataSourcesRepository {
+class DataSourceRepositoryImpl(
+    private val service: DataSourceService
+) : DataSourceRepository {
 
     override suspend fun create(req: CreateDataSourceRequest): NotionDataSource = service.create(req).toDomain()
 

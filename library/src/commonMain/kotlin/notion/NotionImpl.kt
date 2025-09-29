@@ -4,7 +4,7 @@ import auth.TokenProvider
 import core.data.mapper.toDomain
 import core.data.model.NotionApiVersion
 import core.data.model.internal.dto.BlockDto
-import core.data.model.internal.request.QueryDatabaseRequest
+import core.data.model.internal.request.database.QueryDatabaseRequest
 import core.data.model.internal.dto.page.PageDto
 import core.data.model.internal.response.ResultsResponseDto
 import core.data.model.internal.response.RetrieveDatabaseResponseDto

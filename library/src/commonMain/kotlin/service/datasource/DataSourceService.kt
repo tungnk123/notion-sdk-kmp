@@ -7,7 +7,7 @@ import core.data.model.internal.request.datasource.QueryDataSourceRequest
 import core.data.model.internal.request.datasource.UpdateDataSourceRequest
 import core.data.model.internal.response.ResultsResponseDto
 
-interface DataSourcesService {
+interface DataSourceService {
     suspend fun create(request: CreateDataSourceRequest): DataSourceDto
     suspend fun update(id: String, request: UpdateDataSourceRequest): DataSourceDto
     suspend fun retrieve(id: String): DataSourceDto

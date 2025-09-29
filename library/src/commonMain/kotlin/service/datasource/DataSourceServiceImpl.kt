@@ -17,9 +17,9 @@ private object Routes {
     fun query(id: String) = "$DATA_SOURCES/$id/query"
 }
 
-class DataSourcesServiceImpl(
+class DataSourceServiceImpl(
     private val http: NotionHttp
-) : DataSourcesService {
+) : DataSourceService {
 
     override suspend fun create(request: CreateDataSourceRequest): DataSourceDto =
         http.post(Routes.create()) { setBody(request) }

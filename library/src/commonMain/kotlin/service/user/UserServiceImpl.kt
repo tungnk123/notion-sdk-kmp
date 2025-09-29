@@ -5,7 +5,7 @@ import core.data.model.internal.response.ResultsResponseDto
 import http.NotionHttp
 import io.ktor.client.request.*
 
-class UsersServiceImpl(private val http: NotionHttp) : UsersService {
+class UserServiceImpl(private val http: NotionHttp) : UserService {
     override suspend fun list(startCursor: String?, pageSize: Int?): ResultsResponseDto<UserDto> = http.get("users") {
         if (startCursor != null) parameter("start_cursor", startCursor)
         if (pageSize != null) parameter("page_size", pageSize)

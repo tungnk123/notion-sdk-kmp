@@ -7,7 +7,7 @@ import core.data.model.result.NotionDatabaseRow
 import core.data.model.result.NotionResults
 import core.data.model.result.datasource.NotionDataSource
 
-interface DataSourcesRepository {
+interface DataSourceRepository {
     suspend fun create(req: CreateDataSourceRequest): NotionDataSource
     suspend fun update(id: String, req: UpdateDataSourceRequest): NotionDataSource
     suspend fun retrieve(id: String): NotionDataSource

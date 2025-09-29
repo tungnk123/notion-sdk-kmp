@@ -1,4 +1,4 @@
-package core.data.model.internal.request
+package core.data.model.internal.request.database
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

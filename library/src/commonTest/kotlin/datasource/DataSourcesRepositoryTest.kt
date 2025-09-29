@@ -19,10 +19,10 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
-import repository.datasource.DataSourcesRepository
-import repository.datasource.DataSourcesRepositoryImpl
-import service.datasource.DataSourcesService
-import service.datasource.DataSourcesServiceImpl
+import repository.datasource.DataSourceRepository
+import repository.datasource.DataSourceRepositoryImpl
+import service.datasource.DataSourceService
+import service.datasource.DataSourceServiceImpl
 import kotlin.test.*
 
 private class StaticTokenProvider(private val t: String = "x") : TokenProvider {
@@ -66,8 +66,8 @@ class DataSourcesRepositoryTest {
             )
         }
 
-        val service: DataSourcesService = DataSourcesServiceImpl(http)
-        val repo: DataSourcesRepository = DataSourcesRepositoryImpl(service)
+        val service: DataSourceService = DataSourceServiceImpl(http)
+        val repo: DataSourceRepository = DataSourceRepositoryImpl(service)
 
         val ds = repo.retrieve(dsId)
         assertEquals(dsId, ds.id)
@@ -126,7 +126,7 @@ class DataSourcesRepositoryTest {
             )
         }
 
-        val repo = DataSourcesRepositoryImpl(DataSourcesServiceImpl(http))
+        val repo = DataSourceRepositoryImpl(DataSourceServiceImpl(http))
         val created = repo.create(req)
         assertEquals("ds_rollup", created.id)
     }
@@ -162,7 +162,7 @@ class DataSourcesRepositoryTest {
             )
         }
 
-        val repo = DataSourcesRepositoryImpl(DataSourcesServiceImpl(http))
+        val repo = DataSourceRepositoryImpl(DataSourceServiceImpl(http))
         val created = repo.create(req)
         assertEquals("new_ds", created.id)
     }
@@ -269,7 +269,7 @@ class DataSourcesRepositoryTest {
             )
         }
 
-        val repo = DataSourcesRepositoryImpl(DataSourcesServiceImpl(http))
+        val repo = DataSourceRepositoryImpl(DataSourceServiceImpl(http))
         val created = repo.create(req)
         assertEquals("bc1211ca-e3f1-4939-ae34-5260b16f627c", created.id)
     }
@@ -294,7 +294,7 @@ class DataSourcesRepositoryTest {
             )
         }
 
-        val repo = DataSourcesRepositoryImpl(DataSourcesServiceImpl(http))
+        val repo = DataSourceRepositoryImpl(DataSourceServiceImpl(http))
         val res = repo.query(dsId, QueryDataSourceRequest(pageSize = 1))
         assertFalse(res.hasMore)
         assertTrue(res.results.isEmpty())
@@ -364,7 +364,7 @@ class DataSourcesRepositoryTest {
             )
         }
 
-        val repo = DataSourcesRepositoryImpl(DataSourcesServiceImpl(http))
+        val repo = DataSourceRepositoryImpl(DataSourceServiceImpl(http))
         val updated = repo.update(dsId, req)
         assertEquals("bc1211ca-e3f1-4939-ae34-5260b16f627c", updated.id)
     }
@@ -417,7 +417,7 @@ class DataSourcesRepositoryTest {
             )
         }
 
-        val repo = DataSourcesRepositoryImpl(DataSourcesServiceImpl(http))
+        val repo = DataSourceRepositoryImpl(DataSourceServiceImpl(http))
         val dataSource = repo.retrieve(dsId)
 
         assertEquals(dsId, dataSource.id)
