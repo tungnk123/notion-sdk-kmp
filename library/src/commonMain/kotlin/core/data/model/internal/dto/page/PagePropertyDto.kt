@@ -244,4 +244,18 @@ sealed class PagePropertyDto {
     @Serializable
     @SerialName("rollup")
     data class Rollup(override val id: String) : PagePropertyDto()
+
+    @Serializable
+    @SerialName("status")
+    data class Status(
+        override val id: String,
+        val status: StatusValue
+    ) : PagePropertyDto()
+
+    @Serializable
+    data class StatusValue(
+        val id: String? = null,
+        val name: String? = null,
+        val color: String? = null
+    )
 }

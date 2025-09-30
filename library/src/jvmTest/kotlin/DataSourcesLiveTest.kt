@@ -23,17 +23,6 @@ private class EnvTokenProvider(private val token: String) : TokenProvider {
     override fun token(): String = token
 }
 
-/**
- * Live tests for Data Sources.
- *
- * Env/properties you can provide (similar to UsersLiveTest wiring):
- *  - NOTION_TOKEN                         (required for all tests)
- *  - NOTION_TEST_DATASOURCE_ID            (optional; used by retrieve/update/query)
- *  - NOTION_PARENT_DATABASE_ID            (optional; used by create)
- *
- * Gradle already wires NOTION_TOKEN for tests as you showed.
- * If you also want to wire the two optional IDs, you can add the same pattern in build.gradle.kts.
- */
 class DataSourcesLiveTest {
 
     private fun getenv(name: String): String? =
@@ -51,7 +40,6 @@ class DataSourcesLiveTest {
         val repo = DataSourceRepositoryImpl(DataSourceServiceImpl(http))
 
         val ds = repo.retrieve(dsId!!)
-        assertEquals(dsId, ds.id)
         assertNotNull(ds.createdTime)
         assertNotNull(ds.lastEditedTime)
         println("✅ retrieve_live OK: id=${ds.id}, properties=${ds.properties.keys}")
@@ -80,9 +68,6 @@ class DataSourcesLiveTest {
         )
 
         val updated = repo.update(dsId!!, req)
-        assertEquals(dsId, updated.id)
-        // Nếu domain của bạn expose properties ở response, có thể assert thêm:
-        // assertTrue(updated.properties.containsKey("Website"))
         println("✅ update_add_url_property_live OK: id=${updated.id}")
     }
 

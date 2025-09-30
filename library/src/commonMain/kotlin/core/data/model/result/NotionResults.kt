@@ -1,5 +1,6 @@
 package core.data.model.result
 
+import core.data.model.internal.dto.page.PagePropertyDto
 import core.data.model.serializer.NotionResultsTypedSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -199,5 +200,12 @@ sealed class NotionDatabaseProperty {
     @SerialName("rollup")
     data class Rollup(
         override val id: String,
+    ) : NotionDatabaseProperty()
+
+    @Serializable
+    @SerialName("status")
+    data class Status(
+        override val id: String,
+        val status: PagePropertyDto.StatusValue
     ) : NotionDatabaseProperty()
 }

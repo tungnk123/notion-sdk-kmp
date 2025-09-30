@@ -24,6 +24,7 @@ internal fun PagePropertyDto.toDomain(): NotionDatabaseProperty =
         is PagePropertyDto.CreatedBy -> toDomain()
         is PagePropertyDto.LastEditedBy -> toDomain()
         is PagePropertyDto.Rollup -> toDomain()
+        is PagePropertyDto.Status -> toDomain()
     }
 
 internal fun PagePropertyDto.Title.toDomain(): NotionDatabaseProperty.Title =
@@ -185,4 +186,10 @@ internal fun PagePropertyDto.LastEditedTime.toDomain(): NotionDatabaseProperty.L
 internal fun PagePropertyDto.Rollup.toDomain(): NotionDatabaseProperty.Rollup =
     NotionDatabaseProperty.Rollup(
         id = id,
+    )
+
+internal fun PagePropertyDto.Status.toDomain(): NotionDatabaseProperty.Status =
+    NotionDatabaseProperty.Status(
+        id = id,
+        status = status
     )
