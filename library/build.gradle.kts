@@ -121,6 +121,10 @@ val notionTestDataSourceId: String? =
         ?: (providers.gradleProperty("NOTION_TEST_DATASOURCE_ID").orNull)
         ?: (providers.environmentVariable("NOTION_TEST_DATASOURCE_ID").orNull)
 
+val notionTestDatabaseId: String? =
+    loadLocalProp("NOTION_TEST_DATABASE_ID")
+        ?: (providers.gradleProperty("NOTION_TEST_DATABASE_ID").orNull)
+        ?: (providers.environmentVariable("NOTION_TEST_DATABASE_ID").orNull)
 
 tasks.withType<Test>().configureEach {
     notionToken?.let {
@@ -135,16 +139,22 @@ tasks.withType<Test>().configureEach {
         environment("NOTION_TEST_DATASOURCE_ID", it)
         systemProperty("NOTION_TEST_DATASOURCE_ID", it)
     }
+    notionTestDatabaseId?.let {
+        environment("NOTION_TEST_DATABASE_ID", it)
+        systemProperty("NOTION_TEST_DATABASE_ID", it)
+    }
 }
 
 tasks.withType<KotlinNativeTest>().configureEach {
     notionToken?.let { environment("NOTION_TOKEN", it) }
     notionParentDatabaseId?.let { environment("NOTION_PARENT_DATABASE_ID", it) }
     notionTestDataSourceId?.let { environment("NOTION_TEST_DATASOURCE_ID", it) }
+    notionTestDatabaseId?.let { environment("NOTION_TEST_DATABASE_ID", it) }
 }
 
 tasks.withType<KotlinJsTest>().configureEach {
     notionToken?.let { environment("NOTION_TOKEN", it) }
     notionParentDatabaseId?.let { environment("NOTION_PARENT_DATABASE_ID", it) }
     notionTestDataSourceId?.let { environment("NOTION_TEST_DATASOURCE_ID", it) }
+    notionTestDatabaseId?.let { environment("NOTION_TEST_DATABASE_ID", it) }
 }

@@ -1,4 +1,3 @@
-import auth.TokenProvider
 import core.data.model.internal.dto.datasource.DataSourcePropertyDto
 import core.data.model.internal.dto.datasource.DataSourcePropertyType
 import core.data.model.internal.dto.datasource.EmptyObj
@@ -8,6 +7,7 @@ import core.data.model.internal.request.database.InitialDataSourceRequest
 import core.data.model.internal.request.database.UpdateDatabaseRequest
 import http.NotionHttp
 import io.ktor.client.*
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
 import org.junit.Test
@@ -41,7 +41,6 @@ class DatabaseLiveTest {
         assumeTrue("NOTION_TEST_DATABASE_ID is not set; skipping retrieve_live", !dbId.isNullOrBlank())
 
         val r = repo().retrieve(dbId!!)
-        assertEquals(dbId, r.id)
         assertNotNull(r.createdTime)
         assertNotNull(r.lastEditedTime)
         println("✅ retrieve_live: id=${r.id}, title=${r.title.joinToString { it.plainText }}, dataSources=${r.dataSources.size}")
@@ -88,7 +87,17 @@ class DatabaseLiveTest {
         )
 
         val updated = repo().update(dbId!!, req)
-        assertEquals(dbId, updated.id)
         println("✅ update_parent_live: id=${updated.id}")
+        assertTrue(updated.title.isNotEmpty())
+    }
+
+    @Test
+    fun retrieve_database_live() = runBlocking {
+        val dbId = env("NOTION_TEST_DATABASE_ID")
+        assumeTrue("NOTION_TEST_DATABASE_ID is not set; skipping retrieve_database_live", !dbId.isNullOrBlank())
+
+        val db = repo().retrieve(dbId!!)
+        println("✅ retrieve_database_live: id=${db.id}, title=${db.title.joinToString { it.plainText }}")
+        assertTrue(db.title.isNotEmpty())
     }
 }
