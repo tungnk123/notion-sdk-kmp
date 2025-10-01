@@ -15,9 +15,28 @@ sealed class PagePropertyDto {
     ) : PagePropertyDto() {
         @Serializable
         data class Value(
-            @SerialName("plain_text")
-            val plainText: String,
-        )
+            val type: String,
+            val text: Text,
+            val annotations: Annotations,
+            @SerialName("plain_text") val plainText: String,
+            val href: String? = null
+        ) {
+            @Serializable
+            data class Text(
+                val content: String,
+                val link: String? = null
+            )
+
+            @Serializable
+            data class Annotations(
+                val bold: Boolean,
+                val italic: Boolean,
+                val strikethrough: Boolean,
+                val underline: Boolean,
+                val code: Boolean,
+                val color: String
+            )
+        }
 
         fun plainText(): String =
             title.joinToString("") { it.plainText }
@@ -202,13 +221,6 @@ sealed class PagePropertyDto {
         }
     }
 
-    // todo: empty because no samples provided, only the description which is not reliable
-    @Serializable
-    @SerialName("relation")
-    data class Relation(
-        override val id: String,
-    ) : PagePropertyDto()
-
     @Serializable
     @SerialName("created_time")
     data class CreatedTime(
@@ -258,4 +270,59 @@ sealed class PagePropertyDto {
         val name: String? = null,
         val color: String? = null
     )
+
+    @Serializable
+    @SerialName("relation")
+    data class Relation(
+        override val id: String,
+        val relation: List<Ref> = emptyList(),
+        @SerialName("has_more") val hasMore: Boolean? = null
+    ) : PagePropertyDto() {
+        @Serializable
+        data class Ref(val id: String)
+    }
+
+    @Serializable
+    @SerialName("unique_id")
+    data class UniqueId(
+        override val id: String,
+        @SerialName("unique_id") val uniqueId: Value
+    ) : PagePropertyDto() {
+        @Serializable
+        data class Value(
+            val number: Long? = null,
+            val prefix: String? = null
+        )
+    }
+
+    @Serializable
+    @SerialName("verification")
+    data class Verification(
+        override val id: String,
+        val verification: Value
+    ) : PagePropertyDto() {
+        @Serializable
+        data class Value(
+            val state: String,
+            @SerialName("verified_by") val verifiedBy: VerifiedBy? = null,
+            val date: DateRange? = null
+        )
+
+        @Serializable
+        data class VerifiedBy(
+            @SerialName("object") val objectType: String = "user",
+            val id: String,
+            val name: String? = null,
+            @SerialName("avatar_url") val avatarUrl: String? = null,
+            val type: String? = null
+        )
+
+        @Serializable
+        data class DateRange(
+            val start: String? = null,
+            val end: String? = null,
+            @SerialName("time_zone") val timeZone: String? = null
+        )
+    }
+
 }

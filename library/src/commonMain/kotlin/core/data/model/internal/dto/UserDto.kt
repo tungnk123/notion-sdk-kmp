@@ -61,3 +61,9 @@ sealed class UserDto {
         )
     }
 }
+
+@Serializable
+data class PartialUserDto(
+    @SerialName("object") val objectType: String = "user",
+    val id: String
+)
