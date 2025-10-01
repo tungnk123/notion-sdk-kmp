@@ -4,14 +4,14 @@ import auth.TokenProvider
 import core.data.mapper.toDomain
 import core.data.model.NotionApiVersion
 import core.data.model.internal.dto.BlockDto
-import core.data.model.internal.request.database.QueryDatabaseRequest
 import core.data.model.internal.dto.page.PageDto
+import core.data.model.internal.request.database.QueryDatabaseRequest
 import core.data.model.internal.response.ResultsResponseDto
 import core.data.model.internal.response.RetrieveDatabaseResponseDto
 import core.data.model.result.NotionBlock
-import core.data.model.result.NotionDatabaseRow
 import core.data.model.result.NotionDatabaseSchema
 import core.data.model.result.NotionResults
+import core.data.model.result.page.NotionPage
 import http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.request.*
@@ -59,7 +59,7 @@ internal class NotionImpl(
         databaseId: String,
         startCursor: String?,
         pageSize: Int?,
-    ): NotionResults<NotionDatabaseRow> {
+    ): NotionResults<NotionPage> {
         val resp: ResultsResponseDto<PageDto> = http.post(Routes.queryDatabase(databaseId)) {
             setBody(QueryDatabaseRequest(startCursor = startCursor, pageSize = pageSize))
         }
@@ -69,7 +69,7 @@ internal class NotionImpl(
     override suspend fun queryDatabase(
         databaseId: String,
         jsonRequestBody: String,
-    ): NotionResults<NotionDatabaseRow> {
+    ): NotionResults<NotionPage> {
         val resp: ResultsResponseDto<PageDto> = http.post(Routes.queryDatabase(databaseId)) {
             setBody(TextContent(jsonRequestBody, ContentType.Application.Json))
         }

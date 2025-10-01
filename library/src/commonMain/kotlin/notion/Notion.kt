@@ -2,11 +2,11 @@ package notion
 
 import core.data.model.NotionApiVersion
 import core.data.model.result.NotionBlock
-import core.data.model.result.NotionDatabaseRow
 import core.data.model.result.NotionDatabaseSchema
 import core.data.model.result.NotionResults
+import core.data.model.result.page.NotionPage
 import io.ktor.client.*
-import io.ktor.utils.io.core.Closeable
+import io.ktor.utils.io.core.*
 import kotlin.jvm.JvmStatic
 
 interface Notion : Closeable {
@@ -18,12 +18,12 @@ interface Notion : Closeable {
         databaseId: String,
         startCursor: String? = null,
         pageSize: Int? = null,
-    ): NotionResults<NotionDatabaseRow>
+    ): NotionResults<NotionPage>
 
     suspend fun queryDatabase(
         databaseId: String,
         jsonRequestBody: String,
-    ): NotionResults<NotionDatabaseRow>
+    ): NotionResults<NotionPage>
 
     suspend fun retrieveDatabase(databaseId: String): NotionDatabaseSchema
     suspend fun retrieveBlock(blockId: String): NotionBlock
