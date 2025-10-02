@@ -155,6 +155,11 @@ internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
             is NotionBlock.ColumnList,
             is NotionBlock.Unsupported,
             is NotionBlock.Embed,
+            is NotionBlock.Breadcrumb,
+            is NotionBlock.SyncedBlock,
+            is NotionBlock.Table,
+            is NotionBlock.TableRow,
+            is NotionBlock.Template
                 -> null
         }
 
