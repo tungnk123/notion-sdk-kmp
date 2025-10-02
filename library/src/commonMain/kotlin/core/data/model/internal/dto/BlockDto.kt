@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal sealed class BlockDto {
+sealed class BlockDto {
     abstract val id: String
     abstract val archived: Boolean
 

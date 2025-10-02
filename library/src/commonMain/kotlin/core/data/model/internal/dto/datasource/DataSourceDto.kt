@@ -1,5 +1,6 @@
 package core.data.model.internal.dto.datasource
 
+import core.data.model.internal.dto.IconDto
 import core.data.model.internal.dto.richtext.RichTextDto
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
@@ -18,7 +19,7 @@ data class DataSourceDto(
     @SerialName("last_edited_by") val lastEditedBy: PartialUser? = null,
     val title: List<RichTextDto>? = null,
     val description: List<RichTextDto>? = null,
-    val icon: core.data.model.internal.dto.IconDto? = null,
+    val icon: IconDto? = null,
     val cover: CoverDto? = null,
     val archived: Boolean? = null,
     @SerialName("is_inline") val isInline: Boolean? = null,
@@ -30,7 +31,7 @@ data class DataSourceDto(
 data class PartialUser(@SerialName("object") val objectType: String = "user", val id: String)
 
 @Serializable
-sealed class ParentDto {
+public sealed class ParentDto {
     @Serializable
     @SerialName("database_id")
     data class DatabaseId(

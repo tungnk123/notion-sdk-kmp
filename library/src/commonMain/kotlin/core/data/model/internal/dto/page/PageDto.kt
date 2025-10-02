@@ -22,7 +22,7 @@ data class PageDto(
     val parent: ParentDto,
     val archived: Boolean,
     @SerialName("in_trash")
-    val inTrash: Boolean,
+    val inTrash: Boolean = false,
     val properties: Map<String, PagePropertyDto>,
     val url: String,
     @SerialName("public_url")
