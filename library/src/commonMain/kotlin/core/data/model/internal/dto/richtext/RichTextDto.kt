@@ -1,6 +1,6 @@
 package core.data.model.internal.dto.richtext
 
-import core.data.model.internal.dto.UserDto
+import core.data.model.internal.dto.user.UserDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -1,8 +1,8 @@
 package core.data.model.internal.dto.database
 
-import core.data.model.internal.dto.IconDto
-import core.data.model.internal.dto.datasource.CoverDto
-import core.data.model.internal.dto.datasource.ParentDto
+import core.data.model.internal.dto.block.ParentDto
+import core.data.model.internal.dto.common.CoverDto
+import core.data.model.internal.dto.common.IconDto
 import core.data.model.internal.dto.datasource.PartialUser
 import core.data.model.internal.dto.richtext.RichTextDto
 import kotlinx.datetime.Instant

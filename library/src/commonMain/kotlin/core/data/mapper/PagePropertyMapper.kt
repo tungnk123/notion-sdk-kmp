@@ -1,8 +1,8 @@
 package core.data.mapper
 
-import core.data.model.internal.dto.PartialUserDto
+import core.data.model.internal.dto.user.PartialUserDto
 import core.data.model.internal.dto.page.PagePropertyDto
-import core.data.model.result.common.NotionPartialUser
+import core.data.model.result.user.NotionPartialUser
 import core.data.model.result.page.NotionPageProperty
 
 internal fun PagePropertyDto.toPageDomain(): NotionPageProperty =

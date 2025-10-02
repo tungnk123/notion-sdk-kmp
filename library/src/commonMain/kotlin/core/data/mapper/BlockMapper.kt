@@ -1,10 +1,10 @@
 package core.data.mapper
 
-import core.data.model.internal.dto.BlockDto
-import core.data.model.internal.dto.BlockFileValue
+import core.data.model.internal.dto.block.BlockDto
+import core.data.model.internal.dto.block.BlockFileValue
 import core.data.model.internal.dto.richtext.RichTextDto
-import core.data.model.result.NotionBlock
-import core.data.model.result.NotionFile
+import core.data.model.result.block.NotionBlock
+import core.data.model.result.common.NotionFile
 
 internal fun BlockDto.toDomain(): NotionBlock = when (this) {
     is BlockDto.Paragraph -> NotionBlock.Paragraph(

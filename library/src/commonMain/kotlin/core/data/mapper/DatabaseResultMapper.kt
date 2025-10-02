@@ -1,7 +1,7 @@
 package core.data.mapper
 
 import core.data.model.internal.response.ResultsResponseDto
-import core.data.model.result.NotionResults
+import core.data.model.result.common.NotionResults
 
 inline fun <T : Any, R : Any> ResultsResponseDto<T>.toDomain(
     map: (T) -> R

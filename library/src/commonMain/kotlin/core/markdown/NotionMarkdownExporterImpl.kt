@@ -1,9 +1,9 @@
 package core.markdown
 
-import core.data.model.result.NotionBlock
-import core.data.model.result.NotionFile
-import core.data.model.result.NotionFileBlock
-import core.data.model.result.NotionIcon
+import core.data.model.result.block.NotionBlock
+import core.data.model.result.common.NotionFile
+import core.data.model.result.block.NotionFileBlock
+import core.data.model.result.common.NotionIcon
 import core.data.model.result.richtext.NotionRichText
 import core.data.model.result.richtext.NotionRichTextType
 import notion.Notion

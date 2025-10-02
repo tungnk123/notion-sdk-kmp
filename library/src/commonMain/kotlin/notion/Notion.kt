@@ -1,9 +1,9 @@
 package notion
 
 import core.data.model.NotionApiVersion
-import core.data.model.result.NotionBlock
-import core.data.model.result.NotionDatabaseSchema
-import core.data.model.result.NotionResults
+import core.data.model.result.block.NotionBlock
+import core.data.model.result.database.NotionDatabaseSchema
+import core.data.model.result.common.NotionResults
 import core.data.model.result.page.NotionPage
 import io.ktor.client.*
 import io.ktor.utils.io.core.*

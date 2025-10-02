@@ -1,4 +1,4 @@
-package core.data.model.internal.dto
+package core.data.model.internal.dto.user
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

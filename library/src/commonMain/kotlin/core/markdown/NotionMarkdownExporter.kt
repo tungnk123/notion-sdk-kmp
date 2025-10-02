@@ -1,7 +1,7 @@
 package core.markdown
 
 import notion.Notion
-import core.data.model.result.NotionBlock
+import core.data.model.result.block.NotionBlock
 import kotlin.jvm.JvmStatic
 
 @Suppress("KDocUnresolvedReference")

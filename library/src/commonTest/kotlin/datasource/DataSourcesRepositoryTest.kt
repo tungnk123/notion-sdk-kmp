@@ -1,12 +1,8 @@
 package datasource
 
 import auth.TokenProvider
-import core.data.model.internal.dto.datasource.DataSourcePropertyDto
-import core.data.model.internal.dto.datasource.DataSourcePropertyType
-import core.data.model.internal.dto.datasource.EmptyObj
-import core.data.model.internal.dto.datasource.NumberConfig
-import core.data.model.internal.dto.datasource.ParentDto
-import core.data.model.internal.dto.datasource.RollupConfig
+import core.data.model.internal.dto.block.ParentDto
+import core.data.model.internal.dto.datasource.*
 import core.data.model.internal.request.datasource.CreateDataSourceRequest
 import core.data.model.internal.request.datasource.QueryDataSourceRequest
 import core.data.model.internal.request.datasource.UpdateDataSourceRequest

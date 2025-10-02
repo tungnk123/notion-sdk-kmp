@@ -1,8 +1,8 @@
 package core.data.model.internal.request.datasource
 
-import core.data.model.internal.dto.IconDto
+import core.data.model.internal.dto.block.ParentDto
+import core.data.model.internal.dto.common.IconDto
 import core.data.model.internal.dto.datasource.DataSourcePropertyDto
-import core.data.model.internal.dto.datasource.ParentDto
 import core.data.model.internal.dto.richtext.RichTextDto
 import kotlinx.serialization.Serializable
 

@@ -1,6 +1,6 @@
 package core.data.mapper
 
-import core.data.model.internal.dto.datasource.ParentDto
+import core.data.model.internal.dto.block.ParentDto
 import core.data.model.internal.dto.page.PageDto
 import core.data.model.result.page.NotionPage
 

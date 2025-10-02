@@ -1,5 +1,5 @@
-import core.data.model.internal.dto.IconDto
-import core.data.model.internal.dto.datasource.ParentDto
+import core.data.model.internal.dto.block.ParentDto
+import core.data.model.internal.dto.common.IconDto
 import core.data.model.internal.dto.page.PagePropertyDto
 import core.data.model.internal.request.page.CreatePageRequest
 import core.data.model.internal.request.page.UpdatePageRequest

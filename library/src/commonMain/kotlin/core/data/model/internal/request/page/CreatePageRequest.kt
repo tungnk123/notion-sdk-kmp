@@ -1,11 +1,10 @@
 package core.data.model.internal.request.page
 
-import core.data.model.internal.dto.BlockDto
-import core.data.model.internal.dto.IconDto
-import core.data.model.internal.dto.datasource.CoverDto
-import core.data.model.internal.dto.datasource.ParentDto
+import core.data.model.internal.dto.block.BlockDto
+import core.data.model.internal.dto.block.ParentDto
+import core.data.model.internal.dto.common.CoverDto
+import core.data.model.internal.dto.common.IconDto
 import core.data.model.internal.dto.page.PagePropertyDto
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable

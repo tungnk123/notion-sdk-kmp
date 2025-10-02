@@ -1,9 +1,9 @@
 package core.data.model.result.database
 
-import core.data.model.result.NotionIcon
+import core.data.model.result.common.NotionIcon
 import core.data.model.result.common.NotionCover
 import core.data.model.result.common.NotionParent
-import core.data.model.result.common.NotionPartialUser
+import core.data.model.result.user.NotionPartialUser
 import core.data.model.result.richtext.NotionRichText
 import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable

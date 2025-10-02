@@ -1,8 +1,8 @@
 package users
 
 import auth.TokenProvider
-import core.data.model.result.NotionResults
-import core.data.model.result.NotionUser
+import core.data.model.result.common.NotionResults
+import core.data.model.result.user.NotionUser
 import http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*

@@ -1,9 +1,9 @@
 package repository.user
 
 import core.data.mapper.toDomain
-import core.data.model.internal.dto.UserDto
-import core.data.model.result.NotionResults
-import core.data.model.result.NotionUser
+import core.data.model.internal.dto.user.UserDto
+import core.data.model.result.common.NotionResults
+import core.data.model.result.user.NotionUser
 import service.user.UserService
 
 class UserRepositoryImpl(private val userService: UserService) : UserRepository {

@@ -1,9 +1,11 @@
 package core.data.mapper
 
+import core.data.model.internal.dto.block.ParentDto
+import core.data.model.internal.dto.common.CoverDto
 import core.data.model.internal.dto.datasource.*
 import core.data.model.result.common.NotionCover
 import core.data.model.result.common.NotionParent
-import core.data.model.result.common.NotionPartialUser
+import core.data.model.result.user.NotionPartialUser
 import core.data.model.result.datasource.NotionDataSource
 import core.data.model.result.datasource.NotionDataSourceProperty
 import core.data.model.result.datasource.NotionDataSourceProperty.*

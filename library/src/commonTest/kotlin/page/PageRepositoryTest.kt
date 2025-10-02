@@ -1,7 +1,7 @@
 package page
 
 import auth.TokenProvider
-import core.data.model.internal.dto.datasource.ParentDto
+import core.data.model.internal.dto.block.ParentDto
 import core.data.model.internal.dto.page.PagePropertyDto
 import core.data.model.internal.request.page.CreatePageRequest
 import core.data.model.internal.request.page.UpdatePageRequest
@@ -20,7 +20,10 @@ import repository.page.PageRepository
 import repository.page.PageRepositoryImpl
 import service.page.PageService
 import service.page.PageServiceImpl
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 private class StaticTokenProvider(private val t: String = "x") : TokenProvider {
     override fun token(): String = t

@@ -1,6 +1,8 @@
 package core.data.model.internal.dto.datasource
 
-import core.data.model.internal.dto.IconDto
+import core.data.model.internal.dto.block.ParentDto
+import core.data.model.internal.dto.common.CoverDto
+import core.data.model.internal.dto.common.IconDto
 import core.data.model.internal.dto.richtext.RichTextDto
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
@@ -29,55 +31,3 @@ data class DataSourceDto(
 
 @Serializable
 data class PartialUser(@SerialName("object") val objectType: String = "user", val id: String)
-
-@Serializable
-public sealed class ParentDto {
-    @Serializable
-    @SerialName("database_id")
-    data class DatabaseId(
-        @SerialName("database_id") val databaseId: String
-    ) : ParentDto()
-
-    @Serializable
-    @SerialName("data_source_id")
-    data class DataSourceId(
-        @SerialName("data_source_id") val dataSourceId: String
-    ) : ParentDto()
-
-    @Serializable
-    @SerialName("page_id")
-    data class PageId(
-        @SerialName("page_id") val pageId: String
-    ) : ParentDto()
-
-    @Serializable
-    @SerialName("block_id")
-    data class BlockId(
-        @SerialName("block_id") val blockId: String
-    ) : ParentDto()
-
-    @Serializable
-    @SerialName("workspace")
-    data class Workspace(
-        @SerialName("workspace") val workspace: Boolean = true
-    ) : ParentDto()
-}
-
-@Serializable
-sealed class CoverDto {
-    @Serializable
-    @SerialName("file")
-    data class File(val file: FileRef) : CoverDto()
-
-    @Serializable
-    @SerialName("external")
-    data class External(val external: ExternalFileRef) : CoverDto()
-}
-
-@Serializable
-data class FileRef(
-    val url: String, @SerialName("expiry_time") val expiryTime: String? = null
-)
-
-@Serializable
-data class ExternalFileRef(val url: String)

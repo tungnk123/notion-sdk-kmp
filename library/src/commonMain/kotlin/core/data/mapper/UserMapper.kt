@@ -1,7 +1,7 @@
 package core.data.mapper
 
-import core.data.model.internal.dto.UserDto
-import core.data.model.result.NotionUser
+import core.data.model.internal.dto.user.UserDto
+import core.data.model.result.user.NotionUser
 
 fun UserDto.toDomain(): NotionUser {
     return when (this) {

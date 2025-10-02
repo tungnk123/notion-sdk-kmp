@@ -1,6 +1,6 @@
 package core.data.model.serializer
 
-import core.data.model.result.NotionResults
+import core.data.model.result.common.NotionResults
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException

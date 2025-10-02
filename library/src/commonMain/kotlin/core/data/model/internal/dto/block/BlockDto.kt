@@ -1,11 +1,12 @@
-package core.data.model.result
+package core.data.model.internal.dto.block
 
-import core.data.model.result.richtext.NotionRichText
+import core.data.model.internal.dto.common.IconDto
+import core.data.model.internal.dto.richtext.RichTextDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-sealed class NotionBlock {
+sealed class BlockDto {
     abstract val id: String
     abstract val archived: Boolean
 
@@ -20,304 +21,413 @@ sealed class NotionBlock {
 
     @SerialName("paragraph")
     @Serializable
-    data class Paragraph(
+    internal data class Paragraph(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-    ) : NotionBlock()
+        val paragraph: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+        )
+    }
 
     @SerialName("code")
     @Serializable
-    data class Code(
+    internal data class Code(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-        val language: String,
-    ) : NotionBlock()
+        val code: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+            val language: String,
+        )
+    }
 
     @SerialName("heading_1")
     @Serializable
-    data class HeadingOne(
+    internal data class HeadingOne(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-    ) : NotionBlock()
+        @SerialName("heading_1") val heading: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+        )
+    }
 
     @SerialName("heading_2")
     @Serializable
-    data class HeadingTwo(
+    internal data class HeadingTwo(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-    ) : NotionBlock()
+        @SerialName("heading_2") val heading: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+        )
+    }
 
     @SerialName("heading_3")
     @Serializable
-    data class HeadingThree(
+    internal data class HeadingThree(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-    ) : NotionBlock()
+        @SerialName("heading_3") val heading: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+        )
+    }
 
     @SerialName("bulleted_list_item")
     @Serializable
-    data class BulletedListItem(
+    internal data class BulletedListItem(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-    ) : NotionBlock()
+        @SerialName("bulleted_list_item") val bulletedListItem: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+        )
+    }
 
     @SerialName("numbered_list_item")
     @Serializable
-    data class NumberedListItem(
+    internal data class NumberedListItem(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-    ) : NotionBlock()
+        @SerialName("numbered_list_item") val numberedListItem: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+        )
+    }
 
     @SerialName("to_do")
     @Serializable
-    data class ToDo(
+    internal data class ToDo(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-        val checked: Boolean,
-    ) : NotionBlock()
+        @SerialName("to_do") val todo: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+            val checked: Boolean,
+        )
+    }
 
     @SerialName("toggle")
     @Serializable
-    data class Toggle(
+    internal data class Toggle(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-    ) : NotionBlock()
+        val toggle: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+        )
+    }
 
     @SerialName("child_page")
     @Serializable
-    data class ChildPage(
+    internal data class ChildPage(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val title: String,
-    ) : NotionBlock()
+        @SerialName("child_page") val childPage: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            val title: String,
+        )
+    }
 
     @SerialName("child_database")
     @Serializable
-    data class ChildDatabase(
+    internal data class ChildDatabase(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val title: String,
-    ) : NotionBlock()
+        @SerialName("child_database") val childDatabase: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            val title: String,
+        )
+    }
 
     // todo: actually handled by "bookmark"
     @SerialName("embed")
     @Serializable
-    data class Embed(
+    internal data class Embed(
         override val id: String,
         override val archived: Boolean,
         override val createdTime: String,
         override val lastEditedTime: String,
         override val hasChildren: Boolean,
-    ) : NotionBlock()
+    ) : BlockDto()
 
     @SerialName("image")
     @Serializable
-    data class Image(
+    internal data class Image(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-        override val file: NotionFile,
-    ) : NotionBlock(), NotionFileBlock
+
+        val image: BlockFileValue,
+    ) : BlockDto()
 
     @SerialName("video")
     @Serializable
-    data class Video(
+    internal data class Video(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-        override val file: NotionFile,
-    ) : NotionBlock(), NotionFileBlock
+
+        val video: BlockFileValue,
+    ) : BlockDto()
 
     @SerialName("file")
     @Serializable
-    data class File(
+    internal data class File(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-        override val file: NotionFile,
-    ) : NotionBlock(), NotionFileBlock
+
+        val file: BlockFileValue,
+    ) : BlockDto()
 
     @SerialName("pdf")
     @Serializable
-    data class Pdf(
+    internal data class Pdf(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-        override val file: NotionFile,
-    ) : NotionBlock(), NotionFileBlock
+
+        val pdf: BlockFileValue,
+    ) : BlockDto()
 
     @SerialName("bookmark")
     @Serializable
-    data class Bookmark(
+    internal data class Bookmark(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val caption: List<NotionRichText>,
-        val url: String,
-    ) : NotionBlock()
+        val bookmark: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            val caption: List<RichTextDto>,
+            val url: String,
+        )
+    }
 
     @SerialName("callout")
     @Serializable
-    data class Callout(
+    internal data class Callout(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val text: List<NotionRichText>,
-        val icon: NotionIcon,
-    ) : NotionBlock()
+        val callout: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+            val iconDto: IconDto,
+        )
+    }
 
     @SerialName("quote")
     @Serializable
-    data class Quote(
+    internal data class Quote(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-        val text: List<NotionRichText>,
-    ) : NotionBlock()
+
+        val quote: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val text: List<RichTextDto>,
+        )
+    }
 
     @SerialName("equation")
     @Serializable
-    data class Equation(
+    internal data class Equation(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
 
-        val expression: String,
-    ) : NotionBlock()
+        val equation: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(val expression: String)
+    }
 
     @SerialName("divider")
     @Serializable
-    data class Divider(
+    internal data class Divider(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : NotionBlock()
+    ) : BlockDto()
 
     @SerialName("table_of_contents")
     @Serializable
-    data class TableOfContents(
+    internal data class TableOfContents(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : NotionBlock()
+    ) : BlockDto()
 
     @SerialName("column")
     @Serializable
-    data class Column(
+    internal data class Column(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : NotionBlock()
+    ) : BlockDto()
 
     @SerialName("column_list")
     @Serializable
-    data class ColumnList(
+    internal data class ColumnList(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : NotionBlock()
+    ) : BlockDto()
 
     @SerialName("link_preview")
     @Serializable
-    data class LinkPreview(
+    internal data class LinkPreview(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-        val url: String,
-    ) : NotionBlock()
+
+        @SerialName("link_preview") val linkPreview: Value,
+    ) : BlockDto() {
+
+        @Serializable
+        internal data class Value(
+            val url: String,
+        )
+    }
 
     @SerialName("unsupported")
     @Serializable
-    data class Unsupported(
+    internal data class Unsupported(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-    ) : NotionBlock()
+    ) : BlockDto()
 }
 
-interface NotionFileBlock {
-    val file: NotionFile
+@Serializable
+internal data class BlockFileValue(
+    val caption: List<RichTextDto>,
+    val file: FileInternal? = null,
+    val external: FileExternal? = null,
+) {
+    @Serializable
+    internal data class FileInternal(
+        val url: String,
+        @SerialName("expiry_time") val expiryTime: String,
+    )
+
+    @Serializable
+    internal data class FileExternal(
+        val url: String,
+    )
 }

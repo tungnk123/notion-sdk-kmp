@@ -1,6 +1,6 @@
 package service.user
 
-import core.data.model.internal.dto.UserDto
+import core.data.model.internal.dto.user.UserDto
 import core.data.model.internal.response.ResultsResponseDto
 
 interface UserService {

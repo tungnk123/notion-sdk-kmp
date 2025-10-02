@@ -1,8 +1,8 @@
 package core.data.model.internal.dto.page
 
-import core.data.model.internal.dto.IconDto
-import core.data.model.internal.dto.PartialUserDto
-import core.data.model.internal.dto.datasource.ParentDto
+import core.data.model.internal.dto.block.ParentDto
+import core.data.model.internal.dto.common.IconDto
+import core.data.model.internal.dto.user.PartialUserDto
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

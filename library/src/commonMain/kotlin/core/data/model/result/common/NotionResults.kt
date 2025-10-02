@@ -1,4 +1,4 @@
-package core.data.model.result
+package core.data.model.result.common
 
 import core.data.model.serializer.NotionResultsTypedSerializer
 import kotlinx.serialization.SerialName

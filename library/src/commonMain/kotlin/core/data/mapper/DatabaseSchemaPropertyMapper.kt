@@ -1,7 +1,7 @@
 package core.data.mapper
 
 import core.data.model.internal.response.RetrieveDatabaseSchemaPropertyDto
-import core.data.model.result.NotionDatabasePropertySchema
+import core.data.model.result.database.NotionDatabasePropertySchema
 
 internal fun RetrieveDatabaseSchemaPropertyDto.toDomain(): NotionDatabasePropertySchema = when (this) {
     is RetrieveDatabaseSchemaPropertyDto.Title -> toDomain()

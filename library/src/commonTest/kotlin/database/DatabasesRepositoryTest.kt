@@ -1,9 +1,9 @@
 package database
 
 import auth.TokenProvider
+import core.data.model.internal.dto.block.ParentDto
 import core.data.model.internal.dto.datasource.DataSourcePropertyDto
 import core.data.model.internal.dto.datasource.DataSourcePropertyType
-import core.data.model.internal.dto.datasource.ParentDto
 import core.data.model.internal.request.database.CreateDatabaseRequest
 import core.data.model.internal.request.database.InitialDataSourceRequest
 import core.data.model.internal.request.database.UpdateDatabaseRequest

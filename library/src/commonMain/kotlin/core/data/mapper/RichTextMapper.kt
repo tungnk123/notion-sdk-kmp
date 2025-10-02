@@ -13,42 +13,46 @@ fun RichTextDto.toDomain(): NotionRichText = when (this) {
     is RichTextDto.Text -> NotionRichText.Text(
         plainText = plainText,
         url = href,
-        type = type.toDomain(), annotations = annotations.toDomain()
+        type = type.toDomain(),
+        annotations = annotations.toDomain()
     )
 
-    is RichTextDto.Mention -> when (val v = mention) {
+    is RichTextDto.Mention -> when (val value = mention) {
         is RichTextDto.Mention.Value.User -> NotionRichText.Mention.User(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
-            annotations = annotations.toDomain(), user = v.user.toDomain()
+            annotations = annotations.toDomain(),
+            user = value.user.toDomain()
         )
 
         is RichTextDto.Mention.Value.Page -> NotionRichText.Mention.Page(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
-            annotations = annotations.toDomain(), id = v.page.id
+            annotations = annotations.toDomain(),
+            id = value.page.id
         )
 
         is RichTextDto.Mention.Value.Database -> NotionRichText.Mention.Database(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
-            annotations = annotations.toDomain(), id = v.database.id
+            annotations = annotations.toDomain(),
+            id = value.database.id
         )
 
         is RichTextDto.Mention.Value.Date -> NotionRichText.Mention.Date(
             plainText = plainText,
             url = href,
             type = type.toDomain(),
-            annotations = annotations.toDomain(), start = v.date.start, end = v.date.end
+            annotations = annotations.toDomain(),
+            start = value.date.start,
+            end = value.date.end
         )
 
         is RichTextDto.Mention.Value.LinkPreview -> NotionRichText.Mention.LinkPreview(
-            plainText = plainText,
-            url = href,
-            type = type.toDomain(), annotations = annotations.toDomain()
+            plainText = plainText, url = href, type = type.toDomain(), annotations = annotations.toDomain()
         )
     }
 
@@ -56,7 +60,8 @@ fun RichTextDto.toDomain(): NotionRichText = when (this) {
         plainText = plainText,
         url = href,
         type = type.toDomain(),
-        annotations = annotations.toDomain(), expression = equation.expression
+        annotations = annotations.toDomain(),
+        expression = equation.expression
     )
 }
 
@@ -71,7 +76,8 @@ fun RichTextAnnotations.toDomain(): NotionRichTextAnnotations = NotionRichTextAn
     italic = italic,
     strikethrough = strikethrough,
     underline = underline,
-    code = code, color = color.toDomain()
+    code = code,
+    color = color.toDomain()
 )
 
 fun RichTextColor.toDomain(): NotionRichTextColor = when (this) {

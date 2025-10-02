@@ -1,7 +1,7 @@
 package core.data.model.internal.request.page
 
-import core.data.model.internal.dto.IconDto
-import core.data.model.internal.dto.datasource.CoverDto
+import core.data.model.internal.dto.common.CoverDto
+import core.data.model.internal.dto.common.IconDto
 import core.data.model.internal.dto.page.PagePropertyDto
 import kotlinx.serialization.Serializable
 

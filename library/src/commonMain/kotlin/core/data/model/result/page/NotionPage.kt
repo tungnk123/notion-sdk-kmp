@@ -1,8 +1,7 @@
 package core.data.model.result.page
 
-import core.data.model.result.NotionIcon
-import core.data.model.result.NotionUser
-import core.data.model.result.common.NotionPartialUser
+import core.data.model.result.common.NotionIcon
+import core.data.model.result.user.NotionPartialUser
 
 data class NotionPage(
     val id: String,

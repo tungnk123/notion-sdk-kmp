@@ -1,7 +1,7 @@
+import core.data.model.internal.dto.block.ParentDto
 import core.data.model.internal.dto.datasource.DataSourcePropertyDto
 import core.data.model.internal.dto.datasource.DataSourcePropertyType
 import core.data.model.internal.dto.datasource.EmptyObj
-import core.data.model.internal.dto.datasource.ParentDto
 import core.data.model.internal.request.database.CreateDatabaseRequest
 import core.data.model.internal.request.database.InitialDataSourceRequest
 import core.data.model.internal.request.database.UpdateDatabaseRequest
@@ -15,7 +15,6 @@ import repository.database.DatabaseRepository
 import repository.database.DatabaseRepositoryImpl
 import service.database.DatabaseService
 import service.database.DatabaseServiceImpl
-import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 class DatabaseLiveTest {
