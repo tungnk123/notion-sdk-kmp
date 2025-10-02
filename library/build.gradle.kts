@@ -148,7 +148,7 @@ tasks.withType<Test>().configureEach {
         environment("NOTION_TEST_DATABASE_ID", it)
         systemProperty("NOTION_TEST_DATABASE_ID", it)
     }
-    notionTestDatabaseId?.let {
+    notionTestPageId?.let {
         environment("NOTION_TEST_PAGE_ID", it)
         systemProperty("NOTION_TEST_PAGE_ID", it)
     }
@@ -159,7 +159,7 @@ tasks.withType<KotlinNativeTest>().configureEach {
     notionParentDatabaseId?.let { environment("NOTION_PARENT_DATABASE_ID", it) }
     notionTestDataSourceId?.let { environment("NOTION_TEST_DATASOURCE_ID", it) }
     notionTestDatabaseId?.let { environment("NOTION_TEST_DATABASE_ID", it) }
-    notionTestDatabaseId?.let { environment("NOTION_TEST_PAGE_ID", it) }
+    notionTestPageId?.let { environment("NOTION_TEST_PAGE_ID", it) }
 }
 
 tasks.withType<KotlinJsTest>().configureEach {
@@ -167,5 +167,5 @@ tasks.withType<KotlinJsTest>().configureEach {
     notionParentDatabaseId?.let { environment("NOTION_PARENT_DATABASE_ID", it) }
     notionTestDataSourceId?.let { environment("NOTION_TEST_DATASOURCE_ID", it) }
     notionTestDatabaseId?.let { environment("NOTION_TEST_DATABASE_ID", it) }
-    notionTestDatabaseId?.let { environment("NOTION_TEST_PAGE_ID", it) }
+    notionTestPageId?.let { environment("NOTION_TEST_PAGE_ID", it) }
 }
