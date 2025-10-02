@@ -27,13 +27,12 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val paragraph: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            val color: String? = null,
         )
     }
 
@@ -45,14 +44,13 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val code: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
             val language: String,
+            val caption: List<RichTextDto> = emptyList(),
         )
     }
 
@@ -64,13 +62,13 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         @SerialName("heading_1") val heading: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            val color: String? = null,
+            @SerialName("is_toggleable") val isToggleable: Boolean? = null,
         )
     }
 
@@ -82,13 +80,13 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         @SerialName("heading_2") val heading: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            val color: String? = null,
+            @SerialName("is_toggleable") val isToggleable: Boolean? = null,
         )
     }
 
@@ -100,13 +98,13 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         @SerialName("heading_3") val heading: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            val color: String? = null,
+            @SerialName("is_toggleable") val isToggleable: Boolean? = null,
         )
     }
 
@@ -118,13 +116,12 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         @SerialName("bulleted_list_item") val bulletedListItem: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            val color: String? = null,
         )
     }
 
@@ -136,13 +133,12 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         @SerialName("numbered_list_item") val numberedListItem: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            val color: String? = null,
         )
     }
 
@@ -154,14 +150,13 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         @SerialName("to_do") val todo: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
             val checked: Boolean,
+            val color: String? = null,
         )
     }
 
@@ -173,13 +168,47 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val toggle: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(
-            val text: List<RichTextDto>,
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            val color: String? = null,
+        )
+    }
+
+    @SerialName("quote")
+    @Serializable
+    internal data class Quote(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val quote: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            val color: String? = null,
+        )
+    }
+
+    @SerialName("callout")
+    @Serializable
+    internal data class Callout(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val callout: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            @SerialName("rich_text") val richText: List<RichTextDto>,
+            @SerialName("icon") val iconDto: IconDto? = null,
+            val color: String? = null,
         )
     }
 
@@ -194,9 +223,7 @@ sealed class BlockDto {
         @SerialName("child_page") val childPage: Value,
     ) : BlockDto() {
         @Serializable
-        internal data class Value(
-            val title: String,
-        )
+        internal data class Value(val title: String)
     }
 
     @SerialName("child_database")
@@ -210,21 +237,25 @@ sealed class BlockDto {
         @SerialName("child_database") val childDatabase: Value,
     ) : BlockDto() {
         @Serializable
-        internal data class Value(
-            val title: String,
-        )
+        internal data class Value(val title: String)
     }
 
-    // todo: actually handled by "bookmark"
     @SerialName("embed")
     @Serializable
     internal data class Embed(
         override val id: String,
         override val archived: Boolean,
-        override val createdTime: String,
-        override val lastEditedTime: String,
-        override val hasChildren: Boolean,
-    ) : BlockDto()
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val embed: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            val url: String,
+            val caption: List<RichTextDto> = emptyList(),
+        )
+    }
 
     @SerialName("image")
     @Serializable
@@ -234,7 +265,6 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val image: BlockFileValue,
     ) : BlockDto()
 
@@ -246,7 +276,6 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val video: BlockFileValue,
     ) : BlockDto()
 
@@ -258,7 +287,6 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val file: BlockFileValue,
     ) : BlockDto()
 
@@ -270,7 +298,6 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val pdf: BlockFileValue,
     ) : BlockDto()
 
@@ -282,50 +309,12 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val bookmark: Value,
     ) : BlockDto() {
         @Serializable
         internal data class Value(
-            val caption: List<RichTextDto>,
             val url: String,
-        )
-    }
-
-    @SerialName("callout")
-    @Serializable
-    internal data class Callout(
-        override val id: String,
-        override val archived: Boolean,
-        @SerialName("created_time") override val createdTime: String,
-        @SerialName("last_edited_time") override val lastEditedTime: String,
-        @SerialName("has_children") override val hasChildren: Boolean,
-
-        val callout: Value,
-    ) : BlockDto() {
-
-        @Serializable
-        internal data class Value(
-            val text: List<RichTextDto>,
-            val iconDto: IconDto,
-        )
-    }
-
-    @SerialName("quote")
-    @Serializable
-    internal data class Quote(
-        override val id: String,
-        override val archived: Boolean,
-        @SerialName("created_time") override val createdTime: String,
-        @SerialName("last_edited_time") override val lastEditedTime: String,
-        @SerialName("has_children") override val hasChildren: Boolean,
-
-        val quote: Value,
-    ) : BlockDto() {
-
-        @Serializable
-        internal data class Value(
-            val text: List<RichTextDto>,
+            val caption: List<RichTextDto> = emptyList(),
         )
     }
 
@@ -337,10 +326,8 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val equation: Value,
     ) : BlockDto() {
-
         @Serializable
         internal data class Value(val expression: String)
     }
@@ -363,6 +350,7 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
+        val color: String? = null,
     ) : BlockDto()
 
     @SerialName("column")
@@ -393,14 +381,10 @@ sealed class BlockDto {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         @SerialName("link_preview") val linkPreview: Value,
     ) : BlockDto() {
-
         @Serializable
-        internal data class Value(
-            val url: String,
-        )
+        internal data class Value(val url: String)
     }
 
     @SerialName("unsupported")
@@ -416,7 +400,7 @@ sealed class BlockDto {
 
 @Serializable
 internal data class BlockFileValue(
-    val caption: List<RichTextDto>,
+    val caption: List<RichTextDto> = emptyList(),
     val file: FileInternal? = null,
     val external: FileExternal? = null,
 ) {
@@ -425,9 +409,6 @@ internal data class BlockFileValue(
         val url: String,
         @SerialName("expiry_time") val expiryTime: String,
     )
-
     @Serializable
-    internal data class FileExternal(
-        val url: String,
-    )
+    internal data class FileExternal(val url: String)
 }

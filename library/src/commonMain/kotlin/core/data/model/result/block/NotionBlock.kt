@@ -1,5 +1,6 @@
 package core.data.model.result.block
 
+import core.data.model.internal.dto.block.BlockDto
 import core.data.model.result.common.NotionFile
 import core.data.model.result.common.NotionIcon
 import core.data.model.result.richtext.NotionRichText
@@ -10,15 +11,9 @@ import kotlinx.serialization.Serializable
 sealed class NotionBlock {
     abstract val id: String
     abstract val archived: Boolean
-
-    @SerialName("created_time")
-    abstract val createdTime: String
-
-    @SerialName("last_edited_time")
-    abstract val lastEditedTime: String
-
-    @SerialName("has_children")
-    abstract val hasChildren: Boolean
+    @SerialName("created_time") abstract val createdTime: String
+    @SerialName("last_edited_time") abstract val lastEditedTime: String
+    @SerialName("has_children") abstract val hasChildren: Boolean
 
     @SerialName("paragraph")
     @Serializable
@@ -28,8 +23,8 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
+        val richText: List<NotionRichText>,
+        val color: String? = null,
     ) : NotionBlock()
 
     @SerialName("code")
@@ -40,9 +35,9 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
+        val richText: List<NotionRichText>,
         val language: String,
+        val caption: List<NotionRichText> = emptyList(),
     ) : NotionBlock()
 
     @SerialName("heading_1")
@@ -53,8 +48,9 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
+        val richText: List<NotionRichText>,
+        val color: String? = null,
+        val isToggleable: Boolean? = null,
     ) : NotionBlock()
 
     @SerialName("heading_2")
@@ -65,8 +61,9 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
+        val richText: List<NotionRichText>,
+        val color: String? = null,
+        val isToggleable: Boolean? = null,
     ) : NotionBlock()
 
     @SerialName("heading_3")
@@ -77,8 +74,9 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
+        val richText: List<NotionRichText>,
+        val color: String? = null,
+        val isToggleable: Boolean? = null,
     ) : NotionBlock()
 
     @SerialName("bulleted_list_item")
@@ -89,8 +87,8 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
+        val richText: List<NotionRichText>,
+        val color: String? = null,
     ) : NotionBlock()
 
     @SerialName("numbered_list_item")
@@ -101,8 +99,8 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
+        val richText: List<NotionRichText>,
+        val color: String? = null,
     ) : NotionBlock()
 
     @SerialName("to_do")
@@ -113,9 +111,9 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
+        val richText: List<NotionRichText>,
         val checked: Boolean,
+        val color: String? = null,
     ) : NotionBlock()
 
     @SerialName("toggle")
@@ -126,8 +124,33 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
+        val richText: List<NotionRichText>,
+        val color: String? = null,
+    ) : NotionBlock()
 
-        val text: List<NotionRichText>,
+    @SerialName("quote")
+    @Serializable
+    data class Quote(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val richText: List<NotionRichText>,
+        val color: String? = null,
+    ) : NotionBlock()
+
+    @SerialName("callout")
+    @Serializable
+    data class Callout(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val richText: List<NotionRichText>,
+        val icon: NotionIcon? = null,
+        val color: String? = null,
     ) : NotionBlock()
 
     @SerialName("child_page")
@@ -138,7 +161,6 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val title: String,
     ) : NotionBlock()
 
@@ -150,19 +172,19 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val title: String,
     ) : NotionBlock()
 
-    // todo: actually handled by "bookmark"
     @SerialName("embed")
     @Serializable
     data class Embed(
         override val id: String,
         override val archived: Boolean,
-        override val createdTime: String,
-        override val lastEditedTime: String,
-        override val hasChildren: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val url: String,
+        val caption: List<NotionRichText> = emptyList(),
     ) : NotionBlock()
 
     @SerialName("image")
@@ -217,33 +239,8 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
-        val caption: List<NotionRichText>,
         val url: String,
-    ) : NotionBlock()
-
-    @SerialName("callout")
-    @Serializable
-    data class Callout(
-        override val id: String,
-        override val archived: Boolean,
-        @SerialName("created_time") override val createdTime: String,
-        @SerialName("last_edited_time") override val lastEditedTime: String,
-        @SerialName("has_children") override val hasChildren: Boolean,
-
-        val text: List<NotionRichText>,
-        val icon: NotionIcon,
-    ) : NotionBlock()
-
-    @SerialName("quote")
-    @Serializable
-    data class Quote(
-        override val id: String,
-        override val archived: Boolean,
-        @SerialName("created_time") override val createdTime: String,
-        @SerialName("last_edited_time") override val lastEditedTime: String,
-        @SerialName("has_children") override val hasChildren: Boolean,
-        val text: List<NotionRichText>,
+        val caption: List<NotionRichText> = emptyList(),
     ) : NotionBlock()
 
     @SerialName("equation")
@@ -254,7 +251,6 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
-
         val expression: String,
     ) : NotionBlock()
 
@@ -276,6 +272,7 @@ sealed class NotionBlock {
         @SerialName("created_time") override val createdTime: String,
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
+        val color: String? = null,
     ) : NotionBlock()
 
     @SerialName("column")
@@ -311,7 +308,7 @@ sealed class NotionBlock {
 
     @SerialName("unsupported")
     @Serializable
-    data class Unsupported(
+    internal data class Unsupported(
         override val id: String,
         override val archived: Boolean,
         @SerialName("created_time") override val createdTime: String,
@@ -320,6 +317,4 @@ sealed class NotionBlock {
     ) : NotionBlock()
 }
 
-interface NotionFileBlock {
-    val file: NotionFile
-}
+interface NotionFileBlock { val file: NotionFile }

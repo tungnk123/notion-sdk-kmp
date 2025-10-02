@@ -98,25 +98,25 @@ internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
         numberedListItemIndex: Int?,
     ): String? =
         when (this) {
-            is NotionBlock.Paragraph -> text.toMarkdown(settings)
+            is NotionBlock.Paragraph -> richText.toMarkdown(settings)
             is NotionBlock.Code -> {
                 val codeLang = if (language == "plain text") "" else language
-                val codeText = text.toMarkdown(settings)
+                val codeText = richText.toMarkdown(settings)
 
                 "```$codeLang\n${codeText}\n```"
             }
 
-            is NotionBlock.HeadingOne -> "# ${text.toMarkdown(settings)}"
-            is NotionBlock.HeadingTwo -> "## ${text.toMarkdown(settings)}"
-            is NotionBlock.HeadingThree -> "### ${text.toMarkdown(settings)}"
-            is NotionBlock.BulletedListItem -> "- ${text.toMarkdown(settings)}"
-            is NotionBlock.NumberedListItem -> "$numberedListItemIndex. ${text.toMarkdown(settings)}"
+            is NotionBlock.HeadingOne -> "# ${richText.toMarkdown(settings)}"
+            is NotionBlock.HeadingTwo -> "## ${richText.toMarkdown(settings)}"
+            is NotionBlock.HeadingThree -> "### ${richText.toMarkdown(settings)}"
+            is NotionBlock.BulletedListItem -> "- ${richText.toMarkdown(settings)}"
+            is NotionBlock.NumberedListItem -> "$numberedListItemIndex. ${richText.toMarkdown(settings)}"
             is NotionBlock.ToDo -> {
-                val formattedText = text.let {
+                val formattedText = richText.let {
                     if (settings.todoCheckedStrikethrough && checked) {
-                        text.map { textEntity -> textEntity.forceStrikethrough() }
+                        richText.map { textEntity -> textEntity.forceStrikethrough() }
                     } else {
-                        text
+                        richText
                     }
                 }
                 val prefix = if (checked) settings.todoCheckedPrefix else settings.todoUncheckedPrefix
@@ -124,7 +124,7 @@ internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
                 "$prefix ${formattedText.toMarkdown(settings)}"
             }
 
-            is NotionBlock.Toggle -> "> ▶ ${text.toMarkdown(settings)}"
+            is NotionBlock.Toggle -> "> ▶ ${richText.toMarkdown(settings)}"
             is NotionBlock.ChildPage -> "### \uD83D\uDD17 [$title](https://notion.so/${id.replace("-", "")})"
             is NotionBlock.ChildDatabase -> "### \uD83D\uDD17 [$title](https://notion.so/${id.replace("-", "")})"
             is NotionBlock.Image,
@@ -144,8 +144,8 @@ internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
                 caption.toMarkdown(settings).takeIf(String::isNotBlank) ?: "bookmark"
             }]($url)"
 
-            is NotionBlock.Callout -> "> ${icon.toMarkdown(settings)} ${text.toMarkdown(settings)}\n"
-            is NotionBlock.Quote -> "> ${text.toMarkdown(settings)}\n"
+            is NotionBlock.Callout -> "> ${icon?.toMarkdown(settings)} ${richText.toMarkdown(settings)}\n"
+            is NotionBlock.Quote -> "> ${richText.toMarkdown(settings)}\n"
             is NotionBlock.Equation -> if (settings.formatEquationAsCode) "`${expression}`" else expression
             is NotionBlock.Divider -> "\n---\n"
             is NotionBlock.LinkPreview -> url
