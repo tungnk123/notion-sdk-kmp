@@ -151,6 +151,52 @@ internal fun BlockDto.toDomain(): NotionBlock = when (this) {
     is BlockDto.Unsupported -> NotionBlock.Unsupported(
         id, archived, createdTime, lastEditedTime, hasChildren
     )
+
+    is BlockDto.SyncedBlock -> NotionBlock.SyncedBlock(
+        id = id,
+        archived = archived,
+        createdTime = createdTime,
+        lastEditedTime = lastEditedTime,
+        hasChildren = hasChildren,
+        syncedFromBlockId = synced.syncedFrom?.blockId
+    )
+
+    is BlockDto.Table -> NotionBlock.Table(
+        id = id,
+        archived = archived,
+        createdTime = createdTime,
+        lastEditedTime = lastEditedTime,
+        hasChildren = hasChildren,
+        tableWidth = table.tableWidth,
+        hasColumnHeader = table.hasColumnHeader,
+        hasRowHeader = table.hasRowHeader
+    )
+
+    is BlockDto.TableRow -> NotionBlock.TableRow(
+        id = id,
+        archived = archived,
+        createdTime = createdTime,
+        lastEditedTime = lastEditedTime,
+        hasChildren = hasChildren,
+        cells = tableRow.cells.map { cellList -> cellList.map { it.toDomain() } }
+    )
+
+    is BlockDto.Template -> NotionBlock.Template(
+        id = id,
+        archived = archived,
+        createdTime = createdTime,
+        lastEditedTime = lastEditedTime,
+        hasChildren = hasChildren,
+        richText = template.richText.map(RichTextDto::toDomain)
+    )
+
+    is BlockDto.Breadcrumb -> NotionBlock.Breadcrumb(
+        id = id,
+        archived = archived,
+        createdTime = createdTime,
+        lastEditedTime = lastEditedTime,
+        hasChildren = hasChildren
+    )
 }
 
 internal fun BlockFileValue.toDomain(): NotionFile = when {

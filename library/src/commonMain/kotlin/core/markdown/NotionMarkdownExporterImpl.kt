@@ -150,7 +150,6 @@ internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
             is NotionBlock.Divider -> "\n---\n"
             is NotionBlock.LinkPreview -> url
 
-            // empty objects, etc.
             is NotionBlock.TableOfContents,
             is NotionBlock.Column,
             is NotionBlock.ColumnList,

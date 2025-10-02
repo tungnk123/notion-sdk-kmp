@@ -315,6 +315,62 @@ sealed class NotionBlock {
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
     ) : NotionBlock()
+
+    @SerialName("synced_block")
+    @Serializable
+    data class SyncedBlock(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val syncedFromBlockId: String? = null,
+    ) : NotionBlock()
+
+    @SerialName("table")
+    @Serializable
+    data class Table(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val tableWidth: Int,
+        val hasColumnHeader: Boolean,
+        val hasRowHeader: Boolean,
+    ) : NotionBlock()
+
+    @SerialName("table_row")
+    @Serializable
+    data class TableRow(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val cells: List<List<NotionRichText>>,
+    ) : NotionBlock()
+
+    @SerialName("template")
+    @Serializable
+    data class Template(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val richText: List<NotionRichText>,
+    ) : NotionBlock()
+
+    @SerialName("breadcrumb")
+    @Serializable
+    data class Breadcrumb(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+    ) : NotionBlock()
 }
 
 interface NotionFileBlock { val file: NotionFile }

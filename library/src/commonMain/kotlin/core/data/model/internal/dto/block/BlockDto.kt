@@ -396,6 +396,91 @@ sealed class BlockDto {
         @SerialName("last_edited_time") override val lastEditedTime: String,
         @SerialName("has_children") override val hasChildren: Boolean,
     ) : BlockDto()
+
+    @SerialName("synced_block")
+    @Serializable
+    internal data class SyncedBlock(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        @SerialName("synced_block") val synced: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            @SerialName("synced_from") val syncedFrom: SyncedFrom? = null
+        ) {
+            @Serializable
+            internal data class SyncedFrom(
+                @SerialName("block_id") val blockId: String
+            )
+        }
+    }
+
+    @SerialName("table")
+    @Serializable
+    internal data class Table(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val table: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            @SerialName("table_width") val tableWidth: Int,
+            @SerialName("has_column_header") val hasColumnHeader: Boolean,
+            @SerialName("has_row_header") val hasRowHeader: Boolean,
+        )
+    }
+
+    @SerialName("table_row")
+    @Serializable
+    internal data class TableRow(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        @SerialName("table_row") val tableRow: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            val cells: List<List<RichTextDto>>
+        )
+    }
+
+    @SerialName("template")
+    @Serializable
+    internal data class Template(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val template: Value,
+    ) : BlockDto() {
+        @Serializable
+        internal data class Value(
+            @SerialName("rich_text") val richText: List<RichTextDto>
+        )
+    }
+
+    @SerialName("breadcrumb")
+    @Serializable
+    internal data class Breadcrumb(
+        override val id: String,
+        override val archived: Boolean,
+        @SerialName("created_time") override val createdTime: String,
+        @SerialName("last_edited_time") override val lastEditedTime: String,
+        @SerialName("has_children") override val hasChildren: Boolean,
+        val breadcrumb: Value = Value(),
+    ) : BlockDto() {
+        @Serializable
+        internal class Value
+    }
 }
 
 @Serializable
