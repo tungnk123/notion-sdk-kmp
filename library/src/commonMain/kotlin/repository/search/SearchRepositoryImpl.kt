@@ -25,7 +25,7 @@ class SearchRepositoryImpl(
         )
         val dto: ResultsResponseDto<PageDto> = service.searchPages(req)
         return NotionResults(
-            results = dto.results.map { it.toDomain() as NotionPage },
+            results = dto.results.map { it.toDomain() },
             nextCursor = dto.nextCursor,
             hasMore = dto.hasMore
         )
