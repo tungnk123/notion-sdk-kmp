@@ -9,7 +9,6 @@ sealed class NotionRichText {
     @SerialName("plain_text")
     abstract val plainText: String
     abstract val url: String?
-    abstract val type: NotionRichTextType
     abstract val annotations: NotionRichTextAnnotations
 
     @Serializable
@@ -18,7 +17,6 @@ sealed class NotionRichText {
         @SerialName("plain_text")
         override val plainText: String,
         override val url: String?,
-        override val type: NotionRichTextType,
         override val annotations: NotionRichTextAnnotations,
     ) : NotionRichText()
 
@@ -32,7 +30,6 @@ sealed class NotionRichText {
             @SerialName("plain_text")
             override val plainText: String,
             override val url: String?,
-            override val type: NotionRichTextType,
             override val annotations: NotionRichTextAnnotations,
 
             val user: NotionUser,
@@ -44,7 +41,6 @@ sealed class NotionRichText {
             @SerialName("plain_text")
             override val plainText: String,
             override val url: String?,
-            override val type: NotionRichTextType,
             override val annotations: NotionRichTextAnnotations,
 
             val id: String,
@@ -56,7 +52,6 @@ sealed class NotionRichText {
             @SerialName("plain_text")
             override val plainText: String,
             override val url: String?,
-            override val type: NotionRichTextType,
             override val annotations: NotionRichTextAnnotations,
 
             val id: String,
@@ -68,7 +63,6 @@ sealed class NotionRichText {
             @SerialName("plain_text")
             override val plainText: String,
             override val url: String?,
-            override val type: NotionRichTextType,
             override val annotations: NotionRichTextAnnotations,
 
             val start: String? = null,
@@ -82,7 +76,6 @@ sealed class NotionRichText {
             @SerialName("plain_text")
             override val plainText: String,
             override val url: String?,
-            override val type: NotionRichTextType,
             override val annotations: NotionRichTextAnnotations,
         ) : Mention()
     }
@@ -93,7 +86,6 @@ sealed class NotionRichText {
         @SerialName("plain_text")
         override val plainText: String,
         override val url: String?,
-        override val type: NotionRichTextType,
         override val annotations: NotionRichTextAnnotations,
 
         val expression: String,

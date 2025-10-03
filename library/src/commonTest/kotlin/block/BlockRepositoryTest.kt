@@ -2,6 +2,9 @@ package block
 
 import auth.TokenProvider
 import core.data.model.internal.dto.block.BlockDto
+import core.data.model.internal.dto.richtext.RichTextAnnotations
+import core.data.model.internal.dto.richtext.RichTextColor
+import core.data.model.internal.dto.richtext.RichTextDto
 import core.data.model.internal.response.ResultsResponseDto
 import core.data.model.result.block.NotionBlock
 import http.NotionHttp
@@ -13,11 +16,16 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
 import repository.block.BlockRepository
 import repository.block.BlockRepositoryImpl
+import service.block.BlockService
 import service.block.BlockServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 private class StaticTokenProvider(private val t: String = "x") : TokenProvider {
@@ -28,6 +36,7 @@ private fun notionHttpWith(handler: suspend MockRequestHandleScope.(HttpRequestD
     val json = Json {
         ignoreUnknownKeys = true
         explicitNulls = false
+        classDiscriminator = "type"
     }
     val client = HttpClient(MockEngine) {
         install(ContentNegotiation) { json(json) }
@@ -176,35 +185,28 @@ class BlockRepositoryTest {
     }
 
     @Test
-    fun append_children_ok() = runTest {
-        val parentId = "b55c9c91-384d-452b-81db-d1ef79372b75"
-        val request = AppendBlockChildrenRequest(
-            children = listOf(
-                BlockObject.HeadingTwo(
-                    heading = BlockObject.HeadingTwo.Value(
-                        richText = listOf(
-                            core.data.model.internal.dto.richtext.RichTextDto.Text(
-                                text = core.data.model.internal.dto.richtext.RichTextDto.Text.TextContent(content = "Lacinato kale"),
-                                annotations = null,
-                                plainText = "Lacinato kale",
-                                href = null
-                            )
-                        )
-                    )
-                ),
-                BlockObject.Paragraph(
-                    paragraph = BlockObject.Paragraph.Value(
-                        richText = listOf(
-                            core.data.model.internal.dto.richtext.RichTextDto.Text(
-                                text = core.data.model.internal.dto.richtext.RichTextDto.Text.TextContent(
-                                    content = "Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.",
-                                    link = core.data.model.internal.dto.richtext.RichTextDto.Text.TextLink(url = "https://en.wikipedia.org/wiki/Lacinato_kale")
-                                ),
-                                annotations = null,
-                                plainText = "Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.",
-                                href = "https://en.wikipedia.org/wiki/Lacinato_kale"
-                            )
-                        )
+    fun update_ok() = runTest {
+        val blockId = "c02fc1d3-db8b-45c5-a222-27595b15aea7"
+        val req = BlockDto.HeadingTwo(
+            id = blockId,
+            archived = false,
+            createdTime = "2022-03-01T19:05:00.000Z",
+            lastEditedTime = "2022-07-06T19:41:00.000Z",
+            hasChildren = false,
+            heading = BlockDto.HeadingTwo.Value(
+                richText = listOf(
+                    RichTextDto.Text(
+                        data = RichTextDto.Text.TextData(content = "Lacinato kale (updated)"),
+                        annotations = RichTextAnnotations(
+                            bold = false,
+                            italic = false,
+                            strikethrough = false,
+                            underline = false,
+                            code = false,
+                            color = RichTextColor.Default
+                        ),
+                        plainText = "Lacinato kale (updated)",
+                        href = null
                     )
                 )
             )
@@ -212,73 +214,44 @@ class BlockRepositoryTest {
 
         val response = """
         {
-          "object": "list",
-          "results": [
-            {
-              "object": "block",
-              "id": "c02fc1d3-db8b-45c5-a222-27595b15aea7",
-              "parent": { "type": "page_id", "page_id": "59833787-2cf9-4fdf-8782-e53db20768a5" },
-              "created_time": "2022-03-01T19:05:00.000Z",
-              "last_edited_time": "2022-07-06T19:41:00.000Z",
-              "created_by": { "object": "user", "id": "ee5f0f84-409a-440f-983a-a5315961c6e4" },
-              "last_edited_by": { "object": "user", "id": "ee5f0f84-409a-440f-983a-a5315961c6e4" },
-              "has_children": false,
-              "archived": false,
-              "type": "heading_2",
-              "heading_2": {
-                "rich_text": [ { "type": "text", "text": { "content": "Lacinato kale" } } ],
-                "color": "default",
-                "is_toggleable": false
+          "object": "block",
+          "id": "$blockId",
+          "parent": { "type": "page_id", "page_id": "59833787-2cf9-4fdf-8782-e53db20768a5" },
+          "created_time": "2022-03-01T19:05:00.000Z",
+          "last_edited_time": "2022-07-06T19:50:00.000Z",
+          "created_by": { "object": "user", "id": "ee5f0f84-409a-440f-983a-a5315961c6e4" },
+          "last_edited_by": { "object": "user", "id": "ee5f0f84-409a-440f-983a-a5315961c6e4" },
+          "has_children": false,
+          "archived": false,
+          "type": "heading_2",
+          "heading_2": {
+            "rich_text": [
+              {
+                "type": "text",
+                "text": { "content": "Lacinato kale (updated)", "link": null },
+                "annotations": { "bold": false, "italic": false, "strikethrough": false, "underline": false, "code": false, "color": "default" },
+                "plain_text": "Lacinato kale (updated)",
+                "href": null
               }
-            },
-            {
-              "object": "block",
-              "id": "acc7eb06-05cd-4603-a384-5e1e4f1f4e72",
-              "parent": { "type": "page_id", "page_id": "59833787-2cf9-4fdf-8782-e53db20768a5" },
-              "created_time": "2022-03-01T19:05:00.000Z",
-              "last_edited_time": "2022-07-06T19:51:00.000Z",
-              "created_by": { "object": "user", "id": "ee5f0f84-409a-440f-983a-a5315961c6e4" },
-              "last_edited_by": { "object": "user", "id": "0c3e9826-b8f7-4f73-927d-2caaf86f1103" },
-              "has_children": false,
-              "archived": false,
-              "type": "paragraph",
-              "paragraph": {
-                "rich_text": [
-                  {
-                    "type": "text",
-                    "text": {
-                      "content": "Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.",
-                      "link": { "url": "https://en.wikipedia.org/wiki/Lacinato_kale" }
-                    },
-                    "annotations": { "bold": false, "italic": false, "strikethrough": false, "underline": false, "code": false, "color": "default" },
-                    "plain_text": "Lacinato kale is a variety of kale with a long tradition in Italian cuisine, especially that of Tuscany. It is also known as Tuscan kale, Italian kale, dinosaur kale, kale, flat back kale, palm tree kale, or black Tuscan palm.",
-                    "href": "https://en.wikipedia.org/wiki/Lacinato_kale"
-                  }
-                ],
-                "color": "default"
-              }
-            }
-          ],
-          "next_cursor": null,
-          "has_more": false,
-          "type": "block",
-          "block": {}
+            ],
+            "color": "default",
+            "is_toggleable": false
+          }
         }
         """.trimIndent()
 
         val http = notionHttpWith { r ->
             assertEquals(HttpMethod.Patch, r.method)
-            assertTrue(r.url.fullPath.contains("/blocks/$parentId/children"))
+            assertTrue(r.url.fullPath.contains("/blocks/$blockId"))
 
             val sent = r.body.toByteArray().decodeToString()
             val bodyJson = Json.parseToJsonElement(sent).jsonObject
-            val children = bodyJson["children"] as JsonArray
-            assertEquals(2, children.size)
-            val first = children[0].jsonObject
-            assertEquals("block", first["object"]?.jsonPrimitive?.content)
-            assertEquals("heading_2", first["type"]?.jsonPrimitive?.content)
-            val second = children[1].jsonObject
-            assertEquals("paragraph", second["type"]?.jsonPrimitive?.content)
+            val heading = bodyJson["heading_2"]?.jsonObject
+            assertNotNull(heading)
+            val rt = heading["rich_text"]?.jsonArray
+            assertNotNull(rt)
+            val content = rt[0].jsonObject["text"]?.jsonObject?.get("content")?.jsonPrimitive?.content
+            assertEquals("Lacinato kale (updated)", content)
 
             respond(
                 content = response,
@@ -287,10 +260,12 @@ class BlockRepositoryTest {
             )
         }
 
-        val repo: BlockRepository = BlockRepositoryImpl(BlockServiceImpl(http))
-        val appended: ResultsResponseDto<BlockDto> = repo.appendChildren(parentId, request)
-        assertEquals(false, appended.hasMore)
-        assertEquals(2, appended.results.size)
-        println("✅ append_children_ok size=${appended.results.size}")
+        val service: BlockService = BlockServiceImpl(http)
+        val repo: BlockRepository = BlockRepositoryImpl(service)
+
+        val updated: NotionBlock = repo.update(blockId, req)
+        assertTrue(updated is NotionBlock.HeadingTwo)
+        assertEquals(blockId, updated.id)
+        println("✅ block update_ok id=${updated.id}")
     }
 }

@@ -13,7 +13,6 @@ fun RichTextDto.toDomain(): NotionRichText = when (this) {
     is RichTextDto.Text -> NotionRichText.Text(
         plainText = plainText,
         url = href,
-        type = type.toDomain(),
         annotations = annotations.toDomain()
     )
 
@@ -21,7 +20,6 @@ fun RichTextDto.toDomain(): NotionRichText = when (this) {
         is RichTextDto.Mention.Value.User -> NotionRichText.Mention.User(
             plainText = plainText,
             url = href,
-            type = type.toDomain(),
             annotations = annotations.toDomain(),
             user = value.user.toDomain()
         )
@@ -29,7 +27,6 @@ fun RichTextDto.toDomain(): NotionRichText = when (this) {
         is RichTextDto.Mention.Value.Page -> NotionRichText.Mention.Page(
             plainText = plainText,
             url = href,
-            type = type.toDomain(),
             annotations = annotations.toDomain(),
             id = value.page.id
         )
@@ -37,7 +34,6 @@ fun RichTextDto.toDomain(): NotionRichText = when (this) {
         is RichTextDto.Mention.Value.Database -> NotionRichText.Mention.Database(
             plainText = plainText,
             url = href,
-            type = type.toDomain(),
             annotations = annotations.toDomain(),
             id = value.database.id
         )
@@ -45,21 +41,19 @@ fun RichTextDto.toDomain(): NotionRichText = when (this) {
         is RichTextDto.Mention.Value.Date -> NotionRichText.Mention.Date(
             plainText = plainText,
             url = href,
-            type = type.toDomain(),
             annotations = annotations.toDomain(),
             start = value.date.start,
             end = value.date.end
         )
 
         is RichTextDto.Mention.Value.LinkPreview -> NotionRichText.Mention.LinkPreview(
-            plainText = plainText, url = href, type = type.toDomain(), annotations = annotations.toDomain()
+            plainText = plainText, url = href, annotations = annotations.toDomain()
         )
     }
 
     is RichTextDto.Equation -> NotionRichText.Equation(
         plainText = plainText,
         url = href,
-        type = type.toDomain(),
         annotations = annotations.toDomain(),
         expression = equation.expression
     )

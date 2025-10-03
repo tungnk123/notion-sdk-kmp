@@ -184,9 +184,9 @@ internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
             modifiers += "~~"
         }
 
-        if (annotations.code || (type == NotionRichTextType.Equation && settings.formatEquationAsCode)) {
-            modifiers += "`"
-        }
+//        if (annotations.code || (type == NotionRichTextType.Equation && settings.formatEquationAsCode)) {
+//            modifiers += "`"
+//        }
 
         var formattedText =
             plainText.replace(trimmedPlainText, "${modifiers}${trimmedPlainText}${modifiers.reversed()}")

@@ -9,7 +9,6 @@ sealed class RichTextDto {
     @SerialName("plain_text")
     abstract val plainText: String
     abstract val href: String?
-    abstract val type: RichTextType
     abstract val annotations: RichTextAnnotations
 
     @Serializable
@@ -17,9 +16,9 @@ sealed class RichTextDto {
     data class Text(
         @SerialName("plain_text") override val plainText: String,
         override val href: String? = null,
-        override val type: RichTextType = RichTextType.Text,
         override val annotations: RichTextAnnotations,
-        val text: TextData
+        @SerialName("text")
+        val data: TextData,
     ) : RichTextDto() {
         @Serializable
         data class TextData(val content: String, val link: Link? = null)
@@ -32,7 +31,6 @@ sealed class RichTextDto {
     data class Mention(
         @SerialName("plain_text") override val plainText: String,
         override val href: String? = null,
-        override val type: RichTextType = RichTextType.Mention,
         override val annotations: RichTextAnnotations,
         val mention: Value
     ) : RichTextDto() {
@@ -73,7 +71,6 @@ sealed class RichTextDto {
     data class Equation(
         @SerialName("plain_text") override val plainText: String,
         override val href: String? = null,
-        override val type: RichTextType = RichTextType.Equation,
         override val annotations: RichTextAnnotations,
         val equation: Expression
     ) : RichTextDto() {
