@@ -1,5 +1,6 @@
 package core.data.model.internal.request.search
 
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,32 +15,42 @@ data class SearchRequest(
     @Serializable
     data class Sort(
         val direction: Direction,
+        @EncodeDefault(EncodeDefault.Mode.ALWAYS)
         val timestamp: Timestamp = Timestamp.LastEditedTime
     ) {
         @Serializable
         enum class Direction {
-            @SerialName("ascending") Ascending,
-            @SerialName("descending") Descending
+            @SerialName("ascending")
+            Ascending,
+            @SerialName("descending")
+            Descending
         }
+
         @Serializable
         enum class Timestamp {
-            @SerialName("last_edited_time") LastEditedTime
+            @SerialName("last_edited_time")
+            LastEditedTime
         }
     }
 
     @Serializable
     data class Filter(
         val value: Value,
+        @EncodeDefault(EncodeDefault.Mode.ALWAYS)
         val property: Property = Property.Object
     ) {
         @Serializable
         enum class Value {
-            @SerialName("page") Page,
-            @SerialName("data_source") DataSource
+            @SerialName("page")
+            Page,
+            @SerialName("data_source")
+            DataSource
         }
+
         @Serializable
         enum class Property {
-            @SerialName("object") Object
+            @SerialName("object")
+            Object
         }
     }
 
@@ -51,8 +62,8 @@ data class SearchRequest(
             pageSize: Int? = null
         ) = SearchRequest(
             query = query,
-            sort = Sort(direction = direction),
-            filter = Filter(value = Filter.Value.Page),
+            sort = Sort(direction = direction, timestamp = Sort.Timestamp.LastEditedTime),
+            filter = Filter(value = Filter.Value.Page, property = Filter.Property.Object),
             startCursor = startCursor,
             pageSize = pageSize
         )
@@ -64,8 +75,8 @@ data class SearchRequest(
             pageSize: Int? = null
         ) = SearchRequest(
             query = query,
-            sort = Sort(direction = direction),
-            filter = Filter(value = Filter.Value.DataSource),
+            sort = Sort(direction = direction, timestamp = Sort.Timestamp.LastEditedTime),
+            filter = Filter(value = Filter.Value.DataSource, property = Filter.Property.Object),
             startCursor = startCursor,
             pageSize = pageSize
         )
