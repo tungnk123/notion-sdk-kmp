@@ -1,21 +1,23 @@
 package core.data.model.result.common
 
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 sealed class NotionIcon {
     @Serializable
-    @SerialName("emoji")
     data class Emoji(val emoji: String) : NotionIcon()
 
     @Serializable
-    @SerialName("file")
-    data class File(
-        val url: String, @SerialName("expiry_time") val expiryTime: String? = null
-    ) : NotionIcon()
+    data class External(val url: String) : NotionIcon()
 
     @Serializable
-    @SerialName("external")
-    data class External(val url: String) : NotionIcon()
+    data class File(val url: String, val expiryTime: String) : NotionIcon()
+
+    @Serializable
+    data class CustomEmoji(
+        val id: String? = null,
+        val name: String? = null,
+        val url: String? = null,
+        val emoji: String? = null
+    ) : NotionIcon()
 }

@@ -217,12 +217,16 @@ internal class NotionMarkdownExporterImpl : NotionMarkdownExporter {
             is NotionIcon.Emoji -> emoji
             is NotionIcon.File -> {
                 val md = "![image]($url)"
-                if (expiryTime != null && settings.addExpiryNoticeForInternalFiles)
+                if (settings.addExpiryNoticeForInternalFiles)
                     "*( below file link will expire at $expiryTime )*\n$md"
                 else md
             }
-
             is NotionIcon.External -> "![image]($url)"
+            is NotionIcon.CustomEmoji -> when {
+                !emoji.isNullOrBlank() -> emoji
+                !url.isNullOrBlank() -> "![${name ?: "image"}]($url)"
+                else -> name ?: ""
+            }
         }
 
     private fun NotionFileBlock.toMarkdown(
