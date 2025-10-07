@@ -1,6 +1,6 @@
 package auth
 
-import auth.oauth.OAuthTokenResponse
+import auth.model.OAuthTokenResponse
 
 interface TokenStorage {
     fun get(): OAuthTokenResponse?

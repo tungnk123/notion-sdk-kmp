@@ -1,5 +1,7 @@
 package auth
 
+import auth.repository.AuthRepository
+
 interface TokenProvider {
     fun token(): String
 }
