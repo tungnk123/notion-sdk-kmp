@@ -1,6 +1,6 @@
 package auth.repository
 
-import auth.TokenStorage
+import auth.tokenstorage.TokenStorage
 import auth.model.OAuthCreateTokenRequest
 import auth.model.OAuthIntrospectRequest
 import auth.model.OAuthIntrospectResponse
@@ -51,4 +51,8 @@ class AuthRepository(
     }
 
     fun accessTokenOrNull(): String? = storage.get()?.accessToken
+
+    fun saveToken(token: OAuthTokenResponse) {
+        storage.set(token)
+    }
 }
