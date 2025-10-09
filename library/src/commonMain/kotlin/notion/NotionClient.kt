@@ -1,24 +1,15 @@
 package notion
 
-import auth.OAuthTokenProvider
-import auth.repository.AuthRepository
-import http.NotionClientConfig
-import http.NotionHttp
-import http.installNotionDefaults
-import io.ktor.client.*
+import repository.block.BlockRepository
+import repository.datasource.DataSourceRepository
 import repository.page.PageRepository
-import repository.page.PageRepositoryImpl
-import service.page.PageServiceImpl
+import repository.search.SearchRepository
+import repository.user.UserRepository
 
-class NotionClient(
-    val http: NotionHttp, val pages: PageRepository
-)
-
-fun buildNotionClient(authRepo: AuthRepository): NotionClient {
-    val provider = OAuthTokenProvider(authRepo)
-    val httpClient =
-        HttpClient { installNotionDefaults(NotionClientConfig(tokenProvider = provider, authRepository = authRepo)) }
-    val notionHttp = NotionHttp(provider, httpClient)
-    val pages = PageRepositoryImpl(PageServiceImpl(notionHttp))
-    return NotionClient(notionHttp, pages)
+interface NotionClient {
+    val pages: PageRepository
+    val blocks: BlockRepository
+    val search: SearchRepository
+    val users: UserRepository
+    val dataSources: DataSourceRepository
 }

@@ -17,17 +17,29 @@ import org.koin.dsl.module
 val authModule = module {
     single { HttpClient() }
     single<AuthService> { AuthServiceImpl(get()) }
+
     single<TokenStorage> { InMemoryTokenStorage() }
     single<MultiTokenStorage> { InMemoryMultiTokenStorage() }
-    single { (clientId: String, clientSecret: String) ->
-        AuthRepository(service = get(), clientId = clientId, clientSecret = clientSecret, storage = get())
+
+    factory { (clientId: String, clientSecret: String) ->
+        AuthRepository(
+            service = get(), clientId = clientId, clientSecret = clientSecret, storage = get()
+        )
     }
+
     factory { (repo: AuthRepository) -> OAuthTokenProvider(repo) }
 
     factory { (clientId: String, clientSecret: String) ->
-        AuthRepositoryFactory(service = get(), clientId = clientId, clientSecret = clientSecret, multi = get())
+        AuthRepositoryFactory(
+            service = get(), clientId = clientId, clientSecret = clientSecret, multi = get()
+        )
     }
+
     factory { (clientId: String, clientSecret: String) ->
-        NotionSessionManager(factory = get { parametersOf(clientId, clientSecret) }, storage = get())
+        val authFactory = get<AuthRepositoryFactory> { parametersOf(clientId, clientSecret) }
+        val tokenStore = get<MultiTokenStorage>()
+        NotionSessionManager(
+            authFactory = authFactory, tokenStore = tokenStore
+        )
     }
 }

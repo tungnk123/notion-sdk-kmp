@@ -5,8 +5,6 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.ktor.utils.io.charsets.Charsets.UTF_8
-import io.ktor.utils.io.core.*
 import kotlin.io.encoding.Base64
 
 private object OAuthRoutes {
@@ -89,7 +87,7 @@ class AuthServiceImpl(
     }
 
     private fun basicAuth(clientId: String, clientSecret: String): String {
-        val bytes = "$clientId:$clientSecret".toByteArray(UTF_8)
+        val bytes = "$clientId:$clientSecret".encodeToByteArray()
         return Base64.encode(bytes)
     }
 }

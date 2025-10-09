@@ -14,8 +14,7 @@ import notion.model.NotionSessionMeta
 import notion.model.SessionState
 
 class NotionSessionManager(
-    private val authFactory: AuthRepositoryFactory,
-    private val tokenStore: MultiTokenStorage
+    private val authFactory: AuthRepositoryFactory, private val tokenStore: MultiTokenStorage
 ) {
     private val sessionsMap = linkedMapOf<String, NotionSession>()
     private val mutex = Mutex()
@@ -34,12 +33,15 @@ class NotionSessionManager(
         val code = parsed.parameters["code"] ?: error("missing code")
         val state = parsed.parameters["state"] ?: error("missing state")
         require(state == expectedState)
+
         val tempRepo = authFactory.getAuthRepository()
         val token = tempRepo.exchange(code, "${parsed.protocol.name}://${parsed.host}${parsed.encodedPath}")
         val workspaceId = token.workspaceId ?: error("missing workspace_id")
+
         val repo = authFactory.forWorkspace(workspaceId)
         repo.saveToken(token)
-        val client = buildNotionClient(repo)
+
+        val client = NotionClients.fromAuthRepository(repo)
         val session = NotionSession(workspaceId, token.workspaceName, token, client, repo)
         sessionsMap[workspaceId] = session
         tokenStore.setCurrent(workspaceId)
@@ -60,7 +62,8 @@ class NotionSessionManager(
     }
 
     fun listSessions(): List<NotionSessionMeta> {
-        val cached = sessionsMap.values.map { NotionSessionMeta(it.workspaceId, it.workspaceName, it.token.workspaceIcon) }
+        val cached =
+            sessionsMap.values.map { NotionSessionMeta(it.workspaceId, it.workspaceName, it.token.workspaceIcon) }
         val stored = tokenStore.all().map { (k, v) -> NotionSessionMeta(k, v.workspaceName, v.workspaceIcon) }
         val map = linkedMapOf<String, NotionSessionMeta>()
         cached.forEach { map[it.workspaceId] = it }
@@ -87,7 +90,7 @@ class NotionSessionManager(
     private fun loadSessionFromStore(workspaceId: String): NotionSession? {
         val token = tokenStore.get(workspaceId) ?: return null
         val repo = authFactory.forWorkspace(workspaceId)
-        val client = buildNotionClient(repo)
+        val client = NotionClients.fromAuthRepository(repo)
         val session = NotionSession(workspaceId, token.workspaceName, token, client, repo)
         sessionsMap[workspaceId] = session
         return session
