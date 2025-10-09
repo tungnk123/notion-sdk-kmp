@@ -1,4 +1,4 @@
-package auth
+package auth.tokenstorage
 
 import auth.model.OAuthTokenResponse
 
