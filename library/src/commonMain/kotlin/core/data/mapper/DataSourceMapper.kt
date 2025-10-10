@@ -65,7 +65,7 @@ fun DataSourcePropertyDto.toDomain(): NotionDataSourceProperty = when (type) {
         description,
         status?.options.orEmpty().map { Option(it.id, it.name, it.color) },
         status?.groups.orEmpty().map {
-            NotionDataSourceProperty.StatusGroup(
+             StatusGroup(
                 id = it.id, name = it.name, color = it.color, optionIds = it.optionIds
             )
         })
@@ -100,7 +100,12 @@ fun DataSourcePropertyDto.toDomain(): NotionDataSourceProperty = when (type) {
 
     DataSourcePropertyType.UNIQUE_ID -> UniqueId(id, name, description, uniqueId?.prefix)
 
-    DataSourcePropertyType.FORMULA -> TODO()
+    DataSourcePropertyType.FORMULA -> Formula(
+        id = id,
+        name = name,
+        description = description,
+        expression = formula?.expression
+    )
 }
 
 fun ParentDto.toDomain(): NotionParent = when (this) {

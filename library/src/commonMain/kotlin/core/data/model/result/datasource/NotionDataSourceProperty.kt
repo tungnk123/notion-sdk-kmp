@@ -73,6 +73,14 @@ sealed class NotionDataSourceProperty {
         val rollupPropertyName: String?
     ) : NotionDataSourceProperty()
 
+    @Serializable
+    data class Formula(
+        override val id: String,
+        override val name: String?,
+        override val description: String?,
+        val expression: String?
+    ) : NotionDataSourceProperty()
+
     @Serializable data class CreatedBy(override val id: String, override val name: String?, override val description: String?) : NotionDataSourceProperty()
     @Serializable data class CreatedTime(override val id: String, override val name: String?, override val description: String?) : NotionDataSourceProperty()
     @Serializable data class LastEditedBy(override val id: String, override val name: String?, override val description: String?) : NotionDataSourceProperty()
