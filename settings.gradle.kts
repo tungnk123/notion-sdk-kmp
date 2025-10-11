@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "notion-sdk-kmp"
-include(":library")
+include(":library", ":sample")
