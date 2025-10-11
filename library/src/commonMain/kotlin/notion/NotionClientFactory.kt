@@ -7,7 +7,7 @@ import auth.repository.AuthRepository
 import http.NotionHttp
 import io.ktor.client.*
 
-object NotionClients {
+object NotionClientFactory {
 
     fun fromToken(
         token: String,

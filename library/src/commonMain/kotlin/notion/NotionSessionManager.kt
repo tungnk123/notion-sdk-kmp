@@ -41,7 +41,7 @@ class NotionSessionManager(
         val repo = authFactory.forWorkspace(workspaceId)
         repo.saveToken(token)
 
-        val client = NotionClients.fromAuthRepository(repo)
+        val client = NotionClientFactory.fromAuthRepository(repo)
         val session = NotionSession(workspaceId, token.workspaceName, token, client, repo)
         sessionsMap[workspaceId] = session
         tokenStore.setCurrent(workspaceId)
@@ -90,7 +90,7 @@ class NotionSessionManager(
     private fun loadSessionFromStore(workspaceId: String): NotionSession? {
         val token = tokenStore.get(workspaceId) ?: return null
         val repo = authFactory.forWorkspace(workspaceId)
-        val client = NotionClients.fromAuthRepository(repo)
+        val client = NotionClientFactory.fromAuthRepository(repo)
         val session = NotionSession(workspaceId, token.workspaceName, token, client, repo)
         sessionsMap[workspaceId] = session
         return session
