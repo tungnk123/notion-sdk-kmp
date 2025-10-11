@@ -1,5 +1,3 @@
-package io.github.tungnk123.sample
-
 import auth.TokenProvider
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
