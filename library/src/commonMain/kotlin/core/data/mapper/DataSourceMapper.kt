@@ -65,7 +65,7 @@ fun DataSourcePropertyDto.toDomain(): NotionDataSourceProperty = when (type) {
         description,
         status?.options.orEmpty().map { Option(it.id, it.name, it.color) },
         status?.groups.orEmpty().map {
-             StatusGroup(
+            StatusGroup(
                 id = it.id, name = it.name, color = it.color, optionIds = it.optionIds
             )
         })
@@ -101,24 +101,21 @@ fun DataSourcePropertyDto.toDomain(): NotionDataSourceProperty = when (type) {
     DataSourcePropertyType.UNIQUE_ID -> UniqueId(id, name, description, uniqueId?.prefix)
 
     DataSourcePropertyType.FORMULA -> Formula(
-        id = id,
-        name = name,
-        description = description,
-        expression = formula?.expression
+        id = id, name = name, description = description, expression = formula?.expression
     )
 }
 
 fun ParentDto.toDomain(): NotionParent = when (this) {
-    is ParentDto.DatabaseId   -> NotionParent.DatabaseId(databaseId)
+    is ParentDto.DatabaseId -> NotionParent.DatabaseId(databaseId)
     is ParentDto.DataSourceId -> NotionParent.DataSourceId(dataSourceId)
-    is ParentDto.PageId       -> NotionParent.PageId(pageId)
-    is ParentDto.BlockId      -> NotionParent.BlockId(blockId)
-    is ParentDto.Workspace    -> NotionParent.Workspace(workspace)
+    is ParentDto.PageId -> NotionParent.PageId(pageId)
+    is ParentDto.BlockId -> NotionParent.BlockId(blockId)
+    is ParentDto.Workspace -> NotionParent.Workspace(workspace)
 }
 
 fun PartialUser.toDomain(): NotionPartialUser = NotionPartialUser(id)
 
 fun CoverDto.toDomain(): NotionCover = when (this) {
-    is CoverDto.File     -> NotionCover.File(file.url, file.expiryTime)
+    is CoverDto.File -> NotionCover.File(file.url, file.expiryTime)
     is CoverDto.External -> NotionCover.External(external.url)
 }
