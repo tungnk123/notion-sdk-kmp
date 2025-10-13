@@ -23,7 +23,7 @@ class AuthRepository(
             owner = if (ownerWorkspace) AuthService.Owner.Workspace else AuthService.Owner.User
         )
 
-    suspend fun exchange(code: String, redirectUri: String? = null): OAuthTokenResponse {
+    suspend fun exchange(code: String, redirectUri: String): OAuthTokenResponse {
         val resp = service.exchangeCodeBasic(
             clientId, clientSecret, OAuthCreateTokenRequest(code = code, redirectUri = redirectUri)
         )

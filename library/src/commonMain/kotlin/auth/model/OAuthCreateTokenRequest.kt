@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 data class OAuthCreateTokenRequest(
     @SerialName("grant_type") val grantType: String = "authorization_code",
     val code: String,
-    @SerialName("redirect_uri") val redirectUri: String? = null,
+    @SerialName("redirect_uri") val redirectUri: String,
     @SerialName("code_verifier") val codeVerifier: String? = null
 )
 
