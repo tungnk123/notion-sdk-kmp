@@ -24,19 +24,19 @@ class AuthRepository(
         )
 
     suspend fun exchange(code: String, redirectUri: String): OAuthTokenResponse {
-        val resp = service.exchangeCodeBasic(
+        val authTokenResponse = service.exchangeCodeBasic(
             clientId, clientSecret, OAuthCreateTokenRequest(code = code, redirectUri = redirectUri)
         )
-        storage.set(resp)
-        return resp
+        storage.set(authTokenResponse)
+        return authTokenResponse
     }
 
     suspend fun refresh(): OAuthTokenResponse {
         val current = requireNotNull(storage.get())
-        val rt = requireNotNull(current.refreshToken)
-        val resp = service.refreshBasic(clientId, clientSecret, OAuthRefreshTokenRequest(refreshToken = rt))
-        storage.set(resp)
-        return resp
+        val refreshToken = requireNotNull(current.refreshToken)
+        val authTokenResponse = service.refreshBasic(clientId, clientSecret, OAuthRefreshTokenRequest(refreshToken = refreshToken))
+        storage.set(authTokenResponse)
+        return authTokenResponse
     }
 
     suspend fun revoke() {

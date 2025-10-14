@@ -49,10 +49,6 @@ class AuthServiceImpl(
     ): OAuthTokenResponse {
         val basic = basicAuth(clientId, clientSecret)
         val requestBody = json.encodeToString(OAuthCreateTokenRequest.serializer(), req)
-        println("=== OAuth Token Request ===")
-        println("URL: ${OAuthRoutes.TOKEN}")
-        println("Request body: $requestBody")
-
         val response: HttpResponse = try {
             httpClient.post(OAuthRoutes.TOKEN) {
                 headers {
@@ -67,11 +63,6 @@ class AuthServiceImpl(
             throw e
         }
 
-        println("\n=== OAuth Token Response ===")
-        println("Status: ${response.status}")
-        println("Content-Type: ${response.contentType()}")
-        println("Headers: ${response.headers.entries().joinToString("\n") { (k, v) -> "  $k: $v" }}")
-
         val bodyText = try {
             response.bodyAsText()
         } catch (e: Exception) {
@@ -80,8 +71,6 @@ class AuthServiceImpl(
             throw e
         }
 
-        println("Body length: ${bodyText.length}")
-        println("Body content: '$bodyText'")
 
         if (bodyText.isEmpty() || bodyText.isBlank()) {
             error("Empty response body from OAuth token endpoint. Status: ${response.status}, Headers: ${response.headers.entries()}")
@@ -91,7 +80,6 @@ class AuthServiceImpl(
             json.decodeFromString(OAuthTokenResponse.serializer(), bodyText)
         } catch (e: Exception) {
             println("ERROR: Failed to parse JSON - ${e.message}")
-            println("Problematic JSON: '$bodyText'")
             throw e
         }
     }
