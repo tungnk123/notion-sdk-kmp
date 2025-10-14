@@ -34,14 +34,14 @@ fun main() = runBlocking {
     }
 
     val repo = AuthRepository(
-        AuthServiceImpl(httpClient),
-        clientId,
-        clientSecret,
-        InMemoryTokenStorage()
+        service = AuthServiceImpl(httpClient),
+        clientId = clientId,
+        clientSecret = clientSecret,
+        storage = InMemoryTokenStorage()
     )
 
     val state = "state_${System.currentTimeMillis()}"
-    val authorizeUrl = repo.authorizeUrl(redirectUri, state, false)
+    val authorizeUrl = repo.authorizeUrl(redirectUri = redirectUri, state = state, ownerWorkspace = false)
     val codeDeferred = CompletableDeferred<String>()
 
     val server = embeddedServer(Netty, port = URI(redirectUri).port.takeIf { it > 0 } ?: 54321) {
@@ -54,8 +54,8 @@ fun main() = runBlocking {
         routing {
             get("/callback") {
                 val code = call.request.queryParameters["code"] ?: error("Missing code")
-                val st = call.request.queryParameters["state"] ?: error("Missing state")
-                require(st == state) { "State mismatch" }
+                val stateInQueryParameter = call.request.queryParameters["state"] ?: error("Missing state")
+                require(stateInQueryParameter == state) { "State mismatch" }
                 codeDeferred.complete(code)
                 call.respondText("✅ Authorized. You can close this window.")
             }
@@ -68,7 +68,7 @@ fun main() = runBlocking {
     val code = codeDeferred.await()
     println("Authorization code received, exchanging for token...")
 
-    val token = repo.exchange(code, redirectUri)
+    val token = repo.exchangeCodeForTokenAndSaveToken(code, redirectUri)
     println("✅ Token received!")
     println("   Access Token: ${token.accessToken.take(12)}...")
     println("   Workspace: ${token.workspaceName}")
@@ -80,7 +80,7 @@ fun main() = runBlocking {
     println("   User: ${me.name}")
 
     println("\nSearching for pages with 'test'...")
-    val results = client.searchRepository.searchPages(query = "test")
+    val results = client.searchRepository.searchPages(query = "books")
     println("   Found ${results.results.size} pages")
 
     httpClient.close()
