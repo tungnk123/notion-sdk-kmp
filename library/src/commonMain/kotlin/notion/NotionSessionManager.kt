@@ -35,7 +35,7 @@ class NotionSessionManager(
         require(state == expectedState)
 
         val tempRepo = authFactory.getAuthRepository()
-        val token = tempRepo.exchange(code, "${parsed.protocol.name}://${parsed.host}${parsed.encodedPath}")
+        val token = tempRepo.exchangeCodeForTokenAndSaveToken(code, "${parsed.protocol.name}://${parsed.host}${parsed.encodedPath}")
         val workspaceId = token.workspaceId ?: error("missing workspace_id")
 
         val repo = authFactory.forWorkspace(workspaceId)

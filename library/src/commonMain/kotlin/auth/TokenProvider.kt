@@ -18,5 +18,5 @@ class StaticTokenProvider(private var value: String) : MutableTokenProvider {
 class OAuthTokenProvider(
     private val repo: AuthRepository
 ) : TokenProvider {
-    override fun token(): String = repo.accessTokenOrNull().orEmpty()
+    override fun token(): String = repo.getAccessToken().orEmpty()
 }

@@ -8,19 +8,19 @@ interface AuthService {
     ): String
 
     suspend fun exchangeCodeBasic(
-        clientId: String, clientSecret: String, req: OAuthCreateTokenRequest
+        clientId: String, clientSecret: String, request: OAuthCreateTokenRequest
     ): OAuthTokenResponse
 
     suspend fun refreshBasic(
-        clientId: String, clientSecret: String, req: OAuthRefreshTokenRequest
+        clientId: String, clientSecret: String, request: OAuthRefreshTokenRequest
     ): OAuthTokenResponse
 
     suspend fun revokeBasic(
-        clientId: String, clientSecret: String, req: OAuthRevokeRequest
+        clientId: String, clientSecret: String, request: OAuthRevokeRequest
     )
 
     suspend fun introspectBasic(
-        clientId: String, clientSecret: String, req: OAuthIntrospectRequest
+        clientId: String, clientSecret: String, request: OAuthIntrospectRequest
     ): OAuthIntrospectResponse
 
     enum class Owner { User, Workspace }
