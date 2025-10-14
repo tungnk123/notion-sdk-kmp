@@ -89,7 +89,7 @@ mavenPublishing {
                 distribution = "repo"
             }
         }
-        developers { developer { id = "tungnk123"; name = "Tùng Đoàn"; url = "https://github.com/tungnk123" } }
+        developers { developer { id = "tungnk123"; name = "Tung Doan"; url = "https://github.com/tungnk123" } }
         scm {
             url = "https://github.com/tungnk123/notion-sdk-kmp"
             connection = "scm:git:https://github.com/tungnk123/notion-sdk-kmp.git"
