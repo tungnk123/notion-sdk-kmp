@@ -45,10 +45,10 @@ class AuthServiceImpl(
     }
 
     override suspend fun exchangeCodeBasic(
-        clientId: String, clientSecret: String, req: OAuthCreateTokenRequest
+        clientId: String, clientSecret: String, request: OAuthCreateTokenRequest
     ): OAuthTokenResponse {
         val basic = basicAuth(clientId, clientSecret)
-        val requestBody = json.encodeToString(OAuthCreateTokenRequest.serializer(), req)
+        val requestBody = json.encodeToString(OAuthCreateTokenRequest.serializer(), request)
         val response: HttpResponse = try {
             httpClient.post(OAuthRoutes.TOKEN) {
                 headers {
@@ -85,7 +85,7 @@ class AuthServiceImpl(
     }
 
     override suspend fun refreshBasic(
-        clientId: String, clientSecret: String, req: OAuthRefreshTokenRequest
+        clientId: String, clientSecret: String, request: OAuthRefreshTokenRequest
     ): OAuthTokenResponse {
         val basic = basicAuth(clientId, clientSecret)
         val response: HttpResponse = httpClient.post(OAuthRoutes.TOKEN) {
@@ -93,7 +93,7 @@ class AuthServiceImpl(
                 append(HttpHeaders.Authorization, "Basic $basic")
             }
             contentType(ContentType.Application.Json)
-            setBody(req)
+            setBody(request)
         }
 
         val bodyText = response.bodyAsText()
@@ -101,7 +101,7 @@ class AuthServiceImpl(
     }
 
     override suspend fun revokeBasic(
-        clientId: String, clientSecret: String, req: OAuthRevokeRequest
+        clientId: String, clientSecret: String, request: OAuthRevokeRequest
     ) {
         val basic = basicAuth(clientId, clientSecret)
         httpClient.post(OAuthRoutes.REVOKE) {
@@ -109,12 +109,12 @@ class AuthServiceImpl(
                 append(HttpHeaders.Authorization, "Basic $basic")
             }
             contentType(ContentType.Application.Json)
-            setBody(req)
+            setBody(request)
         }
     }
 
     override suspend fun introspectBasic(
-        clientId: String, clientSecret: String, req: OAuthIntrospectRequest
+        clientId: String, clientSecret: String, request: OAuthIntrospectRequest
     ): OAuthIntrospectResponse {
         val basic = basicAuth(clientId, clientSecret)
         val response: HttpResponse = httpClient.post(OAuthRoutes.INTROSPECT) {
@@ -122,7 +122,7 @@ class AuthServiceImpl(
                 append(HttpHeaders.Authorization, "Basic $basic")
             }
             contentType(ContentType.Application.Json)
-            setBody(req)
+            setBody(request)
         }
 
         val bodyText = response.bodyAsText()
