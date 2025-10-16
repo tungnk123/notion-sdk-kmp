@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 import java.util.*
@@ -19,11 +20,11 @@ kotlin {
     jvm()
     androidTarget {
         publishLibraryVariants("release")
-        compilerOptions { jvmTarget.set(JvmTarget.JVM_11) }
+        compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
     }
-    js(IR) { browser() }
-    iosX64(); iosArm64(); iosSimulatorArm64()
-    linuxX64()
+    js { browser() }
+//    iosX64(); iosArm64(); iosSimulatorArm64()
+//    linuxX64()
 
     sourceSets {
         val commonMain by getting {
@@ -44,7 +45,7 @@ kotlin {
             }
         }
         val jsMain by getting { dependencies { implementation(libs.ktor.client.js) } }
-        val iosMain by getting { dependencies { implementation(libs.ktor.client.darwin) } }
+//        val iosMain by getting { dependencies { implementation(libs.ktor.client.darwin) } }
 
         val commonTest by getting {
             dependencies {
@@ -67,8 +68,8 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig { minSdk = libs.versions.android.minSdk.get().toInt() }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
