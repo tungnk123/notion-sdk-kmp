@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.targets.js.testing.KotlinJsTest
 import org.jetbrains.kotlin.gradle.targets.native.tasks.KotlinNativeTest
 import java.util.*
@@ -12,7 +11,7 @@ plugins {
 }
 
 group = "io.github.tungnk123"
-version = "1.0.1"
+version = "1.1.0"
 
 kotlin {
     applyDefaultHierarchyTemplate()
