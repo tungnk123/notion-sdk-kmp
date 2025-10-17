@@ -1,8 +1,8 @@
-package notion.model
+package io.github.tungnk123.notionsdkkmp.notion.model
 
 import auth.model.OAuthTokenResponse
 import auth.repository.AuthRepository
-import notion.NotionClient
+import io.github.tungnk123.notionsdkkmp.notion.NotionClient
 
 data class NotionSession(
     val workspaceId: String,

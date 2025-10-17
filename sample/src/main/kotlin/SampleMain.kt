@@ -1,6 +1,6 @@
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
-import notion.NotionClientFactory
+import io.github.tungnk123.notionsdkkmp.notion.NotionClientFactory
 
 fun main() = runBlocking {
     val token = System.getenv("NOTION_TOKEN")

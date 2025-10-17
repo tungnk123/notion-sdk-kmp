@@ -1,4 +1,4 @@
-package notion
+package io.github.tungnk123.notionsdkkmp.notion
 
 import auth.repository.AuthRepositoryFactory
 import auth.tokenstorage.MultiTokenStorage
@@ -8,10 +8,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import notion.model.AuthIntent
-import notion.model.NotionSession
-import notion.model.NotionSessionMeta
-import notion.model.SessionState
+import io.github.tungnk123.notionsdkkmp.notion.model.AuthIntent
+import io.github.tungnk123.notionsdkkmp.notion.model.NotionSession
+import io.github.tungnk123.notionsdkkmp.notion.model.NotionSessionMeta
+import io.github.tungnk123.notionsdkkmp.notion.model.SessionState
 
 class NotionSessionManager(
     private val authFactory: AuthRepositoryFactory, private val tokenStore: MultiTokenStorage

@@ -1,7 +1,7 @@
 import auth.TokenProvider
 import core.data.model.result.datasource.NotionDataSource
 import core.data.model.result.page.NotionPage
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue

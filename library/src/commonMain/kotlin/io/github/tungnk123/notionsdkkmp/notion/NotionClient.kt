@@ -1,4 +1,4 @@
-package notion
+package io.github.tungnk123.notionsdkkmp.notion
 
 import repository.block.BlockRepository
 import repository.database.DatabaseRepository

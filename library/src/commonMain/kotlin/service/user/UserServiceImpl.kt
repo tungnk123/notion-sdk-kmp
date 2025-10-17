@@ -2,7 +2,7 @@ package service.user
 
 import core.data.model.internal.dto.user.UserDto
 import core.data.model.internal.response.ResultsResponseDto
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 
 private object Routes {
     private const val USERS = "users"

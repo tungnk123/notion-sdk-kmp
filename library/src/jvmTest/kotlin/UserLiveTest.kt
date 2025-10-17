@@ -1,5 +1,5 @@
 import auth.TokenProvider
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue

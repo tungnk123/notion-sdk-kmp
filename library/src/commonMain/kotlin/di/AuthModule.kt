@@ -10,7 +10,7 @@ import auth.tokenstorage.InMemoryTokenStorage
 import auth.tokenstorage.MultiTokenStorage
 import auth.tokenstorage.TokenStorage
 import io.ktor.client.*
-import notion.NotionSessionManager
+import io.github.tungnk123.notionsdkkmp.notion.NotionSessionManager
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 

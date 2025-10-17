@@ -3,7 +3,7 @@ import core.data.model.internal.dto.richtext.RichTextAnnotations
 import core.data.model.internal.dto.richtext.RichTextColor
 import core.data.model.internal.dto.richtext.RichTextDto
 import core.data.model.result.block.NotionBlock
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue

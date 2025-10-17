@@ -7,7 +7,7 @@ import core.data.model.internal.dto.datasource.DataSourcePropertyType
 import core.data.model.internal.request.database.CreateDatabaseRequest
 import core.data.model.internal.request.database.InitialDataSourceRequest
 import core.data.model.internal.request.database.UpdateDatabaseRequest
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.plugins.contentnegotiation.*

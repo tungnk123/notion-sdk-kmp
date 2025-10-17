@@ -13,7 +13,7 @@ import io.ktor.server.routing.*
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
-import notion.NotionClientFactory
+import io.github.tungnk123.notionsdkkmp.notion.NotionClientFactory
 import java.awt.Desktop
 import java.net.URI
 

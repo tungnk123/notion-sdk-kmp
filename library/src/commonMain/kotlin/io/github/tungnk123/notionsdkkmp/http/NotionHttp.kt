@@ -1,4 +1,4 @@
-package http
+package io.github.tungnk123.notionsdkkmp.http
 
 import auth.TokenProvider
 import core.data.model.NotionApiVersion

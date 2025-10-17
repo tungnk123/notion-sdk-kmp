@@ -1,10 +1,10 @@
-package notion
+package io.github.tungnk123.notionsdkkmp.notion
 
 import auth.OAuthTokenProvider
 import auth.StaticTokenProvider
 import auth.TokenProvider
 import auth.repository.AuthRepository
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 
 object NotionClientFactory {

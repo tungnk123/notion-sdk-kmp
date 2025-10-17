@@ -5,7 +5,7 @@ import core.data.model.internal.dto.datasource.EmptyObj
 import core.data.model.internal.request.database.CreateDatabaseRequest
 import core.data.model.internal.request.database.InitialDataSourceRequest
 import core.data.model.internal.request.database.UpdateDatabaseRequest
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.runBlocking

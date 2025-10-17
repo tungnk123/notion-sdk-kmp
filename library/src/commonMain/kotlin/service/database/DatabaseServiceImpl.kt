@@ -3,7 +3,7 @@ package service.database
 import core.data.model.internal.dto.database.DatabaseDto
 import core.data.model.internal.request.database.CreateDatabaseRequest
 import core.data.model.internal.request.database.UpdateDatabaseRequest
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.request.*
 
 private object Routes {

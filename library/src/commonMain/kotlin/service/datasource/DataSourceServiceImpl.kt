@@ -6,7 +6,7 @@ import core.data.model.internal.request.datasource.CreateDataSourceRequest
 import core.data.model.internal.request.datasource.QueryDataSourceRequest
 import core.data.model.internal.request.datasource.UpdateDataSourceRequest
 import core.data.model.internal.response.ResultsResponseDto
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.request.*
 
 private object Routes {

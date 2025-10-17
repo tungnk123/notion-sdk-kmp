@@ -3,7 +3,7 @@ package service.block
 import core.data.model.internal.dto.block.BlockDto
 import core.data.model.internal.request.block.AppendBlockChildrenRequest
 import core.data.model.internal.response.ResultsResponseDto
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.request.*
 
 private object Routes {

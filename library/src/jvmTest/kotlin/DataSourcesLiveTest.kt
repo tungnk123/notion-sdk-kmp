@@ -8,7 +8,7 @@ import core.data.model.internal.dto.datasource.EmptyObj
 import core.data.model.internal.request.datasource.CreateDataSourceRequest
 import core.data.model.internal.request.datasource.QueryDataSourceRequest
 import core.data.model.internal.request.datasource.UpdateDataSourceRequest
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue

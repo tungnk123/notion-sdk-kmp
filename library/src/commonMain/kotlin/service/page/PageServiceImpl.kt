@@ -3,7 +3,7 @@ package service.page
 import core.data.model.internal.dto.page.PageDto
 import core.data.model.internal.request.page.CreatePageRequest
 import core.data.model.internal.request.page.UpdatePageRequest
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.request.*
 import kotlinx.serialization.json.JsonObject
 

@@ -4,7 +4,7 @@ import core.data.model.internal.dto.page.PagePropertyDto
 import core.data.model.internal.request.page.CreatePageRequest
 import core.data.model.internal.request.page.UpdatePageRequest
 import core.data.model.result.page.NotionPage
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.JsonObject

@@ -4,7 +4,7 @@ import auth.TokenProvider
 import core.data.model.result.common.NotionResults
 import core.data.model.result.datasource.NotionDataSource
 import core.data.model.result.page.NotionPage
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -20,7 +20,6 @@ import repository.search.SearchRepositoryImpl
 import service.search.SearchServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
 private class StaticTokenProvider(private val t: String = "x") : TokenProvider {

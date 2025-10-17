@@ -1,6 +1,6 @@
-package notion
+package io.github.tungnk123.notionsdkkmp.notion
 
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import repository.block.BlockRepository
 import repository.block.BlockRepositoryImpl
 import repository.database.DatabaseRepository

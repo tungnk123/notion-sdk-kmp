@@ -7,7 +7,7 @@ import core.data.model.internal.dto.richtext.RichTextColor
 import core.data.model.internal.dto.richtext.RichTextDto
 import core.data.model.internal.response.ResultsResponseDto
 import core.data.model.result.block.NotionBlock
-import http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.plugins.contentnegotiation.*
