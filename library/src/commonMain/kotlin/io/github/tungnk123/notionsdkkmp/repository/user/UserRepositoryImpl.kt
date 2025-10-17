@@ -1,9 +1,9 @@
 package io.github.tungnk123.notionsdkkmp.repository.user
 
-import core.data.mapper.toDomain
-import core.data.model.internal.dto.user.UserDto
-import core.data.model.result.common.NotionResults
-import core.data.model.result.user.NotionUser
+import io.github.tungnk123.notionsdkkmp.core.data.mapper.toDomain
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.user.UserDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionResults
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.user.NotionUser
 import io.github.tungnk123.notionsdkkmp.service.user.UserService
 
 class UserRepositoryImpl(private val userService: UserService) : UserRepository {

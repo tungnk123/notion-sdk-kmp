@@ -1,12 +1,15 @@
 package datasource
 
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
-import core.data.model.internal.dto.block.ParentDto
-import core.data.model.internal.dto.datasource.*
-import core.data.model.internal.request.datasource.CreateDataSourceRequest
-import core.data.model.internal.request.datasource.QueryDataSourceRequest
-import core.data.model.internal.request.datasource.UpdateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.block.ParentDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.CreateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.QueryDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.UpdateDataSourceRequest
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepository
+import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceService
+import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceServiceImpl
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -15,10 +18,6 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
-import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepository
-import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepositoryImpl
-import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceService
-import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceServiceImpl
 import kotlin.test.*
 
 private class StaticTokenProvider(private val t: String = "x") : TokenProvider {
@@ -71,17 +70,22 @@ class DataSourcesRepositoryTest {
 
     @Test
     fun create_with_rollup_property_ok() = runTest {
-        val req = CreateDataSourceRequest(
-            parent = ParentDto.DatabaseId("db_1"),
-            properties = mapOf(
-                "Rollup" to DataSourcePropertyDto(
-                    id = "rollup",
-                    name = "Rollup",
-                    type = DataSourcePropertyType.ROLLUP,
-                    rollup = RollupConfig(function = "count")
+        val req =
+            CreateDataSourceRequest(
+                parent = ParentDto.DatabaseId(
+                    "db_1"
+                ),
+                properties = mapOf(
+                    "Rollup" to _root_ide_package_.io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyDto(
+                        id = "rollup",
+                        name = "Rollup",
+                        type = io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyType.ROLLUP,
+                        rollup = _root_ide_package_.io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.RollupConfig(
+                            function = "count"
+                        )
+                    )
                 )
             )
-        )
 
         val response = """
         {
@@ -129,17 +133,20 @@ class DataSourcesRepositoryTest {
 
     @Test
     fun create_ok() = runTest {
-        val req = CreateDataSourceRequest(
-            parent = ParentDto.DatabaseId("db_1"),
-            properties = mapOf(
-                "Title" to DataSourcePropertyDto(
-                    id = "title",
-                    name = "Title",
-                    type = DataSourcePropertyType.TITLE,
-                    title = EmptyObj
+        val req =
+            CreateDataSourceRequest(
+                parent = ParentDto.DatabaseId(
+                    "db_1"
+                ),
+                properties = mapOf(
+                    "Title" to _root_ide_package_.io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyDto(
+                        id = "title",
+                        name = "Title",
+                        type = io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyType.TITLE,
+                        title = io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.EmptyObj
+                    )
                 )
             )
-        )
 
         val response = """
             { "object":"data_source","id":"new_ds","properties":{} }
@@ -165,23 +172,26 @@ class DataSourcesRepositoryTest {
 
     @Test
     fun create_full_example_ok() = runTest {
-        val req = CreateDataSourceRequest(
-            parent = ParentDto.DatabaseId("6ee911d9-189c-4844-93e8-260c1438b6e4"),
-            properties = mapOf(
-                "Title" to DataSourcePropertyDto(
-                    id = "title",
-                    name = "Title",
-                    type = DataSourcePropertyType.TITLE,
-                    title = EmptyObj
+        val req =
+            CreateDataSourceRequest(
+                parent = ParentDto.DatabaseId(
+                    "6ee911d9-189c-4844-93e8-260c1438b6e4"
                 ),
-                "Count" to DataSourcePropertyDto(
-                    id = "number",
-                    name = "Count",
-                    type = DataSourcePropertyType.NUMBER,
-                    number = NumberConfig()
+                properties = mapOf(
+                    "Title" to _root_ide_package_.io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyDto(
+                        id = "title",
+                        name = "Title",
+                        type = io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyType.TITLE,
+                        title = io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.EmptyObj
+                    ),
+                    "Count" to _root_ide_package_.io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyDto(
+                        id = "number",
+                        name = "Count",
+                        type = io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyType.NUMBER,
+                        number = _root_ide_package_.io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.NumberConfig()
+                    )
                 )
             )
-        )
 
         val response =
             """
@@ -291,7 +301,12 @@ class DataSourcesRepositoryTest {
         }
 
         val repo = DataSourceRepositoryImpl(DataSourceServiceImpl(http))
-        val res = repo.query(dsId, QueryDataSourceRequest(pageSize = 1))
+        val res = repo.query(
+            dsId,
+            QueryDataSourceRequest(
+                pageSize = 1
+            )
+        )
         assertFalse(res.hasMore)
         assertTrue(res.results.isEmpty())
         assertNull(res.nextCursor)
@@ -300,16 +315,17 @@ class DataSourcesRepositoryTest {
     @Test
     fun update_add_url_property_and_title_ok() = runTest {
         val dsId = "b55c9c91-384d-452b-81db-d1ef79372b75"
-        val req = UpdateDataSourceRequest(
-            properties = mapOf(
-                "Website" to DataSourcePropertyDto(
-                    id = "url",
-                    name = "Website",
-                    type = DataSourcePropertyType.URL,
-                    url = EmptyObj
+        val req =
+            UpdateDataSourceRequest(
+                properties = mapOf(
+                    "Website" to _root_ide_package_.io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyDto(
+                        id = "url",
+                        name = "Website",
+                        type = io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyType.URL,
+                        url = io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.EmptyObj
+                    )
                 )
             )
-        )
 
         val response = """
         {

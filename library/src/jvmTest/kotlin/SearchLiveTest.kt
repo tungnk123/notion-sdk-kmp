@@ -1,15 +1,15 @@
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
-import core.data.model.result.datasource.NotionDataSource
-import core.data.model.result.page.NotionPage
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSource
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.page.NotionPage
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
-import io.ktor.client.*
-import kotlinx.coroutines.runBlocking
-import org.junit.Assume.assumeTrue
-import org.junit.Test
 import io.github.tungnk123.notionsdkkmp.repository.search.SearchRepository
 import io.github.tungnk123.notionsdkkmp.repository.search.SearchRepositoryImpl
 import io.github.tungnk123.notionsdkkmp.service.search.SearchService
 import io.github.tungnk123.notionsdkkmp.service.search.SearchServiceImpl
+import io.ktor.client.*
+import kotlinx.coroutines.runBlocking
+import org.junit.Assume.assumeTrue
+import org.junit.Test
 import kotlin.test.assertNotNull
 
 private class DirectTokenProvider(private val t: String) : TokenProvider {
@@ -45,7 +45,7 @@ class SearchLiveTest {
 
     @Test
     fun search_pages_by_query_live() = runBlocking {
-        val response = repo().searchPages(query = "Test",directionAsc = true, startCursor = null, pageSize = 10)
+        val response = repo().searchPages(query = "Test", directionAsc = true, startCursor = null, pageSize = 10)
         if (response.results.isNotEmpty()) {
             val first: NotionPage = response.results.first()
             assertNotNull(first.id)

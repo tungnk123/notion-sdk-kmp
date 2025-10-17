@@ -1,9 +1,9 @@
 package io.github.tungnk123.notionsdkkmp.service.search
 
-import core.data.model.internal.dto.datasource.DataSourceDto
-import core.data.model.internal.dto.page.PageDto
-import core.data.model.internal.request.search.SearchRequest
-import core.data.model.internal.response.ResultsResponseDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourceDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.page.PageDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.search.SearchRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.response.ResultsResponseDto
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.request.*
 

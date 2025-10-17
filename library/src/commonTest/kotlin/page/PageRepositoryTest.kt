@@ -1,11 +1,11 @@
 package page
 
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
-import core.data.model.internal.dto.block.ParentDto
-import core.data.model.internal.dto.page.PagePropertyDto
-import core.data.model.internal.request.page.CreatePageRequest
-import core.data.model.internal.request.page.UpdatePageRequest
-import core.data.model.result.page.NotionPage
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.block.ParentDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.page.PagePropertyDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.page.CreatePageRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.page.UpdatePageRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.page.NotionPage
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
@@ -98,10 +98,13 @@ class PageRepositoryTest {
 
     @Test
     fun create_ok() = runTest {
-        val req = CreatePageRequest(
-            parent = ParentDto.PageId("some-page-id"),
-            properties = mapOf()
-        )
+        val req =
+            CreatePageRequest(
+                parent = ParentDto.PageId(
+                    "some-page-id"
+                ),
+                properties = mapOf()
+            )
 
         val response = """
         {
@@ -160,58 +163,59 @@ class PageRepositoryTest {
     @Test
     fun update_ok() = runTest {
         val pageId = "59833787-2cf9-4fdf-8782-e53db20768a5"
-        val req = UpdatePageRequest(
-            properties = mapOf(
-                "Score /5" to PagePropertyDto.Select(
-                    id = ")Y7%22",
-                    select = PagePropertyDto.Select.Value(
-                        id = "b7307e35-c80a-4cb5-bb6b-6054523b394a",
-                        name = "⭐️⭐️⭐️⭐️",
-                        color = "default"
-                    )
-                ),
-                "Read" to PagePropertyDto.Checkbox(
-                    id = "_MWJ",
-                    checkbox = true
-                ),
-                "Status" to PagePropertyDto.Select(
-                    id = "%60zz5",
-                    select = PagePropertyDto.Select.Value(
-                        id = "5925ba22-0126-4b58-90c7-b8bbb2c3c895",
-                        name = "Reading",
-                        color = "red"
-                    )
-                ),
-                "Author" to PagePropertyDto.MultiSelect(
-                    id = "qNw_",
-                    multiSelect = listOf(
-                        PagePropertyDto.Select.Value(
-                            id = "833e2c78-35ed-4601-badc-50c323341d76",
-                            name = "Kara Swisher",
+        val req =
+            UpdatePageRequest(
+                properties = mapOf(
+                    "Score /5" to PagePropertyDto.Select(
+                        id = ")Y7%22",
+                        select = PagePropertyDto.Select.Value(
+                            id = "b7307e35-c80a-4cb5-bb6b-6054523b394a",
+                            name = "⭐️⭐️⭐️⭐️",
                             color = "default"
                         )
-                    )
-                ),
-                "Name" to PagePropertyDto.Title(
-                    id = "title",
-                    title = listOf(
-                        PagePropertyDto.Title.Value(
-                            type = "text",
-                            text = PagePropertyDto.Title.Value.Text(
-                                content = "Who Will Teach Silicon Valley to Be Ethical? "
-                            ),
-                            annotations = PagePropertyDto.Title.Value.Annotations(
-                                bold = false, italic = false, strikethrough = false,
-                                underline = false, code = false, color = "default"
-                            ),
-                            plainText = "Who Will Teach Silicon Valley to Be Ethical? ",
-                            href = null
+                    ),
+                    "Read" to PagePropertyDto.Checkbox(
+                        id = "_MWJ",
+                        checkbox = true
+                    ),
+                    "Status" to PagePropertyDto.Select(
+                        id = "%60zz5",
+                        select = PagePropertyDto.Select.Value(
+                            id = "5925ba22-0126-4b58-90c7-b8bbb2c3c895",
+                            name = "Reading",
+                            color = "red"
+                        )
+                    ),
+                    "Author" to PagePropertyDto.MultiSelect(
+                        id = "qNw_",
+                        multiSelect = listOf(
+                            PagePropertyDto.Select.Value(
+                                id = "833e2c78-35ed-4601-badc-50c323341d76",
+                                name = "Kara Swisher",
+                                color = "default"
+                            )
+                        )
+                    ),
+                    "Name" to PagePropertyDto.Title(
+                        id = "title",
+                        title = listOf(
+                            PagePropertyDto.Title.Value(
+                                type = "text",
+                                text = PagePropertyDto.Title.Value.Text(
+                                    content = "Who Will Teach Silicon Valley to Be Ethical? "
+                                ),
+                                annotations = PagePropertyDto.Title.Value.Annotations(
+                                    bold = false, italic = false, strikethrough = false,
+                                    underline = false, code = false, color = "default"
+                                ),
+                                plainText = "Who Will Teach Silicon Valley to Be Ethical? ",
+                                href = null
+                            )
                         )
                     )
-                )
-            ),
-            archived = false
-        )
+                ),
+                archived = false
+            )
 
         val response = """
         {

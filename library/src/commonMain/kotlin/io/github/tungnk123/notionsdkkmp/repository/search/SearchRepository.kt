@@ -1,8 +1,8 @@
 package io.github.tungnk123.notionsdkkmp.repository.search
 
-import core.data.model.result.common.NotionResults
-import core.data.model.result.datasource.NotionDataSource
-import core.data.model.result.page.NotionPage
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionResults
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSource
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.page.NotionPage
 
 interface SearchRepository {
     suspend fun searchPages(

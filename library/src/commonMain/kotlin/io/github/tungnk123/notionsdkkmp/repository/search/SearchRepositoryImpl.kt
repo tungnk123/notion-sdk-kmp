@@ -1,13 +1,13 @@
 package io.github.tungnk123.notionsdkkmp.repository.search
 
-import core.data.mapper.toDomain
-import core.data.model.internal.dto.datasource.DataSourceDto
-import core.data.model.internal.dto.page.PageDto
-import core.data.model.internal.request.search.SearchRequest
-import core.data.model.internal.response.ResultsResponseDto
-import core.data.model.result.common.NotionResults
-import core.data.model.result.datasource.NotionDataSource
-import core.data.model.result.page.NotionPage
+import io.github.tungnk123.notionsdkkmp.core.data.mapper.toDomain
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourceDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.page.PageDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.search.SearchRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.response.ResultsResponseDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionResults
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSource
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.page.NotionPage
 import io.github.tungnk123.notionsdkkmp.service.search.SearchService
 
 class SearchRepositoryImpl(

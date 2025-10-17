@@ -1,9 +1,9 @@
 package io.github.tungnk123.notionsdkkmp.repository.database
 
-import core.data.mapper.toDomain
-import core.data.model.internal.request.database.CreateDatabaseRequest
-import core.data.model.internal.request.database.UpdateDatabaseRequest
-import core.data.model.result.database.NotionDatabase
+import io.github.tungnk123.notionsdkkmp.core.data.mapper.toDomain
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.CreateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.UpdateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.database.NotionDatabase
 import io.github.tungnk123.notionsdkkmp.service.database.DatabaseService
 
 class DatabaseRepositoryImpl(

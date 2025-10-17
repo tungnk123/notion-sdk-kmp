@@ -1,8 +1,8 @@
 package io.github.tungnk123.notionsdkkmp.repository.database
 
-import core.data.model.internal.request.database.CreateDatabaseRequest
-import core.data.model.internal.request.database.UpdateDatabaseRequest
-import core.data.model.result.database.NotionDatabase
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.CreateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.UpdateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.database.NotionDatabase
 
 interface DatabaseRepository {
     suspend fun create(req: CreateDatabaseRequest): NotionDatabase

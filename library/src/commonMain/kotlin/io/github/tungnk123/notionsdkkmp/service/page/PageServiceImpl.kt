@@ -1,8 +1,8 @@
 package io.github.tungnk123.notionsdkkmp.service.page
 
-import core.data.model.internal.dto.page.PageDto
-import core.data.model.internal.request.page.CreatePageRequest
-import core.data.model.internal.request.page.UpdatePageRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.page.PageDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.page.CreatePageRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.page.UpdatePageRequest
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.request.*
 import kotlinx.serialization.json.JsonObject

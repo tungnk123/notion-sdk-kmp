@@ -1,9 +1,9 @@
 package io.github.tungnk123.notionsdkkmp.repository.page
 
-import core.data.mapper.toDomain
-import core.data.model.internal.request.page.CreatePageRequest
-import core.data.model.internal.request.page.UpdatePageRequest
-import core.data.model.result.page.NotionPage
+import io.github.tungnk123.notionsdkkmp.core.data.mapper.toDomain
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.page.CreatePageRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.page.UpdatePageRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.page.NotionPage
 import kotlinx.serialization.json.JsonObject
 import io.github.tungnk123.notionsdkkmp.service.page.PageService
 

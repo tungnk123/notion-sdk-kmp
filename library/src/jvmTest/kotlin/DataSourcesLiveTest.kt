@@ -1,20 +1,21 @@
 package datasource
 
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
-import core.data.model.internal.dto.block.ParentDto
-import core.data.model.internal.dto.datasource.DataSourcePropertyDto
-import core.data.model.internal.dto.datasource.DataSourcePropertyType
-import core.data.model.internal.dto.datasource.EmptyObj
-import core.data.model.internal.request.datasource.CreateDataSourceRequest
-import core.data.model.internal.request.datasource.QueryDataSourceRequest
-import core.data.model.internal.request.datasource.UpdateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.block.ParentDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyType
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.EmptyObj
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.NumberConfig
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.CreateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.QueryDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.UpdateDataSourceRequest
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
+import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceServiceImpl
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepositoryImpl
-import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceServiceImpl
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
@@ -110,8 +111,7 @@ class DataSourcesLiveTest {
                 "Count" to DataSourcePropertyDto(
                     id = "number",
                     name = "Count",
-                    type = DataSourcePropertyType.NUMBER,
-                    number = core.data.model.internal.dto.datasource.NumberConfig()
+                    type = DataSourcePropertyType.NUMBER, number = NumberConfig()
                 )
             )
         )

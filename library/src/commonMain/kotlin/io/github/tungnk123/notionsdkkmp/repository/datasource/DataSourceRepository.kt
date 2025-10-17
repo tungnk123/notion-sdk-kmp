@@ -1,11 +1,11 @@
 package io.github.tungnk123.notionsdkkmp.repository.datasource
 
-import core.data.model.internal.request.datasource.CreateDataSourceRequest
-import core.data.model.internal.request.datasource.QueryDataSourceRequest
-import core.data.model.internal.request.datasource.UpdateDataSourceRequest
-import core.data.model.result.common.NotionResults
-import core.data.model.result.datasource.NotionDataSource
-import core.data.model.result.page.NotionPage
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.CreateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.QueryDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.UpdateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionResults
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSource
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.page.NotionPage
 
 interface DataSourceRepository {
     suspend fun create(req: CreateDataSourceRequest): NotionDataSource

@@ -1,12 +1,12 @@
 package database
 
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
-import core.data.model.internal.dto.block.ParentDto
-import core.data.model.internal.dto.datasource.DataSourcePropertyDto
-import core.data.model.internal.dto.datasource.DataSourcePropertyType
-import core.data.model.internal.request.database.CreateDatabaseRequest
-import core.data.model.internal.request.database.InitialDataSourceRequest
-import core.data.model.internal.request.database.UpdateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.block.ParentDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourcePropertyType
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.CreateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.InitialDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.UpdateDatabaseRequest
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
@@ -93,19 +93,24 @@ class DatabasesRepositoryTest {
 
     @Test
     fun create_with_initial_ds_rollup_ok() = runTest {
-        val req = CreateDatabaseRequest(
-            parent = ParentDto.PageId("255104cd-477e-808c-b279-d39ab803a7d2"),
-            initialDataSource = InitialDataSourceRequest(
-                properties = mapOf(
-                    "Count" to DataSourcePropertyDto(
-                        id = "rollup",
-                        name = "Count",
-                        type = DataSourcePropertyType.ROLLUP,
-                        rollup = core.data.model.internal.dto.datasource.RollupConfig(function = "count")
+        val req =
+            CreateDatabaseRequest(
+                parent = ParentDto.PageId(
+                    "255104cd-477e-808c-b279-d39ab803a7d2"
+                ),
+                initialDataSource = InitialDataSourceRequest(
+                    properties = mapOf(
+                        "Count" to DataSourcePropertyDto(
+                            id = "rollup",
+                            name = "Count",
+                            type = DataSourcePropertyType.ROLLUP,
+                            rollup = _root_ide_package_.io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.RollupConfig(
+                                function = "count"
+                            )
+                        )
                     )
                 )
             )
-        )
 
         val response = """
             {
@@ -156,16 +161,19 @@ class DatabasesRepositoryTest {
         assertTrue(created.title.any { it.plainText == "My Task Tracker" })
         assertEquals(
             "255104cd-477e-808c-b279-d39ab803a7d2",
-            (created.parent as? core.data.model.result.common.NotionParent.PageId)?.pageId
+            (created.parent as? io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionParent.PageId)?.pageId
         )
     }
 
     @Test
     fun update_parent_ok() = runTest {
         val dbId = "248104cd-477e-80fd-b757-e945d38000bd"
-        val req = UpdateDatabaseRequest(
-            parent = ParentDto.PageId("255104cd-477e-808c-b279-d39ab803a7d2")
-        )
+        val req =
+            UpdateDatabaseRequest(
+                parent = ParentDto.PageId(
+                    "255104cd-477e-808c-b279-d39ab803a7d2"
+                )
+            )
 
         val response = """
             {
@@ -213,7 +221,7 @@ class DatabasesRepositoryTest {
         assertEquals(dbId, updated.id)
         assertEquals(
             "255104cd-477e-808c-b279-d39ab803a7d2",
-            (updated.parent as? core.data.model.result.common.NotionParent.PageId)?.pageId
+            (updated.parent as? io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionParent.PageId)?.pageId
         )
         assertNotNull(updated.lastEditedTime)
     }

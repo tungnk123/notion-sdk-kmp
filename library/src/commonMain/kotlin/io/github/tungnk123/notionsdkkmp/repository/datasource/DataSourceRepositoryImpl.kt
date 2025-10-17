@@ -1,13 +1,13 @@
 package io.github.tungnk123.notionsdkkmp.repository.datasource
 
-import core.data.mapper.toDomain
-import core.data.model.internal.dto.page.PageDto
-import core.data.model.internal.request.datasource.CreateDataSourceRequest
-import core.data.model.internal.request.datasource.QueryDataSourceRequest
-import core.data.model.internal.request.datasource.UpdateDataSourceRequest
-import core.data.model.result.common.NotionResults
-import core.data.model.result.datasource.NotionDataSource
-import core.data.model.result.page.NotionPage
+import io.github.tungnk123.notionsdkkmp.core.data.mapper.toDomain
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.page.PageDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.CreateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.QueryDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.UpdateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionResults
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSource
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.page.NotionPage
 import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceService
 
 class DataSourceRepositoryImpl(
@@ -23,5 +23,7 @@ class DataSourceRepositoryImpl(
 
     override suspend fun query(
         id: String, req: QueryDataSourceRequest
-    ): NotionResults<NotionPage> = service.query(id, req).toDomain(PageDto::toDomain)
+    ): NotionResults<NotionPage> = service.query(id, req).toDomain(
+        PageDto::toDomain
+    )
 }

@@ -1,7 +1,7 @@
 package io.github.tungnk123.notionsdkkmp.http
 
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
-import core.data.model.NotionApiVersion
+import io.github.tungnk123.notionsdkkmp.core.data.model.NotionApiVersion
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*

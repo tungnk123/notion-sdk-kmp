@@ -1,8 +1,8 @@
 package io.github.tungnk123.notionsdkkmp.service.block
 
-import core.data.model.internal.dto.block.BlockDto
-import core.data.model.internal.request.block.AppendBlockChildrenRequest
-import core.data.model.internal.response.ResultsResponseDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.block.BlockDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.block.AppendBlockChildrenRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.response.ResultsResponseDto
 
 interface BlockService {
     suspend fun retrieve(blockId: String): BlockDto

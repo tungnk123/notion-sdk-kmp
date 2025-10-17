@@ -1,11 +1,11 @@
 package io.github.tungnk123.notionsdkkmp.service.datasource
 
-import core.data.model.internal.dto.datasource.DataSourceDto
-import core.data.model.internal.dto.page.PageDto
-import core.data.model.internal.request.datasource.CreateDataSourceRequest
-import core.data.model.internal.request.datasource.QueryDataSourceRequest
-import core.data.model.internal.request.datasource.UpdateDataSourceRequest
-import core.data.model.internal.response.ResultsResponseDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.DataSourceDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.page.PageDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.CreateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.QueryDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.UpdateDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.response.ResultsResponseDto
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.request.*
 

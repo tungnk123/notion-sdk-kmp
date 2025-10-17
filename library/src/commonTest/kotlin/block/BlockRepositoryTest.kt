@@ -1,12 +1,12 @@
 package block
 
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
-import core.data.model.internal.dto.block.BlockDto
-import core.data.model.internal.dto.richtext.RichTextAnnotations
-import core.data.model.internal.dto.richtext.RichTextColor
-import core.data.model.internal.dto.richtext.RichTextDto
-import core.data.model.internal.response.ResultsResponseDto
-import core.data.model.result.block.NotionBlock
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.block.BlockDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.richtext.RichTextAnnotations
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.richtext.RichTextColor
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.richtext.RichTextDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.response.ResultsResponseDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.block.NotionBlock
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*

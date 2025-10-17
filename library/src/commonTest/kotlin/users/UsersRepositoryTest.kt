@@ -1,8 +1,8 @@
 package users
 
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
-import core.data.model.result.common.NotionResults
-import core.data.model.result.user.NotionUser
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionResults
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.user.NotionUser
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*
