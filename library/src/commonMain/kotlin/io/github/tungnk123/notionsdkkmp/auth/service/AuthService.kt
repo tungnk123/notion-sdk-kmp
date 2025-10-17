@@ -1,6 +1,11 @@
-package auth.service
+package io.github.tungnk123.notionsdkkmp.auth.service
 
-import auth.model.*
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthCreateTokenRequest
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthIntrospectRequest
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthIntrospectResponse
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthRefreshTokenRequest
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthRevokeRequest
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthTokenResponse
 
 interface AuthService {
     fun buildAuthorizeUrl(

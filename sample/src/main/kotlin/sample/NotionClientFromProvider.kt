@@ -1,4 +1,4 @@
-import auth.TokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import io.github.tungnk123.notionsdkkmp.notion.NotionClientFactory

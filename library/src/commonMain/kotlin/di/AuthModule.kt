@@ -1,14 +1,14 @@
 package di
 
-import auth.OAuthTokenProvider
-import auth.repository.AuthRepository
-import auth.repository.AuthRepositoryFactory
-import auth.service.AuthService
-import auth.service.AuthServiceImpl
-import auth.tokenstorage.InMemoryMultiTokenStorage
-import auth.tokenstorage.InMemoryTokenStorage
-import auth.tokenstorage.MultiTokenStorage
-import auth.tokenstorage.TokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.OAuthTokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.repository.AuthRepository
+import io.github.tungnk123.notionsdkkmp.auth.repository.AuthRepositoryFactory
+import io.github.tungnk123.notionsdkkmp.auth.service.AuthService
+import io.github.tungnk123.notionsdkkmp.auth.service.AuthServiceImpl
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.InMemoryMultiTokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.InMemoryTokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.MultiTokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.TokenStorage
 import io.ktor.client.*
 import io.github.tungnk123.notionsdkkmp.notion.NotionSessionManager
 import org.koin.core.parameter.parametersOf

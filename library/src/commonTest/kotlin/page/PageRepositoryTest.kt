@@ -1,6 +1,6 @@
 package page
 
-import auth.TokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
 import core.data.model.internal.dto.block.ParentDto
 import core.data.model.internal.dto.page.PagePropertyDto
 import core.data.model.internal.request.page.CreatePageRequest

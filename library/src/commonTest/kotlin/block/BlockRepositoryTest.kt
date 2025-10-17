@@ -1,6 +1,6 @@
 package block
 
-import auth.TokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
 import core.data.model.internal.dto.block.BlockDto
 import core.data.model.internal.dto.richtext.RichTextAnnotations
 import core.data.model.internal.dto.richtext.RichTextColor

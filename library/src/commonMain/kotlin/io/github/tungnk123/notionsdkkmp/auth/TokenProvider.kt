@@ -1,6 +1,6 @@
-package auth
+package io.github.tungnk123.notionsdkkmp.auth
 
-import auth.repository.AuthRepository
+import io.github.tungnk123.notionsdkkmp.auth.repository.AuthRepository
 
 interface TokenProvider {
     fun token(): String

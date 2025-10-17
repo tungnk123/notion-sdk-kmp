@@ -1,7 +1,7 @@
 package io.github.tungnk123.notionsdkkmp.notion.model
 
-import auth.model.OAuthTokenResponse
-import auth.repository.AuthRepository
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthTokenResponse
+import io.github.tungnk123.notionsdkkmp.auth.repository.AuthRepository
 import io.github.tungnk123.notionsdkkmp.notion.NotionClient
 
 data class NotionSession(

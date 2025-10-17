@@ -1,10 +1,10 @@
-package auth.repository
+package io.github.tungnk123.notionsdkkmp.auth.repository
 
-import auth.tokenstorage.MultiTokenStorage
-import auth.tokenstorage.TokenStorage
-import auth.tokenstorage.WorkspaceTokenStorage
-import auth.service.AuthService
-import auth.model.OAuthTokenResponse
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.MultiTokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.TokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.WorkspaceTokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.service.AuthService
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthTokenResponse
 
 class AuthRepositoryFactory(
     private val service: AuthService,

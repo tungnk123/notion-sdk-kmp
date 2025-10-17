@@ -1,4 +1,4 @@
-import auth.TokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
 import core.data.model.result.datasource.NotionDataSource
 import core.data.model.result.page.NotionPage
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp

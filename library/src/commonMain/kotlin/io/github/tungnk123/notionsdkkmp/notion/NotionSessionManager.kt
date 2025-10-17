@@ -1,7 +1,7 @@
 package io.github.tungnk123.notionsdkkmp.notion
 
-import auth.repository.AuthRepositoryFactory
-import auth.tokenstorage.MultiTokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.repository.AuthRepositoryFactory
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.MultiTokenStorage
 import io.ktor.http.Url
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

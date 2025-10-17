@@ -1,6 +1,6 @@
-import auth.repository.AuthRepository
-import auth.service.AuthServiceImpl
-import auth.tokenstorage.InMemoryTokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.repository.AuthRepository
+import io.github.tungnk123.notionsdkkmp.auth.service.AuthServiceImpl
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.InMemoryTokenStorage
 import io.ktor.client.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.serialization.kotlinx.json.*

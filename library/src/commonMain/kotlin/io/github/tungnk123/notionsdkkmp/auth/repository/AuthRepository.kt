@@ -1,13 +1,13 @@
-package auth.repository
+package io.github.tungnk123.notionsdkkmp.auth.repository
 
-import auth.tokenstorage.TokenStorage
-import auth.model.OAuthCreateTokenRequest
-import auth.model.OAuthIntrospectRequest
-import auth.model.OAuthIntrospectResponse
-import auth.model.OAuthRefreshTokenRequest
-import auth.model.OAuthRevokeRequest
-import auth.model.OAuthTokenResponse
-import auth.service.AuthService
+import io.github.tungnk123.notionsdkkmp.auth.tokenstorage.TokenStorage
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthCreateTokenRequest
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthIntrospectRequest
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthIntrospectResponse
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthRefreshTokenRequest
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthRevokeRequest
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthTokenResponse
+import io.github.tungnk123.notionsdkkmp.auth.service.AuthService
 
 class AuthRepository(
     private val service: AuthService,

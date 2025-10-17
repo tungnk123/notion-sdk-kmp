@@ -1,6 +1,6 @@
 package datasource
 
-import auth.TokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
 import core.data.model.internal.dto.block.ParentDto
 import core.data.model.internal.dto.datasource.DataSourcePropertyDto
 import core.data.model.internal.dto.datasource.DataSourcePropertyType

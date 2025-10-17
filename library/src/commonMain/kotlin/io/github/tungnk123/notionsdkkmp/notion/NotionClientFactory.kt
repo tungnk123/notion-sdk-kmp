@@ -1,9 +1,9 @@
 package io.github.tungnk123.notionsdkkmp.notion
 
-import auth.OAuthTokenProvider
-import auth.StaticTokenProvider
-import auth.TokenProvider
-import auth.repository.AuthRepository
+import io.github.tungnk123.notionsdkkmp.auth.OAuthTokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.StaticTokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.repository.AuthRepository
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 

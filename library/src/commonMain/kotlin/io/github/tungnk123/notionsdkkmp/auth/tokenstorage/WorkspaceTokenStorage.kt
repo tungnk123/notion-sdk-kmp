@@ -1,6 +1,6 @@
-package auth.tokenstorage
+package io.github.tungnk123.notionsdkkmp.auth.tokenstorage
 
-import auth.model.OAuthTokenResponse
+import io.github.tungnk123.notionsdkkmp.auth.model.OAuthTokenResponse
 
 class WorkspaceTokenStorage(
     private val multi: MultiTokenStorage, private val workspaceId: String

@@ -1,6 +1,6 @@
 package search
 
-import auth.TokenProvider
+import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
 import core.data.model.result.common.NotionResults
 import core.data.model.result.datasource.NotionDataSource
 import core.data.model.result.page.NotionPage
