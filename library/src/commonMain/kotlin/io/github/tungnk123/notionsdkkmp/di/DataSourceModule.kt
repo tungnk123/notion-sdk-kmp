@@ -1,4 +1,4 @@
-package di
+package io.github.tungnk123.notionsdkkmp.di
 
 import org.koin.dsl.module
 import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepository

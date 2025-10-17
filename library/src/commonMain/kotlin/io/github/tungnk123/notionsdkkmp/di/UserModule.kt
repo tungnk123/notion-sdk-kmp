@@ -1,4 +1,4 @@
-package di
+package io.github.tungnk123.notionsdkkmp.di
 
 import io.github.tungnk123.notionsdkkmp.auth.StaticTokenProvider
 import io.github.tungnk123.notionsdkkmp.auth.TokenProvider
