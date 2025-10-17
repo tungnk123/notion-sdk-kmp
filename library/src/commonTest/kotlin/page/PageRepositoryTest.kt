@@ -16,10 +16,10 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
-import repository.page.PageRepository
-import repository.page.PageRepositoryImpl
-import service.page.PageService
-import service.page.PageServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.page.PageRepository
+import io.github.tungnk123.notionsdkkmp.repository.page.PageRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.page.PageService
+import io.github.tungnk123.notionsdkkmp.service.page.PageServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

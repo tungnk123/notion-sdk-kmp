@@ -6,10 +6,10 @@ import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import org.koin.core.module.Module
 import org.koin.dsl.module
-import repository.user.UserRepository
-import repository.user.UserRepositoryImpl
-import service.user.UserService
-import service.user.UserServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.user.UserRepository
+import io.github.tungnk123.notionsdkkmp.repository.user.UserRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.user.UserService
+import io.github.tungnk123.notionsdkkmp.service.user.UserServiceImpl
 
 fun usersModule(token: String, httpClient: HttpClient? = null): Module = module {
     single<TokenProvider> { StaticTokenProvider(token) }

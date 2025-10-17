@@ -3,8 +3,8 @@ import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
-import repository.user.UserRepositoryImpl
-import service.user.UserServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.user.UserRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.user.UserServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 

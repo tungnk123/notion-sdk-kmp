@@ -11,10 +11,10 @@ import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import repository.database.DatabaseRepository
-import repository.database.DatabaseRepositoryImpl
-import service.database.DatabaseService
-import service.database.DatabaseServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.database.DatabaseRepository
+import io.github.tungnk123.notionsdkkmp.repository.database.DatabaseRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.database.DatabaseService
+import io.github.tungnk123.notionsdkkmp.service.database.DatabaseServiceImpl
 import kotlin.test.assertNotNull
 
 class DatabaseLiveTest {

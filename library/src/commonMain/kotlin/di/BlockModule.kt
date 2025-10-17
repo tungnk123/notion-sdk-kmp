@@ -1,10 +1,10 @@
 package di
 
 import org.koin.dsl.module
-import repository.block.BlockRepository
-import repository.block.BlockRepositoryImpl
-import service.block.BlockService
-import service.block.BlockServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.block.BlockRepository
+import io.github.tungnk123.notionsdkkmp.repository.block.BlockRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.block.BlockService
+import io.github.tungnk123.notionsdkkmp.service.block.BlockServiceImpl
 
 val blocksModule = module {
     single<BlockService> { BlockServiceImpl(get()) }

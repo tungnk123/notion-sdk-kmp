@@ -15,10 +15,10 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
-import repository.datasource.DataSourceRepository
-import repository.datasource.DataSourceRepositoryImpl
-import service.datasource.DataSourceService
-import service.datasource.DataSourceServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepository
+import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceService
+import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceServiceImpl
 import kotlin.test.*
 
 private class StaticTokenProvider(private val t: String = "x") : TokenProvider {

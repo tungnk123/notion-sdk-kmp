@@ -10,10 +10,10 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.JsonObject
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import repository.page.PageRepository
-import repository.page.PageRepositoryImpl
-import service.page.PageService
-import service.page.PageServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.page.PageRepository
+import io.github.tungnk123.notionsdkkmp.repository.page.PageRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.page.PageService
+import io.github.tungnk123.notionsdkkmp.service.page.PageServiceImpl
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 

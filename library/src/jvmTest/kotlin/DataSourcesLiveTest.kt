@@ -13,8 +13,8 @@ import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import repository.datasource.DataSourceRepositoryImpl
-import service.datasource.DataSourceServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceServiceImpl
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 

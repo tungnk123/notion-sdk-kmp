@@ -15,9 +15,9 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import repository.search.SearchRepository
-import repository.search.SearchRepositoryImpl
-import service.search.SearchServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.search.SearchRepository
+import io.github.tungnk123.notionsdkkmp.repository.search.SearchRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.search.SearchServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

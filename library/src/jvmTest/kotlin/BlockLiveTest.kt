@@ -8,10 +8,10 @@ import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import repository.block.BlockRepository
-import repository.block.BlockRepositoryImpl
-import service.block.BlockService
-import service.block.BlockServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.block.BlockRepository
+import io.github.tungnk123.notionsdkkmp.repository.block.BlockRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.block.BlockService
+import io.github.tungnk123.notionsdkkmp.service.block.BlockServiceImpl
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue

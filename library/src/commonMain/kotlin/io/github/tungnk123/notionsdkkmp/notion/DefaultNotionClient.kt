@@ -1,24 +1,24 @@
 package io.github.tungnk123.notionsdkkmp.notion
 
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
-import repository.block.BlockRepository
-import repository.block.BlockRepositoryImpl
-import repository.database.DatabaseRepository
-import repository.database.DatabaseRepositoryImpl
-import repository.datasource.DataSourceRepository
-import repository.datasource.DataSourceRepositoryImpl
-import repository.page.PageRepository
-import repository.page.PageRepositoryImpl
-import repository.search.SearchRepository
-import repository.search.SearchRepositoryImpl
-import repository.user.UserRepository
-import repository.user.UserRepositoryImpl
-import service.block.BlockServiceImpl
-import service.database.DatabaseServiceImpl
-import service.datasource.DataSourceServiceImpl
-import service.page.PageServiceImpl
-import service.search.SearchServiceImpl
-import service.user.UserServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.block.BlockRepository
+import io.github.tungnk123.notionsdkkmp.repository.block.BlockRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.repository.database.DatabaseRepository
+import io.github.tungnk123.notionsdkkmp.repository.database.DatabaseRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepository
+import io.github.tungnk123.notionsdkkmp.repository.datasource.DataSourceRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.repository.page.PageRepository
+import io.github.tungnk123.notionsdkkmp.repository.page.PageRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.repository.search.SearchRepository
+import io.github.tungnk123.notionsdkkmp.repository.search.SearchRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.repository.user.UserRepository
+import io.github.tungnk123.notionsdkkmp.repository.user.UserRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.block.BlockServiceImpl
+import io.github.tungnk123.notionsdkkmp.service.database.DatabaseServiceImpl
+import io.github.tungnk123.notionsdkkmp.service.datasource.DataSourceServiceImpl
+import io.github.tungnk123.notionsdkkmp.service.page.PageServiceImpl
+import io.github.tungnk123.notionsdkkmp.service.search.SearchServiceImpl
+import io.github.tungnk123.notionsdkkmp.service.user.UserServiceImpl
 
 internal class DefaultNotionClient(
     http: NotionHttp

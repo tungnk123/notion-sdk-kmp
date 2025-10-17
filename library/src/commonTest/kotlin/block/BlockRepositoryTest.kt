@@ -19,10 +19,10 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
-import repository.block.BlockRepository
-import repository.block.BlockRepositoryImpl
-import service.block.BlockService
-import service.block.BlockServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.block.BlockRepository
+import io.github.tungnk123.notionsdkkmp.repository.block.BlockRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.block.BlockService
+import io.github.tungnk123.notionsdkkmp.service.block.BlockServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull

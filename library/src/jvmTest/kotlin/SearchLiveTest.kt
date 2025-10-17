@@ -6,10 +6,10 @@ import io.ktor.client.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Assume.assumeTrue
 import org.junit.Test
-import repository.search.SearchRepository
-import repository.search.SearchRepositoryImpl
-import service.search.SearchService
-import service.search.SearchServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.search.SearchRepository
+import io.github.tungnk123.notionsdkkmp.repository.search.SearchRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.search.SearchService
+import io.github.tungnk123.notionsdkkmp.service.search.SearchServiceImpl
 import kotlin.test.assertNotNull
 
 private class DirectTokenProvider(private val t: String) : TokenProvider {

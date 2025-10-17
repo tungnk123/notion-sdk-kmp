@@ -8,9 +8,9 @@ import io.ktor.client.*
 import io.ktor.client.engine.mock.*
 import io.ktor.http.*
 import kotlinx.coroutines.test.runTest
-import repository.user.UserRepositoryImpl
-import service.user.UserService
-import service.user.UserServiceImpl
+import io.github.tungnk123.notionsdkkmp.repository.user.UserRepositoryImpl
+import io.github.tungnk123.notionsdkkmp.service.user.UserService
+import io.github.tungnk123.notionsdkkmp.service.user.UserServiceImpl
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
