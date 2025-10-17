@@ -16,6 +16,7 @@ version = "1.1.0"
 kotlin {
     applyDefaultHierarchyTemplate()
 
+    jvmToolchain(21)
     jvm()
     androidTarget {
         publishLibraryVariants("release")
@@ -33,7 +34,6 @@ kotlin {
                 implementation(libs.kotlinx.datetime)
                 implementation(libs.bundles.ktor.common)
                 implementation(libs.koin.core)
-                implementation(libs.kotlinx.atomicfu)
             }
         }
         val jvmMain by getting { dependencies { implementation(libs.ktor.client.cio) } }
