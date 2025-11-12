@@ -11,7 +11,7 @@ plugins {
 }
 
 group = "io.github.tungnk123"
-version = "1.1.1"
+version = "1.1.2"
 
 kotlin {
     applyDefaultHierarchyTemplate()
@@ -23,8 +23,8 @@ kotlin {
         compilerOptions { jvmTarget.set(JvmTarget.JVM_21) }
     }
     js { browser() }
-//    iosX64(); iosArm64(); iosSimulatorArm64()
-//    linuxX64()
+    iosX64(); iosArm64(); iosSimulatorArm64()
+    linuxX64()
 
     sourceSets {
         val commonMain by getting {
@@ -44,7 +44,7 @@ kotlin {
             }
         }
         val jsMain by getting { dependencies { implementation(libs.ktor.client.js) } }
-//        val iosMain by getting { dependencies { implementation(libs.ktor.client.darwin) } }
+        val iosMain by getting { dependencies { implementation(libs.ktor.client.darwin) } }
 
         val commonTest by getting {
             dependencies {
