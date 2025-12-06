@@ -5,7 +5,6 @@ import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.common.Cove
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.common.IconDto
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.PartialUser
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.richtext.RichTextDto
-import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -14,9 +13,9 @@ data class DatabaseDto(
     @SerialName("object") val objectType: String = "database",
     val id: String,
     @SerialName("data_sources") val dataSources: List<ChildDataSourceRef> = emptyList(),
-    @SerialName("created_time") val createdTime: Instant? = null,
+    @SerialName("created_time") val createdTime: String? = null,
     @SerialName("created_by") val createdBy: PartialUser? = null,
-    @SerialName("last_edited_time") val lastEditedTime: Instant? = null,
+    @SerialName("last_edited_time") val lastEditedTime: String? = null,
     @SerialName("last_edited_by") val lastEditedBy: PartialUser? = null,
     val title: List<RichTextDto>? = null,
     val description: List<RichTextDto>? = null,

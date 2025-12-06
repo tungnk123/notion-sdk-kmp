@@ -10,7 +10,29 @@ import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionCove
 import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionParent
 import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSource
 import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty
-import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.*
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Checkbox
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.CreatedBy
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.CreatedTime
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Date
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Email
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Files
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Formula
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.LastEditedBy
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.LastEditedTime
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.MultiSelect
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Number
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Option
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.People
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.PhoneNumber
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Relation
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.RichText
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Rollup
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Select
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Status
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.StatusGroup
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Title
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.UniqueId
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.datasource.NotionDataSourceProperty.Url
 import io.github.tungnk123.notionsdkkmp.core.data.model.result.user.NotionPartialUser
 
 fun DataSourceDto.toDomain(): NotionDataSource =

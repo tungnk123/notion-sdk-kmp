@@ -1,20 +1,17 @@
 package io.github.tungnk123.notionsdkkmp.core.data.model.result.database
 
-import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionIcon
 import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionCover
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionIcon
 import io.github.tungnk123.notionsdkkmp.core.data.model.result.common.NotionParent
-import io.github.tungnk123.notionsdkkmp.core.data.model.result.user.NotionPartialUser
 import io.github.tungnk123.notionsdkkmp.core.data.model.result.richtext.NotionRichText
-import kotlinx.datetime.Instant
+import io.github.tungnk123.notionsdkkmp.core.data.model.result.user.NotionPartialUser
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class NotionDatabase(
     val id: String,
-    val dataSources: List<ChildDataSource> = emptyList(),
-    val createdTime: Instant? = null,
-    val createdBy: NotionPartialUser? = null,
-    val lastEditedTime: Instant? = null,
+    val dataSources: List<ChildDataSource> = emptyList(), val createdTime: String? = null,
+    val createdBy: NotionPartialUser? = null, val lastEditedTime: String? = null,
     val lastEditedBy: NotionPartialUser? = null,
     val title: List<NotionRichText> = emptyList(),
     val description: List<NotionRichText> = emptyList(),
