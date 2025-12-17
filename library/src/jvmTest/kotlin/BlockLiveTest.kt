@@ -136,19 +136,19 @@ class BlockLiveTest {
         val repo = repo()
         val allBlocks = repo.getAllChildrenRecursive(pageId!!)
 
-        val todoBlocks = allBlocks.filterIsInstance<BlockDto.ToDo>()
+        val todoBlocks = allBlocks.filterIsInstance<NotionBlock.ToDo>()
 
         println("✅ get_todo_blocks_status_live: found ${todoBlocks.size} todo items")
 
-        val checkedCount = todoBlocks.count { it.todo.checked }
-        val uncheckedCount = todoBlocks.count { it.todo?.checked == false }
+        val checkedCount = todoBlocks.count { it.checked }
+        val uncheckedCount = todoBlocks.count { it.checked == false }
 
         println("   ✓ Checked: $checkedCount")
         println("   ☐ Unchecked: $uncheckedCount")
 
         todoBlocks.forEach { todo ->
-            val text = todo.todo?.richText?.firstOrNull()?.plainText ?: "No text"
-            val status = if (todo.todo?.checked == true) "✓" else "☐"
+            val text = todo.richText.firstOrNull()?.plainText ?: "No text"
+            val status = if (todo.checked) "✓" else "☐"
             println("   $status $text")
         }
     }

@@ -27,20 +27,20 @@ class BlockRepositoryImpl(
         blockId: String, request: AppendBlockChildrenRequest
     ): ResultsResponseDto<BlockDto> = service.appendChildren(blockId, request)
 
-    override suspend fun getAllChildren(blockId: String): List<BlockDto> {
-        val allBlocks = mutableListOf<BlockDto>()
+    override suspend fun getAllChildren(blockId: String): List<NotionBlock> {
+        val allBlocks = mutableListOf<NotionBlock>()
         var cursor: String? = null
         do {
             val response = service.listChildren(blockId, cursor, 100)
-            allBlocks.addAll(response.results)
+            allBlocks.addAll(response.results.map { it.toDomain() })
             cursor = if (response.hasMore) response.nextCursor else null
         } while (cursor != null)
 
         return allBlocks
     }
 
-    override suspend fun getAllChildrenRecursive(blockId: String): List<BlockDto> {
-        val allBlocks = mutableListOf<BlockDto>()
+    override suspend fun getAllChildrenRecursive(blockId: String): List<NotionBlock> {
+        val allBlocks = mutableListOf<NotionBlock>()
         val blocks = getAllChildren(blockId)
         allBlocks.addAll(blocks)
         blocks.forEach { block ->
