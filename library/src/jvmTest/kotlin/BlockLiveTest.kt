@@ -98,4 +98,81 @@ class BlockLiveTest {
         assertEquals(blockId, updated.id)
         println("✅ update_heading2_live: id=${updated.id}")
     }
+
+    @Test
+    fun get_all_children_with_pagination_live() = runBlocking {
+        val pageId = env("NOTION_TEST_PAGE_ID")
+        assumeTrue("NOTION_TEST_PAGE_ID is not set; skipping get_all_children_with_pagination_live", !pageId.isNullOrBlank())
+
+        val repo = repo()
+        val allChildren = repo.getAllChildren(pageId!!)
+
+        assertNotNull(allChildren)
+        println("✅ get_all_children_with_pagination_live: total blocks=${allChildren.size}")
+
+        // Print block types
+        allChildren.forEachIndexed { index, block ->
+            println("  [$index] id=${block.id}, type=${block}, hasChildren=${block.hasChildren}")
+        }
+    }
+
+    @Test
+    fun get_all_children_recursive_live() = runBlocking {
+        val pageId = env("NOTION_TEST_PAGE_ID")
+        assumeTrue("NOTION_TEST_PAGE_ID is not set; skipping get_all_children_recursive_live", !pageId.isNullOrBlank())
+
+        val repo = repo()
+        val allBlocks = repo.getAllChildrenRecursive(pageId!!)
+
+        assertNotNull(allBlocks)
+        println("✅ get_all_children_recursive_live: total blocks (including nested)=${allBlocks.size}")
+    }
+
+    @Test
+    fun get_todo_blocks_status_live() = runBlocking {
+        val pageId = env("NOTION_TEST_PAGE_ID")
+        assumeTrue("NOTION_TEST_PAGE_ID is not set; skipping get_todo_blocks_status_live", !pageId.isNullOrBlank())
+
+        val repo = repo()
+        val allBlocks = repo.getAllChildrenRecursive(pageId!!)
+
+        val todoBlocks = allBlocks.filterIsInstance<BlockDto.ToDo>()
+
+        println("✅ get_todo_blocks_status_live: found ${todoBlocks.size} todo items")
+
+        val checkedCount = todoBlocks.count { it.todo.checked }
+        val uncheckedCount = todoBlocks.count { it.todo?.checked == false }
+
+        println("   ✓ Checked: $checkedCount")
+        println("   ☐ Unchecked: $uncheckedCount")
+
+        todoBlocks.forEach { todo ->
+            val text = todo.todo?.richText?.firstOrNull()?.plainText ?: "No text"
+            val status = if (todo.todo?.checked == true) "✓" else "☐"
+            println("   $status $text")
+        }
+    }
+
+    @Test
+    fun measure_nested_blocks_performance_live() = runBlocking {
+        val pageId = env("NOTION_TEST_PAGE_ID")
+        assumeTrue("NOTION_TEST_PAGE_ID is not set; skipping measure_nested_blocks_performance_live", !pageId.isNullOrBlank())
+
+        val repo = repo()
+
+        // Measure getAllChildren
+        val start1 = System.currentTimeMillis()
+        val allChildren = repo.getAllChildren(pageId!!)
+        val time1 = System.currentTimeMillis() - start1
+
+        // Measure getAllChildrenRecursive
+        val start2 = System.currentTimeMillis()
+        val allRecursive = repo.getAllChildrenRecursive(pageId)
+        val time2 = System.currentTimeMillis() - start2
+
+        println("✅ measure_nested_blocks_performance_live:")
+        println("   getAllChildren: ${allChildren.size} blocks in ${time1}ms")
+        println("   getAllChildrenRecursive: ${allRecursive.size} blocks in ${time2}ms")
+        println("   Ratio: ${allRecursive.size.toFloat() / allChildren.size}x blocks, ${time2.toFloat() / time1}x time")
+    }
 }

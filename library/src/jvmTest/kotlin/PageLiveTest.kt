@@ -74,10 +74,11 @@ class PageLiveTest {
 
     @Test
     fun retrieve_live() = runBlocking {
-        val pageId = env("NOTION_TEST_PAGE_ID")
+        val pageId = "3f71caa9-67c4-4319-846c-60966c2cdccb"
         assumeTrue("NOTION_TEST_PAGE_ID is not set; skipping retrieve_live", !pageId.isNullOrBlank())
 
         val page = repo().retrieve(pageId!!)
+        println("Page: $page")
         assertNotNull(page.createdTime)
         assertNotNull(page.lastEditedTime)
         println("✅ retrieve_live: id=${page.id}, titleKeys=${page.properties.keys.joinToString()}")
