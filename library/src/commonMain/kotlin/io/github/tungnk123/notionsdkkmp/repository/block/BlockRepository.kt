@@ -16,4 +16,5 @@ interface BlockRepository {
     suspend fun appendChildren(blockId: String, request: AppendBlockChildrenRequest): ResultsResponseDto<BlockDto>
     suspend fun getAllChildren(blockId: String): List<NotionBlock>
     suspend fun getAllChildrenRecursive(blockId: String): List<NotionBlock>
+    suspend fun updateTodoChecked(blockId: String, checked: Boolean): NotionBlock
 }

@@ -55,4 +55,22 @@ class BlockRepositoryImpl(
         }
         return allBlocks
     }
+
+    override suspend fun updateTodoChecked(blockId: String, checked: Boolean): NotionBlock {
+        val existingBlock = service.retrieve(blockId)
+        val updateRequest = when (existingBlock) {
+            is BlockDto.ToDo -> {
+                BlockDto.ToDo(
+                    id = existingBlock.id,
+                    archived = existingBlock.archived,
+                    createdTime = existingBlock.createdTime,
+                    lastEditedTime = existingBlock.lastEditedTime,
+                    hasChildren = existingBlock.hasChildren,
+                    todo = existingBlock.todo.copy(checked = checked)
+                )
+            }
+            else -> throw IllegalArgumentException("Block $blockId is not a ToDo block")
+        }
+        return service.update(blockId, updateRequest).toDomain()
+    }
 }
