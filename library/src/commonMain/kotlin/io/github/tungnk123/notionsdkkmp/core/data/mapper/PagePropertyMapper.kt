@@ -37,18 +37,18 @@ internal fun PagePropertyDto.Title.toPageDomain(): NotionPageProperty.Title =
         id = id,
         title = title.map {
             NotionPageProperty.Title.Value(
-                type = it.type,
+                type = it.type ?: "",
                 text = NotionPageProperty.Title.Value.Text(
-                    content = it.text.content,
-                    link = it.text.link
+                    content = it.text?.content ?: "",
+                    link = it.text?.link
                 ),
                 annotations = NotionPageProperty.Title.Value.Annotations(
-                    bold = it.annotations.bold,
-                    italic = it.annotations.italic,
-                    strikethrough = it.annotations.strikethrough,
-                    underline = it.annotations.underline,
-                    code = it.annotations.code,
-                    color = it.annotations.color
+                    bold = it.annotations?.bold ?: false,
+                    italic = it.annotations?.italic ?: false,
+                    strikethrough = it.annotations?.strikethrough ?: false,
+                    underline = it.annotations?.underline ?: false,
+                    code = it.annotations?.code ?: false,
+                    color = it.annotations?.color ?: "default"
                 ),
                 plainText = it.plainText,
                 href = it.href

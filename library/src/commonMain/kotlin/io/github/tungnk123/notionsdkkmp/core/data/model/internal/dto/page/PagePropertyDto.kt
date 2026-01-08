@@ -1,9 +1,13 @@
 package io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.page
 
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonClassDiscriminator
 
+@OptIn(ExperimentalSerializationApi::class)
 @Serializable
+@JsonClassDiscriminator("type")
 sealed class PagePropertyDto {
     abstract val id: String
 
@@ -11,30 +15,30 @@ sealed class PagePropertyDto {
     @SerialName("title")
     data class Title(
         override val id: String,
-        val title: List<Value>,
+        val title: List<Value> = emptyList(),
     ) : PagePropertyDto() {
         @Serializable
         data class Value(
-            val type: String,
-            val text: Text,
-            val annotations: Annotations,
-            @SerialName("plain_text") val plainText: String,
+            val type: String? = null,
+            val text: Text? = null,
+            val annotations: Annotations? = null,
+            @SerialName("plain_text") val plainText: String = "",
             val href: String? = null
         ) {
             @Serializable
             data class Text(
-                val content: String,
+                val content: String = "",
                 val link: String? = null
             )
 
             @Serializable
             data class Annotations(
-                val bold: Boolean,
-                val italic: Boolean,
-                val strikethrough: Boolean,
-                val underline: Boolean,
-                val code: Boolean,
-                val color: String
+                val bold: Boolean = false,
+                val italic: Boolean = false,
+                val strikethrough: Boolean = false,
+                val underline: Boolean = false,
+                val code: Boolean = false,
+                val color: String = ""
             )
         }
 
