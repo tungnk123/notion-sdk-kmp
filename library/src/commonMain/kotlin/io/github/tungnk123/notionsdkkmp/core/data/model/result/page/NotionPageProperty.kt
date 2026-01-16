@@ -108,31 +108,40 @@ sealed class NotionPageProperty {
         override val id: String,
         val people: List<Value>,
     ) : NotionPageProperty() {
+        /**
+         * Represents a user object from Notion API.
+         * Note: The Notion API may return partial user objects (with only object and id)
+         * or full user objects (with type, name, avatar_url, and person/bot fields).
+         * All fields except id are optional to handle both cases.
+         */
         @Serializable
-        sealed class Value {
+        data class Value(
+            val id: String,
+            @SerialName("object")
+            val objectType: String? = null,
+            val type: String? = null,
+            val name: String? = null,
+            @SerialName("avatar_url")
+            val avatarUrl: String? = null,
+            val person: PersonDetails? = null,
+            val bot: BotDetails? = null,
+        ) {
             @Serializable
-            @SerialName("person")
-            data class Person(
-                val id: String,
-                val name: String,
-                @SerialName("avatar_url")
-                val avatarUrl: String? = null,
-                val person: User,
-            ) : Value() {
-                @Serializable
-                data class User(
-                    val email: String,
-                )
-            }
+            data class PersonDetails(
+                val email: String? = null,
+            )
 
             @Serializable
-            @SerialName("bot")
-            data class Bot(
-                val id: String,
-                val name: String,
-                @SerialName("avatar_url")
-                val avatarUrl: String? = null,
-            ) : Value()
+            data class BotDetails(
+                @SerialName("owner") val owner: Owner? = null,
+                @SerialName("workspace_name") val workspaceName: String? = null,
+            ) {
+                @Serializable
+                data class Owner(
+                    val type: String? = null,
+                    val workspace: Boolean? = null,
+                )
+            }
         }
     }
 
@@ -242,7 +251,7 @@ sealed class NotionPageProperty {
     data class CreatedBy(
         override val id: String,
         @SerialName("created_by")
-        val createdBy: People.Value.Person,
+        val createdBy: People.Value,
     ) : NotionPageProperty()
 
     @Serializable
@@ -250,7 +259,7 @@ sealed class NotionPageProperty {
     data class LastEditedBy(
         override val id: String,
         @SerialName("last_edited_by")
-        val lastEditedBy: People.Value.Person,
+        val lastEditedBy: People.Value,
     ) : NotionPageProperty()
 
     @Serializable

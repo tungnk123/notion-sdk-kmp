@@ -177,4 +177,67 @@ class SearchRepositoryTest {
         assertEquals("9ce034a5-74ca-4259-8b01-8494453204fe", ds.id)
         println("✅ search_data_sources_ok size=${result.results.size}")
     }
+
+    @Test
+    fun search_pages_with_people_property_partial_user() = runTest {
+        // This test verifies that partial user objects (without type field) can be deserialized
+        // Notion API may return partial user objects with only object and id fields
+        val response = """
+        {
+          "object": "list",
+          "results": [
+            {
+              "object": "page",
+              "id": "test-page-id",
+              "created_time": "2022-07-06T19:30:00.000Z",
+              "last_edited_time": "2022-07-06T19:30:00.000Z",
+              "created_by": { "object":"user","id":"user-id-1" },
+              "last_edited_by": { "object":"user","id":"user-id-2" },
+              "cover": null,
+              "icon": null,
+              "parent": { "type":"page_id","page_id":"parent-page-id" },
+              "archived": false,
+              "properties": {
+                "title": {
+                  "id":"title",
+                  "type":"title",
+                  "title":[{"type":"text","text":{"content":"Test","link":null},"annotations":{"bold":false,"italic":false,"strikethrough":false,"underline":false,"code":false,"color":"default"},"plain_text":"Test","href":null}]
+                },
+                "Assignees": {
+                  "id":"assignees",
+                  "type":"people",
+                  "people":[
+                    {"object":"user","id":"1a744aa0-bdf0-494d-add4-67a2a17f76e4"},
+                    {"object":"user","id":"2b855bb1-cef1-5a5e-bce5-78a3b18g87f5","type":"person","name":"John Doe","avatar_url":null,"person":{"email":"john@example.com"}}
+                  ]
+                }
+              },
+              "url":"https://www.notion.so/Test-page"
+            }
+          ],
+          "next_cursor": null,
+          "has_more": false
+        }
+        """.trimIndent()
+
+        val http = notionHttpWith { _ ->
+            respond(
+                content = response,
+                status = HttpStatusCode.OK,
+                headers = headersOf(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+            )
+        }
+
+        val repo: SearchRepository = SearchRepositoryImpl(SearchServiceImpl(http))
+        val result = repo.searchPages(query = "Test", directionAsc = true, startCursor = null, pageSize = 10)
+
+        assertEquals(1, result.results.size)
+        val page = result.results.first()
+        assertEquals("test-page-id", page.id)
+
+        // Verify people property with partial user objects was parsed correctly
+        val assigneesProperty = page.properties["Assignees"]
+        assertTrue(assigneesProperty != null, "Assignees property should exist")
+        println("✅ search_pages_with_people_property_partial_user")
+    }
 }

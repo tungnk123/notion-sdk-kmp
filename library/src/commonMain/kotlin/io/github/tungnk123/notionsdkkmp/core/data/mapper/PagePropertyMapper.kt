@@ -90,22 +90,25 @@ internal fun PagePropertyDto.People.toPageDomain(): NotionPageProperty.People =
     )
 
 internal fun PagePropertyDto.People.Value.toPageDomain(): NotionPageProperty.People.Value =
-    when (this) {
-        is PagePropertyDto.People.Value.Person ->
-            NotionPageProperty.People.Value.Person(
-                id = id,
-                name = name,
-                avatarUrl = avatarUrl,
-                person = NotionPageProperty.People.Value.Person.User(person.email)
+    NotionPageProperty.People.Value(
+        id = id,
+        objectType = objectType,
+        type = type,
+        name = name,
+        avatarUrl = avatarUrl,
+        person = person?.let { NotionPageProperty.People.Value.PersonDetails(email = it.email) },
+        bot = bot?.let {
+            NotionPageProperty.People.Value.BotDetails(
+                owner = it.owner?.let { owner ->
+                    NotionPageProperty.People.Value.BotDetails.Owner(
+                        type = owner.type,
+                        workspace = owner.workspace
+                    )
+                },
+                workspaceName = it.workspaceName
             )
-
-        is PagePropertyDto.People.Value.Bot ->
-            NotionPageProperty.People.Value.Bot(
-                id = id,
-                name = name,
-                avatarUrl = avatarUrl
-            )
-    }
+        }
+    )
 
 internal fun PagePropertyDto.Files.toPageDomain(): NotionPageProperty.Files =
     NotionPageProperty.Files(
@@ -159,23 +162,13 @@ internal fun PagePropertyDto.LastEditedTime.toPageDomain(): NotionPageProperty.L
 internal fun PagePropertyDto.CreatedBy.toPageDomain(): NotionPageProperty.CreatedBy =
     NotionPageProperty.CreatedBy(
         id = id,
-        createdBy = NotionPageProperty.People.Value.Person(
-            id = createdBy.id,
-            name = createdBy.name,
-            avatarUrl = createdBy.avatarUrl,
-            person = NotionPageProperty.People.Value.Person.User(createdBy.person.email)
-        )
+        createdBy = createdBy.toPageDomain()
     )
 
 internal fun PagePropertyDto.LastEditedBy.toPageDomain(): NotionPageProperty.LastEditedBy =
     NotionPageProperty.LastEditedBy(
         id = id,
-        lastEditedBy = NotionPageProperty.People.Value.Person(
-            id = lastEditedBy.id,
-            name = lastEditedBy.name,
-            avatarUrl = lastEditedBy.avatarUrl,
-            person = NotionPageProperty.People.Value.Person.User(lastEditedBy.person.email)
-        )
+        lastEditedBy = lastEditedBy.toPageDomain()
     )
 
 internal fun PagePropertyDto.Rollup.toPageDomain(): NotionPageProperty.Rollup =
