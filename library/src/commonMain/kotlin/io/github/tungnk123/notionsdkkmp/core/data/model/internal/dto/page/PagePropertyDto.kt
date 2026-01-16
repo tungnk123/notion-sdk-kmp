@@ -112,7 +112,9 @@ sealed class PagePropertyDto {
         override val id: String,
         val people: List<Value>,
     ) : PagePropertyDto() {
+        @OptIn(ExperimentalSerializationApi::class)
         @Serializable
+        @JsonClassDiscriminator("type")
         sealed class Value {
             @Serializable
             @SerialName("person")
@@ -146,7 +148,9 @@ sealed class PagePropertyDto {
         override val id: String,
         val files: List<Value>,
     ) : PagePropertyDto() {
+        @OptIn(ExperimentalSerializationApi::class)
         @Serializable
+        @JsonClassDiscriminator("type")
         sealed class Value {
             @Serializable
             @SerialName("external")
@@ -205,7 +209,9 @@ sealed class PagePropertyDto {
         override val id: String,
         val formula: Value,
     ) : PagePropertyDto() {
+        @OptIn(ExperimentalSerializationApi::class)
         @Serializable
+        @JsonClassDiscriminator("type")
         sealed class Value {
             @Serializable
             @SerialName("string")
