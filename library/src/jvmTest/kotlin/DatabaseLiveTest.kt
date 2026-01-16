@@ -4,7 +4,9 @@ import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.datasource.EmptyObj
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.CreateDatabaseRequest
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.InitialDataSourceRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.QueryDatabaseRequest
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.UpdateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.datasource.Sort
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.github.tungnk123.notionsdkkmp.repository.database.DatabaseRepository
 import io.github.tungnk123.notionsdkkmp.repository.database.DatabaseRepositoryImpl
@@ -98,5 +100,20 @@ class DatabaseLiveTest {
         val db = repo().retrieve(dbId!!)
         println("✅ retrieve_database_live: id=${db.id}, title=${db.title.joinToString { it.plainText }}")
         assertTrue(db.title.isNotEmpty())
+    }
+
+    @Test
+    fun query_database_live() = runBlocking {
+        val dbId = env("NOTION_TEST_DATABASE_ID")
+        assumeTrue("NOTION_TEST_DATABASE_ID is not set; skipping query_database_live", !dbId.isNullOrBlank())
+
+        val req = QueryDatabaseRequest(
+            sorts = listOf(Sort(timestamp = "created_time", direction = "descending")),
+            pageSize = 10
+        )
+
+        val results = repo().query(dbId!!, req)
+        println("✅ query_database_live: found ${results.results.size} pages, hasMore=${results.hasMore}, nextCursor=${results.nextCursor}")
+        assertNotNull(results.results)
     }
 }

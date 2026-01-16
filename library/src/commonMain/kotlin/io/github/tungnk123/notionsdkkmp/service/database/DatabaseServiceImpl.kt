@@ -1,8 +1,11 @@
 package io.github.tungnk123.notionsdkkmp.service.database
 
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.database.DatabaseDto
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.dto.page.PageDto
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.CreateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.QueryDatabaseRequest
 import io.github.tungnk123.notionsdkkmp.core.data.model.internal.request.database.UpdateDatabaseRequest
+import io.github.tungnk123.notionsdkkmp.core.data.model.internal.response.ResultsResponseDto
 import io.github.tungnk123.notionsdkkmp.http.NotionHttp
 import io.ktor.client.request.*
 
@@ -11,6 +14,7 @@ private object Routes {
     fun create() = DATABASES
     fun retrieve(id: String) = "$DATABASES/$id"
     fun update(id: String) = "$DATABASES/$id"
+    fun query(id: String) = "$DATABASES/$id/query"
 }
 
 class DatabaseServiceImpl(
@@ -25,4 +29,7 @@ class DatabaseServiceImpl(
 
     override suspend fun update(id: String, request: UpdateDatabaseRequest): DatabaseDto =
         http.patch(Routes.update(id)) { setBody(request) }
+
+    override suspend fun query(id: String, request: QueryDatabaseRequest): ResultsResponseDto<PageDto> =
+        http.post(Routes.query(id)) { setBody(request) }
 }
